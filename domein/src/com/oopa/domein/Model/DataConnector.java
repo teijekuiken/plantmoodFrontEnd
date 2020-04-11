@@ -1,4 +1,4 @@
-package com.oopa.data.Model;
+package com.oopa.domein.Model;
 
 public class DataConnector {
 }

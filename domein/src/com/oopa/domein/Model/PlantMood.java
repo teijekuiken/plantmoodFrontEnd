@@ -1,4 +1,4 @@
-package com.oopa.data.Model;
+package com.oopa.domein.Model;
 
 import com.oopa.interfaces.model.IPlantMood;
 import com.oopa.interfaces.model.IPlantSpecies;
