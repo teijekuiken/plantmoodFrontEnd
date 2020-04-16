@@ -5,12 +5,6 @@ import com.oopa.interfaces.model.IPlantSpecies;
 import com.oopa.interfaces.model.IUser;
 
 public class PlantMood implements IPlantMood {
-    private int id;
-    private IUser user;
-    private int health;
-    private String name;
-    private IPlantSpecies plant_spieces_id;
-    private String arduino_id;
 
     @Override
     public int getId() {

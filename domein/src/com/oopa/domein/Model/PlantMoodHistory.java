@@ -6,12 +6,6 @@ import com.oopa.interfaces.model.IPlantMoodHistory;
 import java.util.Date;
 
 public class PlantMoodHistory implements IPlantMoodHistory {
-
-    private int id;
-    private int health;
-    private Date created_at;
-    private int plantmood_id;
-
     @Override
     public int getId() {
         return 0;

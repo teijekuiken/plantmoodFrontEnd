@@ -3,12 +3,6 @@ package com.oopa.domein.Model;
 import com.oopa.interfaces.model.IPlantSpecies;
 
 public class PlantSpecies implements IPlantSpecies {
-
-    private int id;
-    private String name;
-    private int min_humidity;
-    private int max_humidity;
-
     @Override
     public int getId() {
         return 0;
