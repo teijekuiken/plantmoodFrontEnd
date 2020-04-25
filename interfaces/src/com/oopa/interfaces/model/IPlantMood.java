@@ -11,7 +11,7 @@ public interface IPlantMood {
 
     IPlantSpecies getPlantSpecies();
 
-    void setPlantSpecies(IPlantSpecies plantSpecie);
+    void setPlantSpecies(IPlantSpecies plantSpecies);
 
     int getHealth();
 
