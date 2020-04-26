@@ -16,7 +16,7 @@ public class UserController {
     }
 
     @PostMapping
-    public void addUser(User user){
+    public void addUser(@RequestBody User user){
 
     }
 

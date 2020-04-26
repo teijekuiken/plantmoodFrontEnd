@@ -2,6 +2,7 @@ package pm.main.controllers;
 
 import com.oopa.interfaces.model.IPlantMoodHistory;
 import org.springframework.web.bind.annotation.*;
+import pm.main.domain.PlantMoodHistory;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ public class PlantmoodHistoryController {
     }
 
     @PostMapping
-    public void addPlantMoodReading(IPlantMoodHistory plantmoodhistory){
+    public void addPlantMoodReading(@RequestBody PlantMoodHistory plantmoodhistory){
 
     }
 

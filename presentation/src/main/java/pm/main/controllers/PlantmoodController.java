@@ -3,6 +3,7 @@ package pm.main.controllers;
 import com.oopa.interfaces.model.IPlantMood;
 import com.oopa.interfaces.model.IUser;
 import org.springframework.web.bind.annotation.*;
+import pm.main.domain.PlantMood;
 import pm.main.domain.User;
 
 import java.nio.file.Path;
@@ -17,7 +18,7 @@ public class PlantmoodController {
     }
 
     @PostMapping
-    public void addPlantMood(IPlantMood plantMood){
+    public void addPlantMood(@RequestBody PlantMood plantMood){
 
     }
 
@@ -38,7 +39,7 @@ public class PlantmoodController {
 
     @DeleteMapping
     public void deletePlantMood(int id){
-         
+
     }
 
 

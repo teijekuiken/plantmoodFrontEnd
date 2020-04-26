@@ -15,7 +15,7 @@ public class PlantspeciesController {
     }
 
     @PostMapping
-    public void addPlantSpecies(PlantSpecies plantSpecies){
+    public void addPlantSpecies(@RequestBody PlantSpecies plantSpecies){
 
     }
 

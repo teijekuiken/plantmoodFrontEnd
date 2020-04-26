@@ -1,5 +1,6 @@
 package pm.main.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.oopa.interfaces.model.IPlantMood;
 import com.oopa.interfaces.model.IPlantMoodHistory;
 
@@ -11,6 +12,16 @@ public class PlantMoodHistory implements IPlantMoodHistory {
     private IPlantMood plantmood;
     private int health;
     private Date createdAt;
+
+    public PlantMoodHistory(@JsonProperty("id") int id,
+                            @JsonProperty("plantmood") IPlantMood plantmood,
+                            @JsonProperty("health") int health,
+                            @JsonProperty("createdAt") Date createdAt) {
+        Id = id;
+        this.plantmood = plantmood;
+        this.health = health;
+        this.createdAt = createdAt;
+    }
 
     @Override
     public int getId() {

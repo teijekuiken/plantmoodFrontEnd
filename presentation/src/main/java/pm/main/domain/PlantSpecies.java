@@ -1,6 +1,8 @@
 package pm.main.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.oopa.interfaces.model.IPlantSpecies;
+import pm.main.controllers.PlantspeciesController;
 
 public class PlantSpecies implements IPlantSpecies {
 
@@ -9,6 +11,15 @@ public class PlantSpecies implements IPlantSpecies {
     private int MinHumidity;
     private int MaxHumidity;
 
+    public PlantSpecies(@JsonProperty("id") int id,
+                        @JsonProperty("name") String name,
+                        @JsonProperty("minhumidity") int minhumidity,
+                        @JsonProperty("maxhumidity") int maxhumidity){
+        this.Id = id;
+        this.name = name;
+        this.MinHumidity = minhumidity;
+        this.MaxHumidity = maxhumidity;
+    }
     @Override
     public int getId() {
         return this.Id;
