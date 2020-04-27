@@ -10,27 +10,31 @@ import java.util.List;
 @RestController
 public class PlantspeciesController {
 
-    public PlantspeciesController(){
+    private PlantspiecesService plantspiecesService;
 
+    public PlantspeciesController(){
+        this.plantspiecesService = new PlantspiecesService();
     }
 
     @PostMapping
-    public void addPlantSpecies(@RequestBody PlantSpecies plantSpecies){
-
+    public void addPlantSpecies(@RequestBody IPlantSpecies plantSpecies){
+        plantSpecies.addPlantSpieces(plantSpecies);
     }
 
     @GetMapping
     public List<IPlantSpecies> getAllPlantSpecies(){
-        return null;
+        List<IPlantSpecies> plantSpecies = plantspiecesService.getAllPlantSpecies();
+        return plantSpecies;
     }
 
     @GetMapping(path = {"id"})
     public IPlantSpecies getPlantSpeciesById(@PathVariable("id") int id){
-        return null;
+        IPlantSpecies plantspecies = plantspiecesService.getPlantSpeciesById(id);
+        return plantspecies;
     }
 
     @DeleteMapping
-    public void deletePlantSpecies(int id){
-
+    public void deletePlantSpecies(@PathVariable int id){
+        plantspiecesService.deletePlantSpecies(id);
     }
 }

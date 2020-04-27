@@ -12,34 +12,37 @@ import java.util.List;
 @RequestMapping("api/v1/plantmood")
 @RestController
 public class PlantmoodController {
+    private PlantmoodService plantmoodService;
 
     public PlantmoodController(){
-
+        this.plantmoodService = new PlantmoodService();
     }
 
     @PostMapping
-    public void addPlantMood(@RequestBody PlantMood plantMood){
-
+    public void addPlantMood(@RequestBody IPlantMood plantMood){
+        plantmoodService.addPlantMood(plantMood);
     }
 
     @GetMapping
     public List<IPlantMood> getAllPlantMood(){
-        return null;
+        List<IPlantMood> plantMoods = plantmoodService.getAllPlantMood();
+        return plantMoods;
     }
 
     @GetMapping(path = {"id"})
     public IPlantMood getPlantMoodById(@PathVariable("id") int id){
-        return null;
+        IPlantMood plantMood = plantmoodService.getPlantMoodById(id);
+        return plantMood;
     }
 
     @PutMapping
     public void updatePlantMood(IPlantMood plantMood){
-
+        plantmoodService.updatePlantMood(plantMood);
     }
 
     @DeleteMapping
     public void deletePlantMood(int id){
-
+        plantmoodService.deletePlantMood(id);
     }
 
 

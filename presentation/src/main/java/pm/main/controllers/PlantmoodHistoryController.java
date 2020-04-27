@@ -1,5 +1,6 @@
 package pm.main.controllers;
 
+import com.oopa.interfaces.model.IPlantMood;
 import com.oopa.interfaces.model.IPlantMoodHistory;
 import org.springframework.web.bind.annotation.*;
 import pm.main.domain.PlantMoodHistory;
@@ -10,25 +11,32 @@ import java.util.List;
 @RestController
 public class PlantmoodHistoryController {
 
-    public PlantmoodHistoryController(){
+    private PlantmoodHistoryService plantmoodHistoryService;
 
+    public PlantmoodHistoryController(){
+        this.plantmoodHistoryService = new PlantmoodHistoryService();
     }
 
+
+    //Wil je handmatig resultaten kunnen toevoegen vanuit de frontend?
     @PostMapping
-    public void addPlantMoodReading(@RequestBody PlantMoodHistory plantmoodhistory){
+    public void addPlantMoodReading(@RequestBody IPlantMoodHistory plantmoodhistory){
 
     }
 
     @GetMapping
     public List<IPlantMoodHistory> getAllPlantMoodHistory() {
-        return null;
+        List<IPlantMoodHistory> histories = plantmoodHistoryService.getAllPlantMoodHistory();
+        return histories;
     }
 
     @GetMapping(path = {"id"})
     public IPlantMoodHistory getPlantMoodHistoryById(@PathVariable("id") int id ){
-        return null;
+        IPlantMoodHistory history = plantmoodHistoryService.getPlantMoodHistoryById(id);
+        return history;
     }
 
+    //Willen we op basis van een percentage de hele PlantMoodHistory op kunnen halen? Wat voegt dit toe aan de applicatie?
     @GetMapping(path = {"health"})
     public List<IPlantMoodHistory> getAllPlantMoodHistoryByHealth(@PathVariable("health") int health){
         return null;
@@ -36,6 +44,6 @@ public class PlantmoodHistoryController {
 
     @DeleteMapping
     public void deletePlantMoodHistory(int id){
-
+        plantmoodHistoryService.deletePlantMoodHistory(id);
     }
 }
