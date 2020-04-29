@@ -1,8 +1,8 @@
 package pm.main.controllers;
 
+import com.oopa.domein.services.PlantspeciesService;
 import com.oopa.interfaces.model.IPlantSpecies;
 import org.springframework.web.bind.annotation.*;
-import pm.main.domain.PlantSpecies;
 
 import java.util.List;
 
@@ -10,31 +10,31 @@ import java.util.List;
 @RestController
 public class PlantspeciesController {
 
-    private PlantspiecesService plantspiecesService;
+    private PlantspeciesService plantspeciesService;
 
     public PlantspeciesController(){
-        this.plantspiecesService = new PlantspiecesService();
+        this.plantspeciesService = new PlantspeciesService();
     }
 
     @PostMapping
     public void addPlantSpecies(@RequestBody IPlantSpecies plantSpecies){
-        plantSpecies.addPlantSpieces(plantSpecies);
+        plantspeciesService.addPlantSpecies(plantSpecies);
     }
 
     @GetMapping
     public List<IPlantSpecies> getAllPlantSpecies(){
-        List<IPlantSpecies> plantSpecies = plantspiecesService.getAllPlantSpecies();
+        List<IPlantSpecies> plantSpecies = plantspeciesService.getAllPlantSpecies();
         return plantSpecies;
     }
 
     @GetMapping(path = {"id"})
     public IPlantSpecies getPlantSpeciesById(@PathVariable("id") int id){
-        IPlantSpecies plantspecies = plantspiecesService.getPlantSpeciesById(id);
+        IPlantSpecies plantspecies = plantspeciesService.getPlantSpeciesById(id);
         return plantspecies;
     }
 
     @DeleteMapping
     public void deletePlantSpecies(@PathVariable int id){
-        plantspiecesService.deletePlantSpecies(id);
+        plantspeciesService.deletePlantSpecies(id);
     }
 }

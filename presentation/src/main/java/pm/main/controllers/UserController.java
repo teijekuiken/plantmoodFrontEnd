@@ -1,10 +1,8 @@
 package pm.main.controllers;
 
+import com.oopa.domein.services.UserService;
 import com.oopa.interfaces.model.IUser;
 import org.springframework.web.bind.annotation.*;
-import pm.main.domain.User;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @RequestMapping("api/v1/user")
@@ -25,13 +23,13 @@ public class UserController {
 
     @GetMapping
     public List<IUser> getAllUsers(){
-        List<IUser> users = us.getAllUsers();
-        return null;
+        List<IUser> users = userService.getAllUsers();
+        return users;
     }
 
     @GetMapping(path = {"id"})
     public IUser getPersonById(@PathVariable("id") int id){
-        IUser user =  us.getUserById(id);
+        IUser user =  userService.getUserById(id);
         return user;
     }
 
