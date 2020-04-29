@@ -5,9 +5,16 @@ import com.oopa.interfaces.model.IUser;
 import java.util.Date;
 
 public class User implements IUser {
+
+    private int id;
+    private String name;
+    private String email;
+    private Date createAt;
+    private String password;
+
     @Override
     public int getId() {
-        return 0;
+        return id;
     }
 
     @Override
@@ -17,7 +24,7 @@ public class User implements IUser {
 
     @Override
     public String getPassword() {
-        return null;
+        return password;
     }
 
     @Override
@@ -27,7 +34,7 @@ public class User implements IUser {
 
     @Override
     public String getName() {
-        return null;
+        return name;
     }
 
     @Override
@@ -36,7 +43,12 @@ public class User implements IUser {
     }
 
     @Override
-    public Date getCreatedAt() {
-        return null;
+    public String getEmail() {
+        return email;
     }
+
+    @Override
+    public void setEmail(String email) {
+    }
+
 }
