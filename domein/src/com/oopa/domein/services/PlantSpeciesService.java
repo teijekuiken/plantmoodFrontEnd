@@ -4,7 +4,7 @@ import com.oopa.interfaces.model.IPlantSpecies;
 
 import java.util.List;
 
-public class PlantspeciesService {
+public class PlantSpeciesService {
 
     private PlantMoodRepository plantMoodRepository;
 

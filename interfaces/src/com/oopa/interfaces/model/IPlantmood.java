@@ -1,6 +1,6 @@
 package com.oopa.interfaces.model;
 
-public interface IPlantMood {
+public interface IPlantmood {
     int getId();
 
     void setId(int id);
@@ -17,7 +17,7 @@ public interface IPlantMood {
 
     void setHealth(int health);
 
-    String getArduinoId();
+    String getArduinoSn();
 
-    void setArduinoId(String arduinoId);
+    void setArduinoSn(String arduinoId);
 }
