@@ -1,0 +1,35 @@
+version: '3.7'
+
+services:
+
+  # MYSQL DATABASE
+  mysql:
+    image: mysql:8
+    restart: unless-stopped
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
+      MYSQL_DATABASE: central_system
+      MYSQL_PASSWORD: plantmood
+      MYSQL_USER: plantmood
+    networks:
+      db-net:
+        aliases:
+          - db
+    ports:
+      - 3306:3306
+
+  # MYSQL WEBCLIENT
+  pma:
+    image: phpmyadmin/phpmyadmin:latest
+    restart: unless-stopped
+    depends_on:
+      - mysql
+    networks:
+      - db-net
+    ports:
+      - 8081:80
+
+
+networks:
+  db-net:
+    driver: bridge
