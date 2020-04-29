@@ -1,4 +1,4 @@
-package com.oopa.domein.Model;
+package com.oopa.domein.model;
 
 import com.oopa.interfaces.model.IUser;
 
