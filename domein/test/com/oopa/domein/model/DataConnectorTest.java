@@ -1,4 +1,4 @@
-package com.oopa.domein.Model;
+package com.oopa.domein.model;
 
 import com.oopa.interfaces.model.IPlantMood;
 import com.oopa.interfaces.model.IPlantMoodHistory;
@@ -22,28 +22,28 @@ class DataConnectorTest {
         String expected = "Too Dry";
 
         ///act
-        String actualMood = dataConnector.ConvertPlantHealthToMood(plantMood, wietplant);
+        String actualMood = dataConnector.ConvertPlantHealthToMood();
 
         //assert
         assertEquals(actualMood, expected);
     }
 
     @Test
-    void convertPlantHealthToMood() {
+    void convertPlantHealthToMood2() {
         //arrage
         plantMood.setHealth(300);
         wietplant.setMaxHumidity(200);
         String expected = "Too Wet";
 
         ///act
-        String actualMood = dataConnector.ConvertPlantHealthToMood(plantMood, wietplant);
+        String actualMood = dataConnector.ConvertPlantHealthToMood();
 
         //assert
         assertEquals(actualMood, expected);
     }
 
     @Test
-    void convertPlantHealthToMood() {
+    void convertPlantHealthToMood3() {
         //arrage
         plantMood.setHealth(300);
         wietplant.setMaxHumidity(700);
@@ -51,7 +51,7 @@ class DataConnectorTest {
         String expected = "Everything OKAY!";
 
         ///act
-        String actualMood = dataConnector.ConvertPlantHealthToMood(plantMood, wietplant);
+        String actualMood = dataConnector.ConvertPlantHealthToMood();
 
         //assert
         assertEquals(actualMood, expected);
