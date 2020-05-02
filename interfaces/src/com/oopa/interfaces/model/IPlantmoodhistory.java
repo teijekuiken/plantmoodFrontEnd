@@ -2,14 +2,14 @@ package com.oopa.interfaces.model;
 
 import java.util.Date;
 
-public interface IPlantMoodHistory {
+public interface IPlantmoodhistory {
     int getId();
 
     void setId(int id);
 
-    IPlantMood getPlantMood();
+    IPlantmood getPlantMood();
 
-    void setPlantMood(IPlantMood plantMood);
+    void setPlantMood(IPlantmood plantMood);
 
     int getHealth();
 

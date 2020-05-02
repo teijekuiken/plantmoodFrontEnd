@@ -1,6 +1,6 @@
 package pm.main.controllers;
 
-import com.oopa.domein.services.PlantspeciesService;
+import com.oopa.domein.services.PlantSpeciesService;
 import com.oopa.interfaces.model.IPlantSpecies;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,10 +10,10 @@ import java.util.List;
 @RestController
 public class PlantspeciesController {
 
-    private PlantspeciesService plantspeciesService;
+    private PlantSpeciesService plantspeciesService;
 
     public PlantspeciesController(){
-        this.plantspeciesService = new PlantspeciesService();
+        this.plantspeciesService = new PlantSpeciesService();
     }
 
     @PostMapping
