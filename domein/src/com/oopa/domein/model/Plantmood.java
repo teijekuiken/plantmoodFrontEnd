@@ -1,10 +1,16 @@
 package com.oopa.domein.model;
 
-import com.oopa.interfaces.model.IPlantMood;
+import com.oopa.interfaces.model.IPlantmood;
 import com.oopa.interfaces.model.IPlantSpecies;
 import com.oopa.interfaces.model.IUser;
 
-public class PlantMood implements IPlantMood {
+public class Plantmood implements IPlantmood {
+    private int id;
+//    private String name; Staat wel in het klassendiagram
+    private User user;
+    private PlantSpecies plantSpecies;
+    private int Health;
+    private String ArduinoSn;
 
     @Override
     public Integer getId() {
@@ -32,7 +38,7 @@ public class PlantMood implements IPlantMood {
     }
 
     @Override
-    public void setPlantSpecies(IPlantSpecies plantSpecie) {
+    public void setPlantSpecies(IPlantSpecies plantSpecies) {
 
     }
 
@@ -47,12 +53,12 @@ public class PlantMood implements IPlantMood {
     }
 
     @Override
-    public String getArduinoId() {
+    public String getArduinoSn() {
         return null;
     }
 
     @Override
-    public void setArduinoId(String arduinoId) {
+    public void setArduinoSn(String arduinoId) {
 
     }
 }

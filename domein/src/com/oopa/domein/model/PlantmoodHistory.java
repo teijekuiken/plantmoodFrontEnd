@@ -1,11 +1,11 @@
 package com.oopa.domein.model;
 
-import com.oopa.interfaces.model.IPlantMood;
-import com.oopa.interfaces.model.IPlantMoodHistory;
+import com.oopa.interfaces.model.IPlantmood;
+import com.oopa.interfaces.model.IPlantmoodhistory;
 
 import java.util.Date;
 
-public class PlantMoodHistory implements IPlantMoodHistory {
+public class PlantmoodHistory implements IPlantmoodhistory {
     @Override
     public int getId() {
         return 0;
@@ -17,12 +17,12 @@ public class PlantMoodHistory implements IPlantMoodHistory {
     }
 
     @Override
-    public IPlantMood getPlantMood() {
+    public IPlantmood getPlantMood() {
         return null;
     }
 
     @Override
-    public void setPlantMood(IPlantMood plantMood) {
+    public void setPlantMood(IPlantmood plantMood) {
 
     }
 

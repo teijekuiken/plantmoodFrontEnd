@@ -7,7 +7,7 @@ import com.oopa.interfaces.model.IUser;
 
 public class PlantMood implements IPlantMood{
 
-    private Integer Id;
+    private int Id;
     private IUser user;
     private IPlantSpecies plantSpecies;
     private int health;
@@ -26,12 +26,12 @@ public class PlantMood implements IPlantMood{
     }
 
     @Override
-    public Integer getId() {
+    public int getId() {
         return this.Id;
     }
 
     @Override
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.Id = id;
     }
 
