@@ -7,12 +7,12 @@ import com.oopa.interfaces.model.IUser;
 public class PlantMood implements IPlantMood {
 
     @Override
-    public int getId() {
+    public Integer getId() {
         return 0;
     }
 
     @Override
-    public void setId(int id) {
+    public void setId(Integer id) {
 
     }
 

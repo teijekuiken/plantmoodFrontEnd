@@ -1,38 +1,36 @@
-package pm.main.domain;
+package com.oopa.dataAccess.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.oopa.interfaces.model.IPlantMood;
 import com.oopa.interfaces.model.IPlantSpecies;
 import com.oopa.interfaces.model.IUser;
 
-public class PlantMood implements IPlantMood{
+import javax.persistence.*;
 
-    private Integer Id;
+@Entity
+public class Plantmood implements IPlantMood {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
+
+    @ManyToOne(targetEntity = User.class)
     private IUser user;
-    private IPlantSpecies plantSpecies;
-    private int health;
-    private String arduinoId;
 
-    public PlantMood(@JsonProperty("id") Integer id,
-                     @JsonProperty("user") IUser user,
-                     @JsonProperty("plantspecies") IPlantSpecies plantSpecies,
-                     @JsonProperty("health") int health,
-                     @JsonProperty("arduinoid") String arduinoId) {
-        Id = id;
-        this.user = user;
-        this.plantSpecies = plantSpecies;
-        this.health = health;
-        this.arduinoId = arduinoId;
-    }
+    @ManyToOne(targetEntity = PlantSpecies.class)
+
+    private IPlantSpecies plantSpecies;
+
+    private int health;
+
+    private String arduinoId;
 
     @Override
     public Integer getId() {
-        return this.Id;
+        return this.id;
     }
 
     @Override
     public void setId(Integer id) {
-        this.Id = id;
+        this.id = id;
     }
 
     @Override
@@ -47,17 +45,17 @@ public class PlantMood implements IPlantMood{
 
     @Override
     public IPlantSpecies getPlantSpecies() {
-        return plantSpecies;
+        return this.plantSpecies;
     }
 
     @Override
     public void setPlantSpecies(IPlantSpecies plantSpecies) {
-        this.plantSpecies =  plantSpecies;
+        this.plantSpecies = plantSpecies;
     }
 
     @Override
     public int getHealth() {
-        return health;
+        return this.health;
     }
 
     @Override
@@ -67,7 +65,7 @@ public class PlantMood implements IPlantMood{
 
     @Override
     public String getArduinoId() {
-        return this.arduinoId;
+        return null;
     }
 
     @Override

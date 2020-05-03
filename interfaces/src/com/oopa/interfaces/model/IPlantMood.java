@@ -1,9 +1,9 @@
 package com.oopa.interfaces.model;
 
 public interface IPlantMood {
-    int getId();
+    Integer getId();
 
-    void setId(int id);
+    void setId(Integer id);
 
     IUser getUser();
 

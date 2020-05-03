@@ -6,12 +6,12 @@ import pm.main.controllers.PlantspeciesController;
 
 public class PlantSpecies implements IPlantSpecies {
 
-    private int Id;
+    private Integer Id;
     private String name;
     private int MinHumidity;
     private int MaxHumidity;
 
-    public PlantSpecies(@JsonProperty("id") int id,
+    public PlantSpecies(@JsonProperty("id") Integer id,
                         @JsonProperty("name") String name,
                         @JsonProperty("minhumidity") int minhumidity,
                         @JsonProperty("maxhumidity") int maxhumidity){
@@ -21,12 +21,12 @@ public class PlantSpecies implements IPlantSpecies {
         this.MaxHumidity = maxhumidity;
     }
     @Override
-    public int getId() {
+    public Integer getId() {
         return this.Id;
     }
 
     @Override
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.Id = id;
     }
 

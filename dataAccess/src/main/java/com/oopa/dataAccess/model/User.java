@@ -1,35 +1,36 @@
-package pm.main.domain;
+package com.oopa.dataAccess.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.oopa.interfaces.model.IUser;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.Date;
 
+@Entity
 public class User implements IUser {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
 
-    private Integer Id;
     private String password;
-    private String name;
-    private Date createdAt;
 
-    public User(@JsonProperty("id") Integer id,
-                @JsonProperty("password") String password,
-                @JsonProperty("name") String name,
-                @JsonProperty("createdAt") Date createdAt) {
-        Id = id;
-        this.password = password;
-        this.name = name;
-        this.createdAt = createdAt;
-    }
+    private String name;
+
+    private String email;
+
+    private Date date;
 
     @Override
     public Integer getId() {
-        return this.Id;
+        return null;
     }
 
     @Override
     public void setId(Integer id) {
-        this.Id = id;
+
+        this.id = id;
     }
 
     @Override
@@ -44,7 +45,7 @@ public class User implements IUser {
 
     @Override
     public String getName() {
-        return this.name;
+        return this.password;
     }
 
     @Override
@@ -59,11 +60,11 @@ public class User implements IUser {
 
     @Override
     public void setEmail(String email) {
-
+        this.email = email;
     }
 
     @Override
     public Date getCreatedAt() {
-        return createdAt;
+        return this.date;
     }
 }

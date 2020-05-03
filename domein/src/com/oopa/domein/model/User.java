@@ -6,19 +6,19 @@ import java.util.Date;
 
 public class User implements IUser {
 
-    private int id;
+    private Integer id;
     private String name;
     private String email;
     private Date createAt;
     private String password;
 
     @Override
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
     @Override
-    public void setId(int id) {
+    public void setId(Integer id) {
 
     }
 
@@ -49,6 +49,11 @@ public class User implements IUser {
 
     @Override
     public void setEmail(String email) {
+    }
+
+    @Override
+    public Date getCreatedAt() {
+        return null;
     }
 
 }
