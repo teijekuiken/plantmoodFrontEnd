@@ -16,7 +16,6 @@ public class Plantmood implements IPlantMood {
     private IUser user;
 
     @ManyToOne(targetEntity = PlantSpecies.class)
-
     private IPlantSpecies plantSpecies;
 
     private int health;
