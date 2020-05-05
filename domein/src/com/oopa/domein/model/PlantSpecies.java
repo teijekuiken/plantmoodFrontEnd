@@ -9,10 +9,15 @@ public class PlantSpecies implements IPlantSpecies {
     private int minHumidity;
     private int maxHumidity;
 
+    public PlantSpecies(String name, int minHumidity, int maxHumidity) {
+        this.name = name;
+        this.minHumidity = minHumidity;
+        this.maxHumidity = maxHumidity;
+    }
 
     @Override
     public int getId() {
-        return id;
+        return 0;
     }
 
     @Override
@@ -48,5 +53,9 @@ public class PlantSpecies implements IPlantSpecies {
     @Override
     public void setMaxHumidity(int maxHumidity) {
 
+    }
+
+    @Override
+    public void addPlantSpieces(String name, int minHumidity, int maxHumidity) {
     }
 }
