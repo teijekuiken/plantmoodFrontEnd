@@ -10,14 +10,13 @@
         <version>0.0.1</version>
     </parent>
 
-
     <artifactId>domein</artifactId>
     <packaging>jar</packaging>
 
     <dependencies>
         <dependency>
             <groupId>pm</groupId>
-            <artifactId>dataAcces</artifactId>
+            <artifactId>dataAccess</artifactId>
             <version>0.0.1</version>
         </dependency>
 

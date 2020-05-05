@@ -4,8 +4,8 @@ import java.util.Date;
 
 public interface IUser {
 
-    int getId();
-    void setId(int id);
+    Integer getId();
+    void setId(Integer id);
     String getPassword();
     void setPassword(String password);
     String getName();

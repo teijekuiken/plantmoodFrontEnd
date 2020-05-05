@@ -6,7 +6,7 @@
     <modules>
         <module>domein</module>
         <module>presentation</module>
-        <module>dataAcces</module>
+        <module>dataAccess</module>
         <module>interfaces</module>
     </modules>
 
