@@ -8,8 +8,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class PlantMoodApplication {
-    public static void main(String[] args) throws MqttException {
+    public static void main(String[] args){
         SpringApplication.run(PlantMoodApplication.class, args);
-        new Mqtt().startMqtt();
+        try {
+            new Mqtt().startMqtt();
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
     }
 }
