@@ -10,7 +10,7 @@ public class Plantmood implements IPlantmood {
     private User user;
     private PlantSpecies plantSpecies;
     private int Health;
-    private String ArduinoSn;
+    private String ArduinoId;
 
     @Override
     public Integer getId() {
@@ -53,12 +53,12 @@ public class Plantmood implements IPlantmood {
     }
 
     @Override
-    public String getArduinoSn() {
-        return null;
+    public String getArduinoId() {
+        return ArduinoId;
     }
 
     @Override
-    public void setArduinoSn(String arduinoId) {
+    public void setArduinoId(String arduinoId) {
 
     }
 }
