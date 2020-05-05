@@ -1,19 +1,18 @@
 package pm.main.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.oopa.interfaces.model.IPlantMood;
 import com.oopa.interfaces.model.IPlantSpecies;
+import com.oopa.interfaces.model.IPlantmood;
 import com.oopa.interfaces.model.IUser;
 
-public class PlantMood implements IPlantMood{
-
-    private int Id;
+public class Plantmood implements IPlantmood {
+    private Integer Id;
     private IUser user;
     private IPlantSpecies plantSpecies;
     private int health;
     private String arduinoId;
 
-    public PlantMood(@JsonProperty("id") Integer id,
+    public Plantmood(@JsonProperty("id") Integer id,
                      @JsonProperty("user") IUser user,
                      @JsonProperty("plantspecies") IPlantSpecies plantSpecies,
                      @JsonProperty("health") int health,
@@ -26,13 +25,12 @@ public class PlantMood implements IPlantMood{
     }
 
     @Override
-    public int getId() {
+    public Integer getId() {
         return this.Id;
     }
 
     @Override
-    public void setId(int id) {
-        this.Id = id;
+    public void setId(Integer id) {
     }
 
     @Override
