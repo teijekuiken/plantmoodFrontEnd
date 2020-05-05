@@ -1,4 +1,4 @@
-package pm.main;
+package pm;
 
 import com.oopa.domein.mqtt.Mqtt;
 import com.oopa.interfaces.mqtt.IMqtt;

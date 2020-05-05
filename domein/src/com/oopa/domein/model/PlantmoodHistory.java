@@ -6,6 +6,22 @@ import com.oopa.interfaces.model.IPlantmoodhistory;
 import java.util.Date;
 
 public class PlantmoodHistory implements IPlantmoodhistory {
+
+    private int id;
+    private int health;
+    private Date createdAt;
+    private String arduinoSn;
+
+    public PlantmoodHistory(int health, String arduinoSn) {
+        this.health = health;
+        this.arduinoSn = arduinoSn;
+    }
+
+    @Override
+    public void addHistory(int health, int arduinoSn) {
+
+    }
+
     @Override
     public int getId() {
         return 0;
@@ -17,12 +33,12 @@ public class PlantmoodHistory implements IPlantmoodhistory {
     }
 
     @Override
-    public IPlantmood getPlantMood() {
+    public IPlantmood getPlantmood() {
         return null;
     }
 
     @Override
-    public void setPlantMood(IPlantmood plantMood) {
+    public void setPlantmood(IPlantmood plantMood) {
 
     }
 
@@ -40,4 +56,5 @@ public class PlantmoodHistory implements IPlantmoodhistory {
     public Date getCreatedAt() {
         return null;
     }
+
 }
