@@ -1,13 +1,13 @@
 package com.oopa.dataAccess.model;
 
-import com.oopa.interfaces.model.IPlantMood;
+import com.oopa.interfaces.model.IPlantmood;
 import com.oopa.interfaces.model.IPlantSpecies;
 import com.oopa.interfaces.model.IUser;
 
 import javax.persistence.*;
 
 @Entity
-public class Plantmood implements IPlantMood {
+public class Plantmood implements IPlantmood {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;

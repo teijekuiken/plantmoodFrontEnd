@@ -1,5 +1,6 @@
 package com.oopa.domein.services;
 
+import com.oopa.dataAccess.repositories.UserRepository;
 import com.oopa.interfaces.model.IUser;
 
 import java.util.List;

@@ -1,12 +1,13 @@
 package com.oopa.domein.services;
 
+import com.oopa.dataAccess.repositories.PlantmoodRepository;
 import com.oopa.interfaces.model.IPlantSpecies;
 
 import java.util.List;
 
 public class PlantSpeciesService {
 
-    private PlantMoodRepository plantMoodRepository;
+    private PlantmoodRepository plantMoodRepository;
 
     public void addPlantSpecies(IPlantSpecies plantSpecies){
         plantMoodRepository.createPlantSpecie(plantSpecies);
