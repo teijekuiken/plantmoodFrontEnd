@@ -17,12 +17,12 @@ public class PlantSpecies implements IPlantSpecies {
 
     @Override
     public int getId() {
-        return 0;
+        return id;
     }
 
     @Override
     public void setId(int id) {
-
+        this.id = id;
     }
 
     @Override
@@ -32,7 +32,7 @@ public class PlantSpecies implements IPlantSpecies {
 
     @Override
     public void setName(String name) {
-
+        this.name = name;
     }
 
     @Override
@@ -42,7 +42,7 @@ public class PlantSpecies implements IPlantSpecies {
 
     @Override
     public void setMinHumidity(int minHumidity) {
-
+        this.minHumidity = minHumidity;
     }
 
     @Override
@@ -52,7 +52,7 @@ public class PlantSpecies implements IPlantSpecies {
 
     @Override
     public void setMaxHumidity(int maxHumidity) {
-
+        this.maxHumidity = maxHumidity;
     }
 
     @Override

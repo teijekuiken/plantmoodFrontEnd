@@ -56,9 +56,4 @@ public class User implements IUser {
     public Date getCreatedAt() {
         return createdAt;
     }
-
-    @Override
-    public void addUser(String name, String email, String password) {
-    }
-
 }

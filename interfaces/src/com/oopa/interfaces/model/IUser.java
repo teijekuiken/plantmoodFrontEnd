@@ -13,5 +13,4 @@ public interface IUser {
     String getEmail();
     void setEmail(String email);
     Date getCreatedAt();
-    void addUser(String name, String email, String password);
 }

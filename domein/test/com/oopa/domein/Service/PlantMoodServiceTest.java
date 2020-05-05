@@ -1,10 +1,10 @@
 package com.oopa.domein.Service;
 
-import com.oopa.domein.Model.PlantMood;
-import com.oopa.domein.Model.PlantSpecies;
-import com.oopa.domein.Model.User;
-import com.oopa.interfaces.model.IPlantMood;
+import com.oopa.domein.model.PlantSpecies;
+import com.oopa.domein.model.Plantmood;
+import com.oopa.domein.model.User;
 import com.oopa.interfaces.model.IPlantSpecies;
+import com.oopa.interfaces.model.IPlantmood;
 import com.oopa.interfaces.model.IUser;
 import org.junit.jupiter.api.Test;
 
@@ -18,7 +18,7 @@ class PlantMoodServiceTest {
     void createPlantMood() {
         // arrange
         String name = "PlantMood1";
-        User user = new User();
+        IUser user = new User();
         String adruinoId = "ARDUINO1";
         int health = 40;
 
@@ -30,7 +30,7 @@ class PlantMoodServiceTest {
     @Test
     void linkPlantMoodToPlantSpecie() {
         // arrange
-        IPlantMood plantMood = new PlantMood();
+        IPlantmood plantMood = new Plantmood();
         IPlantSpecies plantSpecie = new PlantSpecies();
 
         // act
@@ -45,7 +45,7 @@ class PlantMoodServiceTest {
     @Test
     void deletePlantMoodFromUser() {
         // arrange
-        IPlantMood plantMood = new PlantMood();
+        IPlantmood plantMood = new Plantmood();
         IUser user = new User();
 
         // act
@@ -60,7 +60,7 @@ class PlantMoodServiceTest {
         // arrange
         IUser user1 = new User();
         IUser user2 = new User();
-        IPlantMood plantMood = new PlantMood();
+        IPlantmood plantMood = new Plantmood();
         plantMood.setUser(user1);
 
         // act

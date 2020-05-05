@@ -8,9 +8,9 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class PlantMoodHistoryTest {
+class PlantmoodHistoryTest {
 
-    final List<IPlantmoodhistory> plantMoodHistoryList = new ArrayList<>();
+    final List<IPlantmoodhistory> plantmoodHistoryList = new ArrayList<>();
     final int expected = 1;
     final int health = 45;
     final String arduinoSn = "PlantMood-1";
@@ -18,10 +18,10 @@ class PlantMoodHistoryTest {
     @Test
     public void addHistory() {
         //arrange
-        plantMoodHistoryList.add(new PlantmoodHistory(health,arduinoSn));
+        plantmoodHistoryList.add(new PlantmoodHistory(health,arduinoSn));
 
         //act
-        int actual = plantMoodHistoryList.size();
+        int actual = plantmoodHistoryList.size();
 
         //assert
         assertEquals(actual, expected);

@@ -1,4 +1,4 @@
-package com.oopa.data.Model;
+package com.oopa.domein.model;
 
 import com.oopa.interfaces.model.IPlantSpecies;
 import org.junit.jupiter.api.Test;

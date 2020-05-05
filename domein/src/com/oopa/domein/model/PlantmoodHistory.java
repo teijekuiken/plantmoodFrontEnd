@@ -19,42 +19,32 @@ public class PlantmoodHistory implements IPlantmoodhistory {
 
     @Override
     public void addHistory(int health, int arduinoSn) {
-
+        // TODO: 05/05/2020 add method to repository
     }
 
     @Override
     public int getId() {
-        return 0;
+        return id;
     }
 
     @Override
     public void setId(int id) {
-
-    }
-
-    @Override
-    public IPlantmood getPlantmood() {
-        return null;
-    }
-
-    @Override
-    public void setPlantmood(IPlantmood plantMood) {
-
+        this.id = id;
     }
 
     @Override
     public int getHealth() {
-        return 0;
+        return health;
     }
 
     @Override
     public void setHealth(int health) {
-
+        this.health = health;
     }
 
     @Override
     public Date getCreatedAt() {
-        return null;
+        return createdAt;
     }
 
 }
