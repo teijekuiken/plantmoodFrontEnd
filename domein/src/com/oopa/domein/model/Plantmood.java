@@ -13,7 +13,7 @@ public class Plantmood implements IPlantmood {
     private String arduinoSn;
 
     @Override
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
