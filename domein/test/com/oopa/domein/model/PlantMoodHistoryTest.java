@@ -1,6 +1,6 @@
 package com.oopa.domein.model;
 
-import com.oopa.interfaces.model.IPlantMoodHistory;
+import com.oopa.interfaces.model.IPlantmoodhistory;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class PlantMoodHistoryTest {
 
-    final List<IPlantMoodHistory> plantMoodHistoryList = new ArrayList<>();
+    final List<IPlantmoodhistory> plantMoodHistoryList = new ArrayList<>();
     final int expected = 1;
     final int health = 45;
     final String arduinoSn = "PlantMood-1";
@@ -18,7 +18,7 @@ class PlantMoodHistoryTest {
     @Test
     public void addHistory() {
         //arrange
-        plantMoodHistoryList.add(new PlantMoodHistory(health,arduinoSn));
+        plantMoodHistoryList.add(new PlantmoodHistory(health,arduinoSn));
 
         //act
         int actual = plantMoodHistoryList.size();
