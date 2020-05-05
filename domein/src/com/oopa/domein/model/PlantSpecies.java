@@ -4,20 +4,25 @@ import com.oopa.interfaces.model.IPlantSpecies;
 
 public class PlantSpecies implements IPlantSpecies {
 
-    private Integer id;
+    private int id;
     private String name;
     private int minHumidity;
     private int maxHumidity;
 
+    public PlantSpecies(String name, int minHumidity, int maxHumidity) {
+        this.name = name;
+        this.minHumidity = minHumidity;
+        this.maxHumidity = maxHumidity;
+    }
 
     @Override
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
     @Override
-    public void setId(Integer id) {
-
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override
@@ -27,7 +32,7 @@ public class PlantSpecies implements IPlantSpecies {
 
     @Override
     public void setName(String name) {
-
+        this.name = name;
     }
 
     @Override
@@ -37,7 +42,7 @@ public class PlantSpecies implements IPlantSpecies {
 
     @Override
     public void setMinHumidity(int minHumidity) {
-
+        this.minHumidity = minHumidity;
     }
 
     @Override
@@ -47,6 +52,10 @@ public class PlantSpecies implements IPlantSpecies {
 
     @Override
     public void setMaxHumidity(int maxHumidity) {
+        this.maxHumidity = maxHumidity;
+    }
 
+    @Override
+    public void addPlantSpieces(String name, int minHumidity, int maxHumidity) {
     }
 }

@@ -7,58 +7,58 @@ import com.oopa.interfaces.model.IUser;
 public class Plantmood implements IPlantmood {
     private int id;
 //    private String name; Staat wel in het klassendiagram
-    private User user;
-    private PlantSpecies plantSpecies;
-    private int Health;
-    private String ArduinoId;
+    private IUser user;
+    private IPlantSpecies plantSpecies;
+    private int health;
+    private String arduinoSn;
 
     @Override
     public Integer getId() {
-        return 0;
+        return id;
     }
 
     @Override
-    public void setId(Integer id) {
-
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override
     public IUser getUser() {
-        return null;
+        return user;
     }
 
     @Override
     public void setUser(IUser user) {
-
+        this.user = user;
     }
 
     @Override
     public IPlantSpecies getPlantSpecies() {
-        return null;
+        return plantSpecies;
     }
 
     @Override
     public void setPlantSpecies(IPlantSpecies plantSpecies) {
-
+        this.plantSpecies = plantSpecies;
     }
 
     @Override
     public int getHealth() {
-        return 0;
+        return health;
     }
 
     @Override
     public void setHealth(int health) {
-
+        this.health = health;
     }
 
     @Override
-    public String getArduinoId() {
-        return ArduinoId;
+    public String getArduinoSn() {
+        return null;
     }
 
     @Override
-    public void setArduinoId(String arduinoId) {
-
+    public void setArduinoSn(String arduinoSn) {
+        this.arduinoSn = arduinoSn;
     }
 }

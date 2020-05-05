@@ -6,14 +6,13 @@ public interface IPlantSpecies {
     void setId(Integer id);
 
     String getName();
-
     void setName(String name);
 
     int getMinHumidity();
-
     void setMinHumidity(int minHumidity);
 
     int getMaxHumidity();
-
     void setMaxHumidity(int maxHumidity);
+
+    void addPlantSpieces(String name, int minHumidity, int maxHumidity);
 }

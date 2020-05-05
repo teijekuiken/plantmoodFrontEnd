@@ -6,20 +6,20 @@ import java.util.Date;
 
 public class User implements IUser {
 
-    private Integer id;
+    private int id;
     private String name;
     private String email;
-    private Date createAt;
+    private Date createdAt;
     private String password;
 
     @Override
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
     @Override
-    public void setId(Integer id) {
-
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override
@@ -29,7 +29,7 @@ public class User implements IUser {
 
     @Override
     public void setPassword(String password) {
-
+        this.password = password;
     }
 
     @Override
@@ -39,7 +39,7 @@ public class User implements IUser {
 
     @Override
     public void setName(String name) {
-
+        this.name = name;
     }
 
     @Override
@@ -49,11 +49,11 @@ public class User implements IUser {
 
     @Override
     public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override
     public Date getCreatedAt() {
-        return null;
+        return createdAt;
     }
-
 }
