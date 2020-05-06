@@ -1,9 +1,11 @@
 package com.oopa.domein.services;
 
+import com.oopa.dataAccess.repositories.PlantmoodRepository;
 import com.oopa.domein.model.Plantmood;
 import com.oopa.interfaces.model.IPlantmood;
 import com.oopa.interfaces.model.IPlantmoodhistory;
 import com.oopa.interfaces.model.IPlantSpecies;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class PlantmoodService {
     private Plantmood plantMood;
@@ -13,7 +15,6 @@ public class PlantmoodService {
     }
 
     public void linkPlantSpieciesToPlantmood(IPlantSpecies plantSpecies, IPlantmood plantMood) {
-
     }
 
     public void deletePlantmoodFromUser(int userId, int plantmoodId) {
