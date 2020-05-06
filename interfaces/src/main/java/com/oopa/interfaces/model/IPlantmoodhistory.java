@@ -5,9 +5,8 @@ import java.util.Date;
 public interface IPlantmoodhistory {
 
     int getId();
-    void setId(int id);
+    void setId(Integer id);
     int getHealth();
     void setHealth(int health);
     Date getCreatedAt();
-    void addHistory(int health, int arduinoSn);
 }
