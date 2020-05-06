@@ -54,8 +54,4 @@ public class PlantSpecies implements IPlantSpecies {
     public void setMaxHumidity(int maxHumidity) {
         this.maxHumidity = maxHumidity;
     }
-
-    @Override
-    public void addPlantSpieces(String name, int minHumidity, int maxHumidity) {
-    }
 }
