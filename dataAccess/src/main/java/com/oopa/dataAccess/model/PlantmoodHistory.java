@@ -18,7 +18,7 @@ public class PlantmoodHistory implements IPlantmoodhistory {
     private Date date;
 
     @Override
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
