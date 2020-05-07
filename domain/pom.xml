@@ -10,7 +10,7 @@
         <version>0.0.1</version>
     </parent>
 
-    <artifactId>domein</artifactId>
+    <artifactId>domain</artifactId>
     <packaging>jar</packaging>
 
     <dependencies>

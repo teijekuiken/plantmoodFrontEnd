@@ -17,7 +17,7 @@
     <dependencies>
         <dependency>
             <groupId>pm</groupId>
-            <artifactId>domein</artifactId>
+            <artifactId>domain</artifactId>
             <version>0.0.1</version>
         </dependency>
 

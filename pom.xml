@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <modules>
-        <module>domein</module>
+        <module>domain</module>
         <module>presentation</module>
         <module>dataAccess</module>
         <module>interfaces</module>
