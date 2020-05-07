@@ -11,8 +11,12 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableJpaRepositories("com.oopa.dataAccess.repositories")
 @EntityScan("com.oopa.dataAccess.model")
 public class PlantMoodApplication {
-    public static void main(String[] args) throws MqttException {
+    public static void main(String[] args){
         SpringApplication.run(PlantMoodApplication.class, args);
-        new Mqtt().startMqtt();
+        try {
+            new Mqtt().startMqtt();
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
     }
 }

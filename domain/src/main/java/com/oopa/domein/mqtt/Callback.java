@@ -1,11 +1,13 @@
 package com.oopa.domein.mqtt;
 
+import com.oopa.domein.services.MqttService;
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
 public class Callback implements MqttCallback {
 
+    private MqttService mqttService;
 
     @Override
     public void connectionLost(Throwable throwable){
@@ -15,17 +17,8 @@ public class Callback implements MqttCallback {
 
     @Override
     public void messageArrived(String s, MqttMessage mqttMessage){
-        String message = new String(mqttMessage.getPayload());
-
-        //--Split incomming message in seperate variables--
-        String[] splitMessage = message.split(",");
-        String arduinoSn = splitMessage[0];
-        String moistureValue = splitMessage[1];
-
-        // TODO: 27/04/2020 add method to dataAcces layer
-        //new createPlantMoodHistory(arduinoSn, moistureValue);
-        System.out.println(arduinoSn+" "+moistureValue);
-
+        String incommingMessage = new String(mqttMessage.getPayload());
+        mqttService.splitMessage(incommingMessage);
     }
 
     @Override
