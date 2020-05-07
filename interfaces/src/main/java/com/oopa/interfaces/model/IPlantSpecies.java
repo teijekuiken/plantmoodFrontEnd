@@ -13,6 +13,4 @@ public interface IPlantSpecies {
 
     int getMaxHumidity();
     void setMaxHumidity(int maxHumidity);
-
-    void addPlantSpieces(String name, int minHumidity, int maxHumidity);
 }
