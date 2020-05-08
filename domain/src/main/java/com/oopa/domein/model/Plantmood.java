@@ -5,20 +5,20 @@ import com.oopa.interfaces.model.IPlantSpecies;
 import com.oopa.interfaces.model.IUser;
 
 public class Plantmood implements IPlantmood {
-    private int id;
+    private Integer id;
 //    private String name; Staat wel in het klassendiagram
     private IUser user;
     private IPlantSpecies plantSpecies;
     private int health;
-    private String arduinoSn;
+    private String arduinoId;
 
     @Override
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
     @Override
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -53,12 +53,12 @@ public class Plantmood implements IPlantmood {
     }
 
     @Override
-    public String getArduinoSn() {
+    public String getArduinoId() {
         return null;
     }
 
     @Override
-    public void setArduinoSn(String arduinoSn) {
-        this.arduinoSn = arduinoSn;
+    public void setArduinoId(String arduinoSn) {
+        this.arduinoId = arduinoSn;
     }
 }

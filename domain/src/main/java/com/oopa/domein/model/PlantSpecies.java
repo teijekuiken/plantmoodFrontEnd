@@ -4,7 +4,7 @@ import com.oopa.interfaces.model.IPlantSpecies;
 
 public class PlantSpecies implements IPlantSpecies {
 
-    private int id;
+    private Integer id;
     private String name;
     private int minHumidity;
     private int maxHumidity;
@@ -16,12 +16,12 @@ public class PlantSpecies implements IPlantSpecies {
     }
 
     @Override
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
     @Override
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

@@ -7,7 +7,7 @@ import java.util.Date;
 
 public class PlantmoodHistory implements IPlantmoodhistory {
 
-    private int id;
+    private Integer id;
     private int health;
     private Date createdAt;
     private String arduinoSn;
@@ -17,18 +17,17 @@ public class PlantmoodHistory implements IPlantmoodhistory {
         this.arduinoSn = arduinoSn;
     }
 
-    @Override
     public void addHistory(int health, int arduinoSn) {
         // TODO: 05/05/2020 add method to repository
     }
 
     @Override
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
     @Override
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

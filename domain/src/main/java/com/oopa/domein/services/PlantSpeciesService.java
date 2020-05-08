@@ -1,5 +1,6 @@
 package com.oopa.domein.services;
 
+import com.oopa.dataAccess.repositories.PlantmoodRepository;
 import com.oopa.interfaces.model.IPlantSpecies;
 
 import java.util.List;
