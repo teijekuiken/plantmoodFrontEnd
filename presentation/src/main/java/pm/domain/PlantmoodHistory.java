@@ -8,12 +8,12 @@ import java.util.Date;
 
 public class PlantmoodHistory implements IPlantmoodhistory {
 
-    private int Id;
+    private Integer Id;
     private IPlantmood plantmood;
     private int health;
     private Date createdAt;
 
-    public PlantmoodHistory(@JsonProperty("id") int id,
+    public PlantmoodHistory(@JsonProperty("id") Integer id,
                             @JsonProperty("plantmood") IPlantmood plantmood,
                             @JsonProperty("health") int health,
                             @JsonProperty("createdAt") Date createdAt) {
@@ -24,21 +24,21 @@ public class PlantmoodHistory implements IPlantmoodhistory {
     }
 
     @Override
-    public int getId() {
+    public Integer getId() {
         return this.Id;
     }
 
     @Override
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.Id = id;
     }
 
-    @Override
+    //@Override
     public IPlantmood getPlantMood() {
         return plantmood;
     }
 
-    @Override
+    //@Override
     public void setPlantMood(IPlantmood plantMood) {
         this.plantmood = plantMood;
     }
