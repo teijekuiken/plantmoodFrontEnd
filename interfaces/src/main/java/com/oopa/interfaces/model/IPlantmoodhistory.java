@@ -4,7 +4,7 @@ import java.util.Date;
 
 public interface IPlantmoodhistory {
 
-    int getId();
+    Integer getId();
     void setId(Integer id);
     int getHealth();
     void setHealth(int health);
