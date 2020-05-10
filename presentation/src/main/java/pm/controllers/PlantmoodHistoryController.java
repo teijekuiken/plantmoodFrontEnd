@@ -1,9 +1,8 @@
-package pm.main.controllers;
+package pm.controllers;
 
+import com.oopa.domain.services.PlantmoodHistoryService;
 import com.oopa.interfaces.model.IPlantmoodhistory;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RequestMapping("api/v1/plantmoodhistory")
 @RestController
@@ -22,7 +21,7 @@ public class PlantmoodHistoryController {
 
     }
 
-    @GetMapping
+/*    @GetMapping
     public List<IPlantmoodhistory> getAllPlantMoodHistory() {
         List<IPlantmoodhistory> histories = plantmoodHistoryService.getAllPlantMoodHistory();
         return histories;
@@ -43,5 +42,5 @@ public class PlantmoodHistoryController {
     @DeleteMapping
     public void deletePlantMoodHistory(int id){
         plantmoodHistoryService.deletePlantMoodHistory(id);
-    }
+    }*/
 }

@@ -1,14 +1,14 @@
-package com.oopa.domein.services;
+package com.oopa.domain.services;
 
 import com.oopa.dataAccess.repositories.PlantmoodRepository;
-import com.oopa.domein.model.Plantmood;
+import com.oopa.domain.model.Plantmood;
 import com.oopa.interfaces.model.IPlantmood;
 import com.oopa.interfaces.model.IPlantmoodhistory;
 import com.oopa.interfaces.model.IPlantSpecies;
-import org.springframework.beans.factory.annotation.Autowired;
 
 public class PlantmoodService {
-    private Plantmood plantMood;
+    private Plantmood plantmood;
+    private PlantmoodRepository plantmoodRepository;
 
     public void addPlantmood(IPlantmood plantMood) {
 
@@ -34,7 +34,6 @@ public class PlantmoodService {
     }
 
     public void getAllPlantmoods() {
-
     }
 
     public void deletePlantmood(int platmoodId) {

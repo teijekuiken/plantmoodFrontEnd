@@ -9,4 +9,7 @@ public interface IPlantmoodhistory {
     int getHealth();
     void setHealth(int health);
     Date getCreatedAt();
+    void setCreatedAt(Date createdAt);
+    String getArduinoSn();
+    void setArduinoSn(String arduinoSn);
 }

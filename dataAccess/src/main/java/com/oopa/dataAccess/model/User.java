@@ -20,22 +20,21 @@ public class User implements IUser {
 
     private String email;
 
-    private Date date;
+    private Date createdAt;
 
     @Override
     public Integer getId() {
-        return null;
+        return id;
     }
 
     @Override
     public void setId(Integer id) {
-
         this.id = id;
     }
 
     @Override
     public String getPassword() {
-        return this.password;
+        return password;
     }
 
     @Override
@@ -45,7 +44,7 @@ public class User implements IUser {
 
     @Override
     public String getName() {
-        return this.password;
+        return name;
     }
 
     @Override
@@ -55,7 +54,7 @@ public class User implements IUser {
 
     @Override
     public String getEmail() {
-        return null;
+        return email;
     }
 
     @Override
@@ -65,6 +64,14 @@ public class User implements IUser {
 
     @Override
     public Date getCreatedAt() {
-        return this.date;
+        return createdAt;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 }

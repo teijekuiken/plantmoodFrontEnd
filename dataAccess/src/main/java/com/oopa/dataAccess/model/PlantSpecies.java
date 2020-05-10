@@ -21,7 +21,7 @@ public class PlantSpecies implements IPlantSpecies {
 
     @Override
     public Integer getId() {
-        return 0;
+        return id;
     }
 
     @Override
@@ -31,7 +31,7 @@ public class PlantSpecies implements IPlantSpecies {
 
     @Override
     public String getName() {
-        return null;
+        return name;
     }
 
     @Override
@@ -41,7 +41,7 @@ public class PlantSpecies implements IPlantSpecies {
 
     @Override
     public int getMinHumidity() {
-        return this.minHumidity;
+        return minHumidity;
     }
 
     @Override
@@ -51,7 +51,7 @@ public class PlantSpecies implements IPlantSpecies {
 
     @Override
     public int getMaxHumidity() {
-        return this.maxHumidity;
+        return maxHumidity;
     }
 
     @Override

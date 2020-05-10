@@ -1,9 +1,8 @@
-package com.oopa.domein.services;
+package com.oopa.domain.services;
 
 import com.oopa.dataAccess.repositories.UserRepository;
 import com.oopa.interfaces.model.IUser;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -16,7 +15,7 @@ public class UserService {
         userRepository.save(user);
     }
     
-    public Optional<IUser> getUserById(Integer id){ //Returntype aangepast. Containerobject
+    public Optional<IUser> getUserById(Integer id){
         return userRepository.findById(id);
     }
 
@@ -24,14 +23,13 @@ public class UserService {
         return (List<IUser>) userRepository.findAll();
     }
 
-    public String deleteUser(Integer id){ //returntype aangepast voor foutafhandeling + duidelijk of user bestaat of niet
+    public String deleteUser(Integer id){
         Optional<IUser> optionalUser = userRepository.findById(id);
         if (optionalUser.isPresent()) {
             userRepository.delete(optionalUser.get());
-            return "User with id:" + id + "id deleted";
+            return "User with id:" + id + "is deleted";
         } else {
             throw new RuntimeException("User with id: " + id + "not found");
         }
-
     }
 }

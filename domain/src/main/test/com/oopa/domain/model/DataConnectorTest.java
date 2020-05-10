@@ -1,4 +1,4 @@
-package com.oopa.domein.model;
+package com.oopa.domain.model;
 
 import com.oopa.interfaces.model.IPlantmood;
 import com.oopa.interfaces.model.IPlantmoodhistory;
@@ -10,8 +10,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class DataConnectorTest {
 
     IPlantmood plantMood = new Plantmood();
-    IPlantmoodhistory history = new PlantmoodHistory();
-    IPlantSpecies wietplant = new PlantSpecies();
+    IPlantmoodhistory history = new PlantmoodHistory(45, "Pietje" );
+    IPlantSpecies wietplant = new PlantSpecies("cactus", 450, 550);
     DataConnector dataConnector = new DataConnector();
 
     @Test

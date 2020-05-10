@@ -1,8 +1,12 @@
-package com.oopa.domein.services;
+package com.oopa.domain.services;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class MqttService {
 
     private PlantmoodHistoryService plantmoodHistoryService;
+    private static Logger logger = LoggerFactory.getLogger(PlantmoodHistoryService.class);
 
     public void splitMessage(String incommingMessage){
         String[] splitMessage = incommingMessage.split(",");
@@ -10,8 +14,6 @@ public class MqttService {
         int moistureValue = Integer.parseInt(splitMessage[1]);
 
         plantmoodHistoryService.addHistory(arduinoSn, moistureValue);
-
-        // TODO: 05/05/2020 add logger instead of println for verification with database
-        System.out.println(arduinoSn+" "+moistureValue);
+        logger.info("Received: ArduinoSn {} with moisturevalue of {}", arduinoSn, moistureValue);
     }
 }

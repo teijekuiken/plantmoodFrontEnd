@@ -14,7 +14,7 @@ public class PlantmoodHistory implements IPlantmoodhistory {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private int health;
-    private int arduinoSn;
+    private String arduinoSn;
     private Date date;
 
     @Override
@@ -40,5 +40,20 @@ public class PlantmoodHistory implements IPlantmoodhistory {
     @Override
     public Date getCreatedAt() {
         return date;
+    }
+
+    @Override
+    public void setCreatedAt(Date createdAt) {
+        this.date = createdAt;
+    }
+
+    @Override
+    public String getArduinoSn() {
+        return arduinoSn;
+    }
+
+    @Override
+    public void setArduinoSn(String arduinoSn) {
+        this.arduinoSn = arduinoSn;
     }
 }

@@ -9,6 +9,6 @@ public interface IPlantmood {
     void setPlantSpecies(IPlantSpecies plantSpecies);
     int getHealth();
     void setHealth(int health);
-    String getArduinoId();
-    void setArduinoId(String arduinoId);
+    String getArduinoSn();
+    void setArduinoSn(String arduinoSn);
 }

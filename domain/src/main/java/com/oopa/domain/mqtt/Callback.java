@@ -1,6 +1,6 @@
-package com.oopa.domein.mqtt;
+package com.oopa.domain.mqtt;
 
-import com.oopa.domein.services.MqttService;
+import com.oopa.domain.services.MqttService;
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
