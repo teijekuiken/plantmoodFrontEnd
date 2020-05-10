@@ -20,11 +20,11 @@ public class Plantmood implements IPlantmood {
 
     private int health;
 
-    private String arduinoId;
+    private String arduinoSn;
 
     @Override
     public Integer getId() {
-        return this.id;
+        return id;
     }
 
     @Override
@@ -34,7 +34,7 @@ public class Plantmood implements IPlantmood {
 
     @Override
     public IUser getUser() {
-        return this.user;
+        return user;
     }
 
     @Override
@@ -44,7 +44,7 @@ public class Plantmood implements IPlantmood {
 
     @Override
     public IPlantSpecies getPlantSpecies() {
-        return this.plantSpecies;
+        return plantSpecies;
     }
 
     @Override
@@ -54,7 +54,7 @@ public class Plantmood implements IPlantmood {
 
     @Override
     public int getHealth() {
-        return this.health;
+        return health;
     }
 
     @Override
@@ -63,12 +63,12 @@ public class Plantmood implements IPlantmood {
     }
 
     @Override
-    public String getArduinoId() {
-        return null;
+    public String getArduinoSn() {
+        return arduinoSn;
     }
 
     @Override
-    public void setArduinoId(String arduinoId) {
-        this.arduinoId = arduinoId;
+    public void setArduinoSn(String arduinoSn) {
+        this.arduinoSn = arduinoSn;
     }
 }

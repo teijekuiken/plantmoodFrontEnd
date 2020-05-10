@@ -1,4 +1,4 @@
-package pm.main.domain;
+package pm.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.oopa.interfaces.model.IPlantSpecies;
@@ -6,36 +6,37 @@ import com.oopa.interfaces.model.IPlantmood;
 import com.oopa.interfaces.model.IUser;
 
 public class Plantmood implements IPlantmood {
-    private Integer Id;
+    private Integer id;
     private IUser user;
     private IPlantSpecies plantSpecies;
     private int health;
-    private String arduinoId;
+    private String arduinoSn;
 
     public Plantmood(@JsonProperty("id") Integer id,
                      @JsonProperty("user") IUser user,
                      @JsonProperty("plantspecies") IPlantSpecies plantSpecies,
                      @JsonProperty("health") int health,
-                     @JsonProperty("arduinoid") String arduinoId) {
-        Id = id;
+                     @JsonProperty("arduinoid") String arduinoSn) {
+        this.id = id;
         this.user = user;
         this.plantSpecies = plantSpecies;
         this.health = health;
-        this.arduinoId = arduinoId;
+        this.arduinoSn = arduinoSn;
     }
 
     @Override
     public Integer getId() {
-        return this.Id;
+        return id;
     }
 
     @Override
     public void setId(Integer id) {
+        this.id = id;
     }
 
     @Override
     public IUser getUser() {
-        return this.user;
+        return user;
     }
 
     @Override
@@ -50,7 +51,7 @@ public class Plantmood implements IPlantmood {
 
     @Override
     public void setPlantSpecies(IPlantSpecies plantSpecies) {
-        this.plantSpecies =  plantSpecies;
+        this.plantSpecies = plantSpecies;
     }
 
     @Override
@@ -64,12 +65,12 @@ public class Plantmood implements IPlantmood {
     }
 
     @Override
-    public String getArduinoId() {
-        return this.arduinoId;
+    public String getArduinoSn() {
+        return arduinoSn;
     }
 
     @Override
-    public void setArduinoId(String arduinoId) {
-        this.arduinoId = arduinoId;
+    public void setArduinoSn(String arduinoSn) {
+        this.arduinoSn = arduinoSn;
     }
 }

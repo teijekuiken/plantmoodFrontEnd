@@ -1,10 +1,11 @@
-package pm.main.controllers;
+package pm.controllers;
 
-import com.oopa.domein.services.PlantSpeciesService;
+import com.oopa.domain.services.PlantSpeciesService;
 import com.oopa.interfaces.model.IPlantSpecies;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequestMapping("api/v1/plantspecies")
 @RestController
@@ -28,8 +29,8 @@ public class PlantspeciesController {
     }
 
     @GetMapping(path = {"id"})
-    public IPlantSpecies getPlantSpeciesById(@PathVariable("id") int id){
-        IPlantSpecies plantspecies = plantspeciesService.getPlantSpeciesById(id);
+    public Optional<IPlantSpecies> getPlantSpeciesById(@PathVariable("id") int id){
+        Optional<IPlantSpecies> plantspecies = plantspeciesService.getPlantSpeciesById(id);
         return plantspecies;
     }
 

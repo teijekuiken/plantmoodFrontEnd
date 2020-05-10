@@ -1,8 +1,6 @@
-package com.oopa.domein.model;
+package com.oopa.domain.model;
 
-import com.oopa.interfaces.model.IPlantmood;
 import com.oopa.interfaces.model.IPlantmoodhistory;
-
 import java.util.Date;
 
 public class PlantmoodHistory implements IPlantmoodhistory {
@@ -17,9 +15,6 @@ public class PlantmoodHistory implements IPlantmoodhistory {
         this.arduinoSn = arduinoSn;
     }
 
-    public void addHistory(int health, int arduinoSn) {
-        // TODO: 05/05/2020 add method to repository
-    }
 
     @Override
     public Integer getId() {
@@ -46,4 +41,22 @@ public class PlantmoodHistory implements IPlantmoodhistory {
         return createdAt;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @Override
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    @Override
+    public String getArduinoSn() {
+        return arduinoSn;
+    }
+
+    @Override
+    public void setArduinoSn(String arduinoSn) {
+        this.arduinoSn = arduinoSn;
+    }
 }

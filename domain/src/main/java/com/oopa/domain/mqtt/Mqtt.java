@@ -1,4 +1,4 @@
-package com.oopa.domein.mqtt;
+package com.oopa.domain.mqtt;
 
 import com.oopa.interfaces.mqtt.IMqtt;
 import org.eclipse.paho.client.mqttv3.*;

@@ -13,4 +13,6 @@ public interface IUser {
     String getEmail();
     void setEmail(String email);
     Date getCreatedAt();
+    void setId(int id);
+    void setCreatedAt(Date createdAt);
 }

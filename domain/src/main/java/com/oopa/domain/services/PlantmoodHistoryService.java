@@ -1,4 +1,4 @@
-package com.oopa.domein.services;
+package com.oopa.domain.services;
 
 public class PlantmoodHistoryService {
 

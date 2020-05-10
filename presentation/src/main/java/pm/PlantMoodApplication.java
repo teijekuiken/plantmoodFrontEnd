@@ -1,6 +1,6 @@
 package pm;
 
-import com.oopa.domein.mqtt.Mqtt;
+import com.oopa.domain.mqtt.Mqtt;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

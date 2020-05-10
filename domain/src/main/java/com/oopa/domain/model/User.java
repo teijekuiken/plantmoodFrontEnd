@@ -1,4 +1,4 @@
-package com.oopa.domein.model;
+package com.oopa.domain.model;
 
 import com.oopa.interfaces.model.IUser;
 
@@ -55,5 +55,13 @@ public class User implements IUser {
     @Override
     public Date getCreatedAt() {
         return createdAt;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 }

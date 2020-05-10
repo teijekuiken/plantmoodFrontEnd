@@ -1,38 +1,37 @@
-package pm.main.domain;
+package pm.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.oopa.interfaces.model.IPlantSpecies;
-import pm.main.controllers.PlantspeciesController;
 
 public class PlantSpecies implements IPlantSpecies {
 
-    private Integer Id;
+    private Integer id;
     private String name;
-    private int MinHumidity;
-    private int MaxHumidity;
+    private int minHumidity;
+    private int maxHumidity;
 
     public PlantSpecies(@JsonProperty("id") Integer id,
                         @JsonProperty("name") String name,
                         @JsonProperty("minhumidity") int minhumidity,
                         @JsonProperty("maxhumidity") int maxhumidity){
-        this.Id = id;
+        this.id = id;
         this.name = name;
-        this.MinHumidity = minhumidity;
-        this.MaxHumidity = maxhumidity;
+        this.minHumidity = minhumidity;
+        this.maxHumidity = maxhumidity;
     }
     @Override
     public Integer getId() {
-        return this.Id;
+        return id;
     }
 
     @Override
     public void setId(Integer id) {
-        this.Id = id;
+        this.id = id;
     }
 
     @Override
     public String getName() {
-        return this.name;
+        return name;
     }
 
     @Override
@@ -42,21 +41,21 @@ public class PlantSpecies implements IPlantSpecies {
 
     @Override
     public int getMinHumidity() {
-        return this.MinHumidity;
+        return minHumidity;
     }
 
     @Override
     public void setMinHumidity(int minHumidity) {
-        this.MinHumidity = minHumidity;
+        this.minHumidity = minHumidity;
     }
 
     @Override
     public int getMaxHumidity() {
-        return this.MaxHumidity;
+        return maxHumidity;
     }
 
     @Override
     public void setMaxHumidity(int maxHumidity) {
-        this.MaxHumidity = maxHumidity;
+        this.maxHumidity = maxHumidity;
     }
 }
