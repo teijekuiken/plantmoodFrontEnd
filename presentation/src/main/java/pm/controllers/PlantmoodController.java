@@ -4,6 +4,9 @@ import com.oopa.domain.services.PlantmoodService;
 import com.oopa.interfaces.model.IPlantmood;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Optional;
+
 @RequestMapping("api/v1/plantmood")
 @RestController
 public class PlantmoodController {
@@ -18,17 +21,17 @@ public class PlantmoodController {
         plantmoodService.addPlantmood(plantMood);
     }
 
-/*    @GetMapping
+    @GetMapping
     public List<IPlantmood> getAllPlantMood(){
         List<IPlantmood> plantMoods = plantmoodService.getAllPlantmoods();
         return plantMoods;
     }
 
     @GetMapping(path = {"id"})
-    public IPlantmood getPlantMoodById(@PathVariable("id") int id){
-        IPlantmood plantMood = plantmoodService.getPlantmoodById(id);
+    public Optional<IPlantmood> getPlantMoodById(@PathVariable("id") int id){
+        Optional<IPlantmood> plantMood = plantmoodService.getPlantmoodById(id);
         return plantMood;
-    }*/
+    }
 
     @PutMapping
     public void updatePlantMood(IPlantmood plantMood){

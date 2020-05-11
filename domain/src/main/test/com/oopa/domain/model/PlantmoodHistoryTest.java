@@ -18,7 +18,7 @@ class PlantmoodHistoryTest {
     @Test
     public void addHistory() {
         //arrange
-        plantmoodHistoryList.add(new PlantmoodHistory(health,arduinoSn));
+        plantmoodHistoryList.add(new PlantmoodHistory(arduinoSn,health));
 
         //act
         int actual = plantmoodHistoryList.size();

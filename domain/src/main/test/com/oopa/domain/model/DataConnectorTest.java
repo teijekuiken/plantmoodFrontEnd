@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class DataConnectorTest {
 
     IPlantmood plantMood = new Plantmood();
-    IPlantmoodhistory history = new PlantmoodHistory(45, "Pietje" );
+    IPlantmoodhistory history = new PlantmoodHistory( "Pietje",45 );
     IPlantSpecies wietplant = new PlantSpecies("cactus", 450, 550);
     DataConnector dataConnector = new DataConnector();
 
