@@ -16,7 +16,7 @@ public class Callback implements MqttCallback {
 
     @Override
     public void connectionLost(Throwable throwable){
-        logger.error("Connection to MQTT broker is lost");
+        logger.error("Connection to MQTT broker is lost, reconnecting...");
         try {
             mqtt.startMqtt();
         } catch (MqttException e) {
