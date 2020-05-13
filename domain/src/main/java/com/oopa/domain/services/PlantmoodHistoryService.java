@@ -10,14 +10,14 @@ public class PlantmoodHistoryService {
     private PlantmoodHistoryRepository plantmoodHistoryRepository;
 
     public void addHistory(String arduinoSn, int health){
-        PlantmoodHistory plantmoodHistory = new PlantmoodHistory(arduinoSn,health);
-        plantmoodHistoryRepository.save(plantmoodHistory);
+        plantmoodHistoryRepository.save(new PlantmoodHistory(arduinoSn,health));
     }
 
-    public List<IPlantmoodhistory> getAllHistoryPerPlantMood(String arduinoSn){
-        List<IPlantmoodhistory> allHistory = plantmoodHistoryRepository.findAllByArduinoSn(arduinoSn);
-        return allHistory;
+    public List<IPlantmoodhistory> getAllHistoryByArduinoSn(String arduinoSn){
+        return plantmoodHistoryRepository.findAllByArduinoSn(arduinoSn);
     }
 
-
+    public List<IPlantmoodhistory> getAllPlantmoodHistory(){
+        return (List<IPlantmoodhistory>) plantmoodHistoryRepository.findAll();
+    }
 }
