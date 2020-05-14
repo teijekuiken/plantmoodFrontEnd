@@ -10,11 +10,10 @@ public class PlantmoodHistory implements IPlantmoodhistory {
     private Date createdAt;
     private String arduinoSn;
 
-    public PlantmoodHistory(int health, String arduinoSn) {
+    public PlantmoodHistory(String arduinoSn,int health) {
         this.health = health;
         this.arduinoSn = arduinoSn;
     }
-
 
     @Override
     public Integer getId() {

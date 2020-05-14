@@ -1,15 +1,23 @@
 package com.oopa.domain.services;
 
+import com.oopa.dataAccess.repositories.PlantmoodHistoryRepository;
+import com.oopa.domain.model.PlantmoodHistory;
+import com.oopa.interfaces.model.IPlantmoodhistory;
+import java.util.List;
+
 public class PlantmoodHistoryService {
 
-    // TODO: 05/05/2020 remove comments when repository is ready
-
-    //private PlantmoodHistoryRepository plantmoodHistoryRepository;
+    private PlantmoodHistoryRepository plantmoodHistoryRepository;
 
     public void addHistory(String arduinoSn, int health){
-        //plantmoodHistoryRepository.createPlantmoodHistory(arduinoSn,health);
+        plantmoodHistoryRepository.save(new PlantmoodHistory(arduinoSn,health));
     }
 
+    public List<IPlantmoodhistory> getAllHistoryByArduinoSn(String arduinoSn){
+        return plantmoodHistoryRepository.findAllByArduinoSn(arduinoSn);
+    }
 
-
+    public List<IPlantmoodhistory> getAllPlantmoodHistory(){
+        return (List<IPlantmoodhistory>) plantmoodHistoryRepository.findAll();
+    }
 }
