@@ -1,11 +1,11 @@
 package pm.controllers;
 
+import com.oopa.domain.model.User;
 import com.oopa.domain.services.UserService;
-import com.oopa.interfaces.model.IUser;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
+
 
 @RequestMapping("api/v1/user")
 @RestController
@@ -18,25 +18,24 @@ public class UserController {
     }
 
    @PostMapping
-    public void addUser(@RequestBody IUser user){
-        userService.addUser(user);
+    public @ResponseBody User addUser(@RequestBody User user){
+        return userService.addUser(user);
     }
 
     @GetMapping
-    public List<IUser> getAllUsers(){
-        List<IUser> users = userService.getAllUsers();
+    public @ResponseBody List<User> getAllUsers(){
+        List<User> users = userService.getAllUsers();
         return users;
     }
 
     @GetMapping(path = {"id"})
-    public Optional<IUser> getPersonById(@PathVariable("id") int id){
-        Optional<IUser> user =  userService.getUserById(id);
-        return user;
+    public @ResponseBody User getPersonById(@PathVariable("id") int id){
+        return userService.getUserById(id);
     }
 
     @DeleteMapping
-    public void deleteUser(@PathVariable int id){
-        userService.deleteUser(id);
+    public @ResponseBody User deleteUser(@PathVariable int id){
+        return userService.deleteUser(id);
     }
 
 }
