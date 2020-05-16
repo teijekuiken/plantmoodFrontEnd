@@ -1,46 +1,36 @@
 package pm.controllers;
 
+import com.oopa.domain.model.PlantmoodHistory;
 import com.oopa.domain.services.PlantmoodHistoryService;
-import com.oopa.interfaces.model.IPlantmoodhistory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequestMapping("api/v1/plantmoodhistory")
 @RestController
 public class PlantmoodHistoryController {
 
+    @Autowired
     private PlantmoodHistoryService plantmoodHistoryService;
 
-    public PlantmoodHistoryController(){
-        this.plantmoodHistoryService = new PlantmoodHistoryService();
-    }
-
-
-    //Wil je handmatig resultaten kunnen toevoegen vanuit de frontend?
-    @PostMapping
-    public void addPlantMoodReading(@RequestBody IPlantmoodhistory plantmoodhistory){
-
-    }
-
-/*    @GetMapping
-    public List<IPlantmoodhistory> getAllPlantMoodHistory() {
-        List<IPlantmoodhistory> histories = plantmoodHistoryService.getAllPlantMoodHistory();
-        return histories;
+    @GetMapping
+    public @ResponseBody List<PlantmoodHistory> getAllPlantMoodHistory() {
+        return plantmoodHistoryService.getAllPlantmoodHistorties();
     }
 
     @GetMapping(path = {"id"})
-    public IPlantmoodhistory getPlantMoodHistoryById(@PathVariable("id") int id ){
-        IPlantmoodhistory history = plantmoodHistoryService.getPlantMoodHistoryById(id);
-        return history;
-    }
-
-    //Willen we op basis van een percentage de hele PlantmoodHistory op kunnen halen? Wat voegt dit toe aan de applicatie?
-    @GetMapping(path = {"health"})
-    public List<IPlantmoodhistory> getAllPlantMoodHistoryByHealth(@PathVariable("health") int health){
-        return null;
+    public @ResponseBody PlantmoodHistory getPlantMoodHistoryById(@PathVariable("id") Integer id ){
+        return plantmoodHistoryService.getPlantmoodHistoryById(id);
     }
 
     @DeleteMapping
-    public void deletePlantMoodHistory(int id){
-        plantmoodHistoryService.deletePlantMoodHistory(id);
-    }*/
+    public @ResponseBody PlantmoodHistory deletePlantMoodHistory(Integer id){
+        return plantmoodHistoryService.deletePlantmoodHistory(id);
+    }
+
+    @PostMapping
+    public @ResponseBody PlantmoodHistory addPlantmoodHistory(@RequestBody PlantmoodHistory plantmoodHistory) {
+        return plantmoodHistoryService.addHistory(plantmoodHistory);
+    }
 }

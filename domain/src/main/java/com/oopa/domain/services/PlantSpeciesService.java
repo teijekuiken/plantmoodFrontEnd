@@ -1,33 +1,48 @@
 package com.oopa.domain.services;
 
 import com.oopa.dataAccess.repositories.PlantSpeciesRepository;
-import com.oopa.interfaces.model.IPlantSpecies;
+import com.oopa.domain.model.PlantSpecies;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
+@Service
 public class PlantSpeciesService {
+    @Autowired
+    private ModelMapper modelMapper;
 
-   private PlantSpeciesRepository plantSpeciesRepository;
+    @Autowired
+    private PlantSpeciesRepository plantSpeciesRepository;
 
-    public void addPlantSpecies(IPlantSpecies plantSpecies){
-        plantSpeciesRepository.save(plantSpecies);
+    public PlantSpecies addPlantSpecies(PlantSpecies plantSpecies){
+        var plantSpeciesEntity = this.modelMapper.map(plantSpecies, com.oopa.dataAccess.model.PlantSpecies.class);
+
+        return this.modelMapper.map(plantSpeciesRepository.save(plantSpeciesEntity), PlantSpecies.class);
     }
 
-    public List<IPlantSpecies> getAllPlantSpecies(){
-        return (List<IPlantSpecies>) plantSpeciesRepository.findAll();
+    public List<PlantSpecies> getAllPlantSpecies(){
+        return plantSpeciesRepository.findAll().stream()
+                .map(plantSpecies -> this.modelMapper.map(plantSpecies, PlantSpecies.class))
+                .collect(Collectors.toList());
     }
 
-    public Optional<IPlantSpecies> getPlantSpeciesById(Integer id){
-        return plantSpeciesRepository.findById(id);
+    public PlantSpecies getPlantSpeciesById(Integer id){
+        var plantSpecies = plantSpeciesRepository.findById(id);
+
+        return this.modelMapper.map(plantSpecies, PlantSpecies.class);
     }
 
-    public String deletePlantSpecies(Integer id){
-        Optional<IPlantSpecies> optionalPlantSpecie = plantSpeciesRepository.findById(id);
-        if (optionalPlantSpecie.isPresent()) {
-            plantSpeciesRepository.delete(optionalPlantSpecie.get());
-            return "PlantSpecie with id:" + id + "is deleted";
-        } else {
-            throw new RuntimeException("PlantSpecie with id: " + id + "not found");
+    public PlantSpecies deletePlantSpecies(Integer id){
+        var plantSpecies = plantSpeciesRepository.findById(id);
+        if (plantSpecies.isEmpty()) {
+            throw new EntityNotFoundException("Couldn't find " + PlantSpecies.class.getName() + " with id " + id);
         }
+
+        plantSpeciesRepository.deleteById(id);
+        return this.modelMapper.map(plantSpecies, PlantSpecies.class);
     }
 }

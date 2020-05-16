@@ -1,42 +1,38 @@
 package pm.controllers;
 
+import com.oopa.domain.model.User;
 import com.oopa.domain.services.UserService;
-import com.oopa.interfaces.model.IUser;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
+
 
 @RequestMapping("api/v1/user")
 @RestController
 public class UserController {
 
+    @Autowired
     private UserService userService;
 
-    public UserController(){
-        this.userService = new UserService();
-    }
-
-   @PostMapping
-    public void addUser(@RequestBody IUser user){
-        userService.addUser(user);
+    @PostMapping
+    public @ResponseBody User addUser(@RequestBody User user){
+        return userService.addUser(user);
     }
 
     @GetMapping
-    public List<IUser> getAllUsers(){
-        List<IUser> users = userService.getAllUsers();
-        return users;
+    public @ResponseBody List<User> getAllUsers(){
+        return userService.getAllUsers();
     }
 
     @GetMapping(path = {"id"})
-    public Optional<IUser> getPersonById(@PathVariable("id") int id){
-        Optional<IUser> user =  userService.getUserById(id);
-        return user;
+    public @ResponseBody User getPersonById(@PathVariable("id") Integer id){
+        return userService.getUserById(id);
     }
 
     @DeleteMapping
-    public void deleteUser(@PathVariable int id){
-        userService.deleteUser(id);
+    public @ResponseBody User deleteUser(@PathVariable Integer id){
+        return userService.deleteUser(id);
     }
 
 }
