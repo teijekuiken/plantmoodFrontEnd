@@ -5,51 +5,66 @@ import com.oopa.domain.model.Plantmood;
 import com.oopa.interfaces.model.IPlantmood;
 import com.oopa.interfaces.model.IPlantmoodhistory;
 import com.oopa.interfaces.model.IPlantSpecies;
-import java.util.List;
-import java.util.Optional;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Service
 public class PlantmoodService {
-    private Plantmood plantmood;
+    @Autowired
+    private ModelMapper modelMapper;
+
+    @Autowired
     private PlantmoodRepository plantmoodRepository;
 
-    public void addPlantmood(IPlantmood plantMood) {
-        plantmoodRepository.save(plantMood);
+    public Plantmood addPlantmood(Plantmood plantmood) {
+        var plantmoodEntity = this.modelMapper.map(plantmood, com.oopa.dataAccess.model.Plantmood.class);
+
+        return this.modelMapper.map(plantmoodRepository.save(plantmoodEntity), Plantmood.class);
+    }
+
+    public void linkPlantSpieciesToPlantmood(IPlantSpecies plantSpecies, IPlantmood plantMood) {
+    }
+
+    public void deletePlantmoodFromUser(int userId, int plantmoodId) {
+
+    }
+
+    public void switchPlantmoodFromUser(int userId, int plantmoodId) {
+
     }
 
     public void getPlantStatus(IPlantmoodhistory plantmoodHistory, int plantspeciesId) {
 
     }
 
-    public Optional<IPlantmood> getPlantmoodById(int plantmoodId) {
-        return plantmoodRepository.findById(plantmoodId);
-    }
-
-    public List<IPlantmood> getAllPlantmoods() {
-        return (List<IPlantmood>) plantmoodRepository.findAll();
-    }
-
-    public String deletePlantmood(Integer plantmoodId) {
-        Optional<IPlantmood> optionalPlantmood = plantmoodRepository.findById(plantmoodId);
-        if (optionalPlantmood.isPresent()) {
-            plantmoodRepository.delete(optionalPlantmood.get());
-            return "PlantMood with id:" + plantmoodId + "is deleted";
-        } else {
-            throw new RuntimeException("PlantMood with id: " + plantmoodId + "not found");
+    public Plantmood getPlantmoodById(Integer id) {
+        var plantmood = plantmoodRepository.findById(id);
+        if (plantmood.isEmpty()) {
+            throw new EntityNotFoundException("Couldn't find " + Plantmood.class.getName() + " with id " + id);
         }
-    }
-    // TODO: 11/05/2020 Not used for now (Voorlopig denk ik makkelijker om deze gelijk mee te geven ipv later te linken)
-    public void linkPlantSpieciesToPlantmood(IPlantSpecies plantSpecies, IPlantmood plantMood) {
-    }
-    // TODO: 11/05/2020 Not used for now
-    public void deletePlantmoodFromUser(int userId, int plantmoodId) {
 
+        return this.modelMapper.map(plantmood, Plantmood.class);
     }
-    // TODO: 11/05/2020 Not used for now
-    public void switchPlantmoodFromUser(int userId, int plantmoodId) {
 
+    public List<Plantmood> getAllPlantmoods() {
+        return plantmoodRepository.findAll().stream()
+                .map(plantmood -> this.modelMapper.map(plantmood, Plantmood.class))
+                .collect(Collectors.toList());
     }
-    // TODO: 11/05/2020 Not used for now
-    public void updatePlantmood(IPlantmood plantmood) {
 
+    public Plantmood deletePlantmood(Integer id) {
+        var plantmood = plantmoodRepository.findById(id);
+        if (plantmood.isEmpty()) {
+            throw new EntityNotFoundException("Couldn't find " + Plantmood.class.getName() + " with id " + id);
+        }
+
+        plantmoodRepository.deleteById(id);
+        return this.modelMapper.map(plantmood, Plantmood.class);
     }
+
 }
