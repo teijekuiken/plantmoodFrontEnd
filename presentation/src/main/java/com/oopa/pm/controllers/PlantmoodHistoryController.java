@@ -1,4 +1,4 @@
-package pm.controllers;
+package com.oopa.pm.controllers;
 
 import com.oopa.domain.model.PlantmoodHistory;
 import com.oopa.domain.services.PlantmoodHistoryService;

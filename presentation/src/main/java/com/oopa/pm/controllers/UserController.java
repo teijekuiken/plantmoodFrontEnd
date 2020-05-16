@@ -1,4 +1,4 @@
-package pm.controllers;
+package com.oopa.pm.controllers;
 
 import com.oopa.domain.model.User;
 import com.oopa.domain.services.UserService;
@@ -25,12 +25,12 @@ public class UserController {
         return userService.getAllUsers();
     }
 
-    @GetMapping(path = {"id"})
+    @GetMapping(path = "/{id}")
     public @ResponseBody User getPersonById(@PathVariable("id") Integer id){
         return userService.getUserById(id);
     }
 
-    @DeleteMapping
+    @DeleteMapping(path = "/{id}")
     public @ResponseBody User deleteUser(@PathVariable Integer id){
         return userService.deleteUser(id);
     }

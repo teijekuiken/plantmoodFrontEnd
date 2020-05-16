@@ -1,4 +1,4 @@
-package pm.controllers;
+package com.oopa.pm.controllers;
 
 import com.oopa.domain.model.Plantmood;
 import com.oopa.domain.services.PlantmoodService;

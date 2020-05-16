@@ -15,7 +15,11 @@ public class MqttService {
         String arduinoSn = splitMessage[0];
         int moistureValue = Integer.parseInt(splitMessage[1]);
 
-        IPlantmoodhistory plantmoodHistory = plantmoodHistoryService.addHistory(new PlantmoodHistory(arduinoSn, moistureValue));
+        PlantmoodHistory plantmoodHistory = new PlantmoodHistory();
+        plantmoodHistory.setArduinoSn(arduinoSn);
+        plantmoodHistory.setHealth(moistureValue);
+
+        var plantmoodHistoryEntity = plantmoodHistoryService.addHistory(plantmoodHistory);
         logger.info("Received: ArduinoSn {} with moisturevalue of {}", plantmoodHistory.getArduinoSn(), plantmoodHistory.getHealth());
     }
 }
