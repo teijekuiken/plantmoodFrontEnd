@@ -11,11 +11,15 @@ import org.slf4j.LoggerFactory;
 public class Callback implements MqttCallback {
 
     private static Logger logger = LoggerFactory.getLogger(Callback.class);
-    private Mqtt mqtt;
-    private MqttService mqttService;
 
     @Override
     public void connectionLost(Throwable throwable){
+        Mqtt mqtt = null;
+        try {
+            mqtt = new Mqtt();
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
         logger.error("Connection to MQTT broker is lost, reconnecting...");
         try {
             mqtt.startMqtt();
@@ -27,6 +31,7 @@ public class Callback implements MqttCallback {
     @Override
     public void messageArrived(String s, MqttMessage mqttMessage){
         String incommingMessage = new String(mqttMessage.getPayload());
+        MqttService mqttService = new MqttService();
         mqttService.splitMessage(incommingMessage);
     }
 

@@ -19,7 +19,7 @@ public class MqttService {
         plantmoodHistory.setArduinoSn(arduinoSn);
         plantmoodHistory.setHealth(moistureValue);
 
-        var plantmoodHistoryEntity = plantmoodHistoryService.addHistory(plantmoodHistory);
+        //var plantmoodHistoryEntity = plantmoodHistoryService.addHistory(plantmoodHistory);
         logger.info("Received: ArduinoSn {} with moisturevalue of {}", plantmoodHistory.getArduinoSn(), plantmoodHistory.getHealth());
     }
 }
