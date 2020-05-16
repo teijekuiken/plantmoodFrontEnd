@@ -1,45 +1,35 @@
 package pm.controllers;
 
+import com.oopa.domain.model.Plantmood;
 import com.oopa.domain.services.PlantmoodService;
-import com.oopa.interfaces.model.IPlantmood;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequestMapping("api/v1/plantmood")
 @RestController
 public class PlantmoodController {
+    @Autowired
     private PlantmoodService plantmoodService;
 
-    public PlantmoodController(){
-        this.plantmoodService = new PlantmoodService();
-    }
-
     @PostMapping
-    public void addPlantMood(@RequestBody IPlantmood plantMood){
-        plantmoodService.addPlantmood(plantMood);
+    public @ResponseBody Plantmood addPlantMood(@RequestBody Plantmood plantmood){
+        return plantmoodService.addPlantmood(plantmood);
     }
 
-/*    @GetMapping
-    public List<IPlantmood> getAllPlantMood(){
-        List<IPlantmood> plantMoods = plantmoodService.getAllPlantmoods();
-        return plantMoods;
+    @GetMapping
+    public @ResponseBody List<Plantmood> getAllPlantMood(){
+        return plantmoodService.getAllPlantmoods();
     }
 
     @GetMapping(path = {"id"})
-    public IPlantmood getPlantMoodById(@PathVariable("id") int id){
-        IPlantmood plantMood = plantmoodService.getPlantmoodById(id);
-        return plantMood;
-    }*/
-
-    @PutMapping
-    public void updatePlantMood(IPlantmood plantMood){
-        plantmoodService.updatePlantmood(plantMood);
+    public @ResponseBody Plantmood getPlantMoodById(@PathVariable("id") Integer id){
+        return plantmoodService.getPlantmoodById(id);
     }
 
     @DeleteMapping
-    public void deletePlantMood(int id){
-        plantmoodService.deletePlantmood(id);
+    public @ResponseBody Plantmood deletePlantMood(Integer id){
+        return plantmoodService.deletePlantmood(id);
     }
-
-
-
 }
