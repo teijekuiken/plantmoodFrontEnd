@@ -2,6 +2,7 @@ package pm.controllers;
 
 import com.oopa.domain.model.User;
 import com.oopa.domain.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,30 +12,26 @@ import java.util.List;
 @RestController
 public class UserController {
 
+    @Autowired
     private UserService userService;
 
-    public UserController(){
-        this.userService = new UserService();
-    }
-
-   @PostMapping
+    @PostMapping
     public @ResponseBody User addUser(@RequestBody User user){
         return userService.addUser(user);
     }
 
     @GetMapping
     public @ResponseBody List<User> getAllUsers(){
-        List<User> users = userService.getAllUsers();
-        return users;
+        return userService.getAllUsers();
     }
 
     @GetMapping(path = {"id"})
-    public @ResponseBody User getPersonById(@PathVariable("id") int id){
+    public @ResponseBody User getPersonById(@PathVariable("id") Integer id){
         return userService.getUserById(id);
     }
 
     @DeleteMapping
-    public @ResponseBody User deleteUser(@PathVariable int id){
+    public @ResponseBody User deleteUser(@PathVariable Integer id){
         return userService.deleteUser(id);
     }
 

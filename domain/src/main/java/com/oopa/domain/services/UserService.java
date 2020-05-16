@@ -2,14 +2,13 @@ package com.oopa.domain.services;
 
 import com.oopa.dataAccess.repositories.UserRepository;
 import com.oopa.domain.model.User;
-import com.oopa.interfaces.model.IUser;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
-import java.util.Optional;
+
 import java.util.stream.Collectors;
 
 @Service
