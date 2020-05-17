@@ -12,5 +12,9 @@
 - ##### *For Mac*
   - ?
 3. Open a new terminal in the folder where the project is located
-4. Run the following command: docker-compose up -d
+4. Run the following command: docker-compose up -d  ***(This step only needs to be done one time, after that the docker container will be running at all times)***
 5. You can now run the application in your preffered IDE
+
+#### Access local database
+For now the application is connected to a local database. To acces the database go to: [localhost:8081](localhost:8081)     
+  The database is only accessible after the docker command is executed
