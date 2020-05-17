@@ -28,9 +28,4 @@ public class PlantmoodHistoryController {
     public @ResponseBody PlantmoodHistory deletePlantMoodHistory(Integer id){
         return plantmoodHistoryService.deletePlantmoodHistory(id);
     }
-
-    @PostMapping
-    public @ResponseBody PlantmoodHistory addPlantmoodHistory(@RequestBody PlantmoodHistory plantmoodHistory) {
-        return plantmoodHistoryService.addHistory(plantmoodHistory);
-    }
 }
