@@ -7,9 +7,14 @@ import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class Callback implements MqttCallback {
 
+    @Autowired
+    private MqttService mqttService;
     private static Logger logger = LoggerFactory.getLogger(Callback.class);
 
     @Override
@@ -31,7 +36,6 @@ public class Callback implements MqttCallback {
     @Override
     public void messageArrived(String s, MqttMessage mqttMessage){
         String incommingMessage = new String(mqttMessage.getPayload());
-        MqttService mqttService = new MqttService();
         mqttService.splitMessage(incommingMessage);
     }
 
