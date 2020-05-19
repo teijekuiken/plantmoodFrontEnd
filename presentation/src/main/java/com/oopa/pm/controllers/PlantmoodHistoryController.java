@@ -30,7 +30,7 @@ public class PlantmoodHistoryController {
     }
 
     @PostMapping
-    public @ResponseBody PlantmoodHistory addHistory(PlantmoodHistory plantmoodHistory){
+    public @ResponseBody PlantmoodHistory addHistory(@RequestBody PlantmoodHistory plantmoodHistory){
         return plantmoodHistoryService.addHistory(plantmoodHistory);
     }
 }
