@@ -13,10 +13,5 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 public class PlantMoodApplication {
     public static void main(String[] args){
         SpringApplication.run(PlantMoodApplication.class, args);
-        try {
-            new Mqtt().startMqtt();
-        } catch (MqttException e) {
-            e.printStackTrace();
-        }
     }
 }
