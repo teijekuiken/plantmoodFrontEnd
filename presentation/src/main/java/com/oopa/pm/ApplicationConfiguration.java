@@ -58,12 +58,10 @@ public class ApplicationConfiguration {
     @ServiceActivator(inputChannel = "mqttInputChannel")
     public MessageHandler handler() {
         return new MessageHandler() {
-
             @Override
             public void handleMessage(Message<?> message) throws MessagingException {
                 mqttService.splitMessage(message);
             }
-
         };
     }
 
@@ -89,6 +87,13 @@ public class ApplicationConfiguration {
     @Bean
     public MessageChannel mqttOutboundChannel() {
         return new DirectChannel();
+    }
+
+    @MessagingGateway(defaultRequestChannel = "mqttOutboundChannel")
+    public interface MyGateway {
+
+        void sendToMqtt(String data);
+
     }
 
 }

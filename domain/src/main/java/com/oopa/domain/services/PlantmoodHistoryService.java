@@ -19,9 +19,7 @@ public class PlantmoodHistoryService {
     private PlantmoodHistoryRepository plantmoodHistoryRepository;
 
     public PlantmoodHistory addHistory(PlantmoodHistory plantmoodHistory){
-        System.out.println("testAddHistory: "+plantmoodHistory.getArduinoSn()+" "+plantmoodHistory.getHealth());
         var plantmoodHistoryEntity = this.modelMapper.map(plantmoodHistory, com.oopa.dataAccess.model.PlantmoodHistory.class);
-        System.out.println("testEntity: "+plantmoodHistoryEntity.getArduinoSn()+" "+plantmoodHistoryEntity.getHealth());
         return this.modelMapper.map(plantmoodHistoryRepository.save(plantmoodHistoryEntity), PlantmoodHistory.class);
     }
 
