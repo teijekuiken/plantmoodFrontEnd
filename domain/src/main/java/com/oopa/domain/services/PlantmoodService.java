@@ -1,21 +1,18 @@
 package com.oopa.domain.services;
 
-import com.oopa.dataAccess.model.FakePlantspecies;
 import com.oopa.dataAccess.repositories.PlantmoodRepository;
-import com.oopa.domain.model.PlantSpecies;
 import com.oopa.domain.model.Plantmood;
-import com.oopa.domain.model.PlantmoodHistory;
+import com.oopa.interfaces.model.IPlantSpecies;
 import com.oopa.interfaces.model.IPlantmood;
 import com.oopa.interfaces.model.IPlantmoodhistory;
-import com.oopa.interfaces.model.IPlantSpecies;
-import net.bytebuddy.asm.Advice;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.time.LocalDateTime;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,6 +21,15 @@ import java.util.stream.Collectors;
 public class PlantmoodService {
 
     private LocalDateTime lastTestTime;
+
+    @Autowired
+    private MqttService mqttService;
+
+    @Autowired
+    private PlantmoodHistoryService plantmoodHistoryService;
+
+    private String mood;
+    private Logger logger = LoggerFactory.getLogger(PlantmoodService.class);
 
     public PlantmoodService() {
         lastTestTime = LocalDateTime.now();
@@ -52,8 +58,11 @@ public class PlantmoodService {
 
     }
 
-    public String getPlantStatus(List<IPlantmoodhistory> plantmoodhistories, FakePlantspecies plantspecies, LocalDateTime lastTestTime) {
-        if (plantmoodhistories.size() > 4 && tenMinutesArePassed(lastTestTime)) {
+    public void getPlantStatus(String arduinoSn) {
+        List<IPlantmoodhistory> plantmoodhistories = plantmoodHistoryService.getAllHistoryByArduinoSn(arduinoSn);
+        IPlantmood currentPlantmood = plantmoodRepository.findAllByArduinoSn(arduinoSn);
+
+        if (plantmoodhistories.size() > 4) {
             double valueOfPlantmoodData = 0;
             double avarageOfPlantmoodData = 0;
             double multiplier = 1;
@@ -61,28 +70,29 @@ public class PlantmoodService {
 
             lastTestTime = LocalDateTime.now();
 
-//            List<IPlantmoodhistory> subListPlantmoodhistories = plantmoodhistories.stream()
-//                    .sorted(Comparator.comparing(IPlantmoodhistory::getCreatedAt).reversed())
-//                    .collect(Collectors.toList()).subList(0, 5);
+            List<IPlantmoodhistory> subListPlantmoodhistories = plantmoodhistories.stream()
+                    .sorted(Comparator.comparing(IPlantmoodhistory::getCreatedAt).reversed())
+                    .collect(Collectors.toList()).subList(0, 5);
 
-            for (IPlantmoodhistory history: plantmoodhistories) {
+            for (IPlantmoodhistory history: subListPlantmoodhistories) {
                 valueOfPlantmoodData += multiplier * history.getHealth();
                 substractionOfAverage += multiplier;
                 multiplier -= 0.2;
             }
             avarageOfPlantmoodData = valueOfPlantmoodData / substractionOfAverage;
 
-            if (avarageOfPlantmoodData < plantspecies.getMinHumidity()) {
-                System.out.println("Geef water");
-                return "Geef water";
-            } else if (avarageOfPlantmoodData > plantspecies.getMaxHumidity()) {
-                System.out.println("Te veel water");
-                return "Te veel water";
+            if (avarageOfPlantmoodData < currentPlantmood.getPlantSpecies().getMinHumidity()) {
+                mood = "DRY";
+                mqttService.sendMoodToPlantMood(arduinoSn, mood);
+
+            } else if (avarageOfPlantmoodData > currentPlantmood.getPlantSpecies().getMaxHumidity()) {
+                mood = "WET";
+                mqttService.sendMoodToPlantMood(arduinoSn,mood);
             }
-            System.out.println("De plant is op het juiste niveau");
-            return "De plant is op het juiste niveau";
+            mood = "ALIVE";
+            mqttService.sendMoodToPlantMood(arduinoSn,mood);
         }
-        return "Not enough time has passed";
+        logger.info("Not enough time has passed to calculate mood of plant");
     }
 
 

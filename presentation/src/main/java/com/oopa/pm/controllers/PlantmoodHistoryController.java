@@ -18,7 +18,7 @@ public class PlantmoodHistoryController {
     @Autowired
     private ApplicationConfiguration config;
 
-    @GetMapping
+/*    @GetMapping
     public @ResponseBody List<PlantmoodHistory> getAllPlantMoodHistory() {
         return plantmoodHistoryService.getAllPlantmoodHistorties();
     }
@@ -31,7 +31,7 @@ public class PlantmoodHistoryController {
     @DeleteMapping
     public @ResponseBody PlantmoodHistory deletePlantMoodHistory(Integer id){
         return plantmoodHistoryService.deletePlantmoodHistory(id);
-    }
+    }*/
 
     @PostMapping
     public @ResponseBody PlantmoodHistory addHistory(@RequestBody PlantmoodHistory plantmoodHistory){

@@ -10,6 +10,8 @@ import org.springframework.messaging.Message;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @Service
 public class MqttService {
 
@@ -19,11 +21,13 @@ public class MqttService {
     @Autowired
     private MqttOutboundConfiguration config;
 
+    @Autowired
+    private PlantmoodService plantmoodService;
+
     private static Logger logger = LoggerFactory.getLogger(PlantmoodHistoryService.class);
 
     public void splitMessage(Message<?> incommingMessage){
         String[] splitMessage = incommingMessage.toString().split("[=,]");
-
         String arduinoSn = splitMessage[1];
         int moistureValue = Integer.parseInt(splitMessage[2]);
 
@@ -32,6 +36,7 @@ public class MqttService {
         plantmoodHistory.setHealth(moistureValue);
 
         plantmoodHistoryService.addHistory(plantmoodHistory);
+        plantmoodService.getPlantStatus(arduinoSn);
         logger.info("Received: ArduinoSn {} with moisturevalue of {}", plantmoodHistory.getArduinoSn(), plantmoodHistory.getHealth());
     }
 

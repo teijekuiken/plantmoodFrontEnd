@@ -1,7 +1,6 @@
 package com.oopa.dataAccess.repositories;
 
 import com.oopa.dataAccess.model.FakePlantmoodHistory;
-import com.oopa.dataAccess.model.PlantmoodHistory;
 import com.oopa.interfaces.model.IPlantmoodhistory;
 import org.springframework.stereotype.Repository;
 
@@ -10,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-@Repository("fakeDao")
+@Repository("fakeDao2")
 public class FakePlantmoodHistoriesDAO {
 
     private static List<IPlantmoodhistory> DB = new ArrayList<>();
