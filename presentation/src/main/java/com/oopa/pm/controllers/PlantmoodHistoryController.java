@@ -4,8 +4,6 @@ import com.oopa.domain.model.PlantmoodHistory;
 import com.oopa.domain.services.PlantmoodHistoryService;
 import com.oopa.pm.ApplicationConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.integration.mqtt.support.MqttHeaders;
-import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -38,10 +36,5 @@ public class PlantmoodHistoryController {
     @PostMapping
     public @ResponseBody PlantmoodHistory addHistory(@RequestBody PlantmoodHistory plantmoodHistory){
         return plantmoodHistoryService.addHistory(plantmoodHistory);
-    }
-
-    @GetMapping(path = {"/mood"})
-    public void sendToPlantmood(){
-        config.mqttOutboundChannel().send(MessageBuilder.withPayload("Alive").setHeader(MqttHeaders.TOPIC, "Plantmood/Menno/Mood").build());
     }
 }

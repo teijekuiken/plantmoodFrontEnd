@@ -64,33 +64,4 @@ public class ApplicationConfiguration {
             }
         };
     }
-    @Bean
-    public MqttPahoClientFactory mqttClientFactory() {
-        DefaultMqttPahoClientFactory factory = new DefaultMqttPahoClientFactory();
-        MqttConnectOptions options = new MqttConnectOptions();
-        options.setServerURIs(new String[] { mqttClientServer });
-        factory.setConnectionOptions(options);
-        return factory;
-    }
-
-    @Bean
-    @ServiceActivator(inputChannel = "mqttOutboundChannel")
-    public MessageHandler mqttOutbound() {
-        MqttPahoMessageHandler messageHandler =
-                new MqttPahoMessageHandler(clientId, mqttClientFactory());
-        messageHandler.setAsync(true);
-        return messageHandler;
-    }
-
-    @Bean
-    public MessageChannel mqttOutboundChannel() {
-        return new DirectChannel();
-    }
-
-    @MessagingGateway(defaultRequestChannel = "mqttOutboundChannel")
-    public interface MyGateway {
-
-        void sendToMqtt(Message<String> data);
-
-    }
 }
