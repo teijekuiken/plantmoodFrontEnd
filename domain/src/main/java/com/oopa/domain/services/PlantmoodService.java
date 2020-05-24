@@ -2,7 +2,6 @@ package com.oopa.domain.services;
 
 import com.oopa.dataAccess.repositories.PlantmoodRepository;
 import com.oopa.domain.model.Plantmood;
-import com.oopa.interfaces.model.IPlantSpecies;
 import com.oopa.interfaces.model.IPlantmood;
 import com.oopa.interfaces.model.IPlantmoodhistory;
 import org.modelmapper.ModelMapper;
@@ -10,11 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import javax.persistence.EntityNotFoundException;
-import java.time.LocalDateTime;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -38,13 +34,13 @@ public class PlantmoodService {
         return this.modelMapper.map(plantmoodRepository.save(plantmoodEntity), Plantmood.class);
     }
 
-    public void getPlantStatus(String arduinoSn, Date lastTestTime) {
+    public void getPlantStatus(String arduinoSn) {
         List<IPlantmoodhistory> plantmoodhistories = plantmoodHistoryService.getAllHistoryByArduinoSn(arduinoSn);
         IPlantmood currentPlantmood = plantmoodRepository.findAllByArduinoSn(arduinoSn);
 
-        if (plantmoodhistories.size() > 4 && tenMinutesArePassed(lastTestTime)) {
+        if (plantmoodhistories.size() > 4 ) {
             double valueOfPlantmoodData = 0;
-            double avarageOfPlantmoodData = 0;
+            double avarageOfPlantmoodData;
             double multiplier = 1;
             double substractionOfAverage = 0;
 
@@ -97,10 +93,4 @@ public class PlantmoodService {
         plantmoodRepository.deleteById(id);
         return this.modelMapper.map(plantmood, Plantmood.class);
     }
-
-    private boolean tenMinutesArePassed(LocalDateTime lastCheck) {
-        return lastCheck.isBefore(LocalDateTime.now().minusMinutes(10));
-    }
-
-
 }
