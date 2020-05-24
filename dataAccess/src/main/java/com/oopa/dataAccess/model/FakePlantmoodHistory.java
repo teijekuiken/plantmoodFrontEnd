@@ -10,9 +10,9 @@ public class FakePlantmoodHistory implements IPlantmoodhistory {
     private Integer id;
     private int health;
     private String arduinoSn;
-    private LocalDateTime date;
+    private Date date;
 
-    public FakePlantmoodHistory(Integer id, int health, String arduinoSn, LocalDateTime date) {
+    public FakePlantmoodHistory(Integer id, int health, String arduinoSn, Date date) {
         this.id = id;
         this.health = health;
         this.arduinoSn = arduinoSn;
@@ -53,11 +53,11 @@ public class FakePlantmoodHistory implements IPlantmoodhistory {
         this.arduinoSn = arduinoSn;
     }
 
-    public LocalDateTime getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(LocalDateTime date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 }

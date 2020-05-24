@@ -14,61 +14,39 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
 import java.time.LocalDateTime;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class PlantmoodService {
 
-    private LocalDateTime lastTestTime;
-
     @Autowired
     private MqttService mqttService;
-
     @Autowired
     private PlantmoodHistoryService plantmoodHistoryService;
+    @Autowired
+    private ModelMapper modelMapper;
+    @Autowired
+    private PlantmoodRepository plantmoodRepository;
 
     private String mood;
     private Logger logger = LoggerFactory.getLogger(PlantmoodService.class);
 
-    public PlantmoodService() {
-        lastTestTime = LocalDateTime.now();
-    }
-
-    @Autowired
-    private ModelMapper modelMapper;
-
-    @Autowired
-    private PlantmoodRepository plantmoodRepository;
-
     public Plantmood addPlantmood(Plantmood plantmood) {
         var plantmoodEntity = this.modelMapper.map(plantmood, com.oopa.dataAccess.model.Plantmood.class);
-
         return this.modelMapper.map(plantmoodRepository.save(plantmoodEntity), Plantmood.class);
     }
 
-    public void linkPlantSpieciesToPlantmood(IPlantSpecies plantSpecies, IPlantmood plantMood) {
-    }
-
-    public void deletePlantmoodFromUser(int userId, int plantmoodId) {
-
-    }
-
-    public void switchPlantmoodFromUser(int userId, int plantmoodId) {
-
-    }
-
-    public void getPlantStatus(String arduinoSn) {
+    public void getPlantStatus(String arduinoSn, Date lastTestTime) {
         List<IPlantmoodhistory> plantmoodhistories = plantmoodHistoryService.getAllHistoryByArduinoSn(arduinoSn);
         IPlantmood currentPlantmood = plantmoodRepository.findAllByArduinoSn(arduinoSn);
 
-        if (plantmoodhistories.size() > 4) {
+        if (plantmoodhistories.size() > 4 && tenMinutesArePassed(lastTestTime)) {
             double valueOfPlantmoodData = 0;
             double avarageOfPlantmoodData = 0;
             double multiplier = 1;
             double substractionOfAverage = 0;
-
-            lastTestTime = LocalDateTime.now();
 
             List<IPlantmoodhistory> subListPlantmoodhistories = plantmoodhistories.stream()
                     .sorted(Comparator.comparing(IPlantmoodhistory::getCreatedAt).reversed())
@@ -88,20 +66,19 @@ public class PlantmoodService {
             } else if (avarageOfPlantmoodData > currentPlantmood.getPlantSpecies().getMaxHumidity()) {
                 mood = "WET";
                 mqttService.sendMoodToPlantMood(arduinoSn,mood);
+            }else {
+                mood = "ALIVE";
+                mqttService.sendMoodToPlantMood(arduinoSn, mood);
             }
-            mood = "ALIVE";
-            mqttService.sendMoodToPlantMood(arduinoSn,mood);
         }
         logger.info("Not enough time has passed to calculate mood of plant");
     }
-
 
     public Plantmood getPlantmoodById(Integer id) {
         var plantmood = plantmoodRepository.findById(id);
         if (plantmood.isEmpty()) {
             throw new EntityNotFoundException("Couldn't find " + Plantmood.class.getName() + " with id " + id);
         }
-
         return this.modelMapper.map(plantmood, Plantmood.class);
     }
 

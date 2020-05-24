@@ -10,7 +10,9 @@ import org.springframework.messaging.Message;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 
 @Service
 public class MqttService {
@@ -31,12 +33,14 @@ public class MqttService {
         String arduinoSn = splitMessage[1];
         int moistureValue = Integer.parseInt(splitMessage[2]);
 
+        Date date = new Date(System.currentTimeMillis());
         PlantmoodHistory plantmoodHistory = new PlantmoodHistory();
         plantmoodHistory.setArduinoSn(arduinoSn);
         plantmoodHistory.setHealth(moistureValue);
+        plantmoodHistory.setCreatedAt(date);
 
         plantmoodHistoryService.addHistory(plantmoodHistory);
-        plantmoodService.getPlantStatus(arduinoSn);
+        plantmoodService.getPlantStatus(arduinoSn, plantmoodHistory.getCreatedAt());
         logger.info("Received: ArduinoSn {} with moisturevalue of {}", plantmoodHistory.getArduinoSn(), plantmoodHistory.getHealth());
     }
 
