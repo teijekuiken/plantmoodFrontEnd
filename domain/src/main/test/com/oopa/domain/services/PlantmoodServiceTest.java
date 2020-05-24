@@ -63,7 +63,7 @@ class PlantmoodServiceTest {
     void getPlantStatus_WhereWaterLevelIsTooHigh() {
         //Arrange
         PlantmoodService plantmoodService = new PlantmoodService();
-        FakePlantmoodHistoriesDAO fakePlantmoodHistoriesDAO2 = new FakePlantmoodHistoriesDAO();
+        FakePlantmoodHistoriesDAO fakePlantmoodHistoriesDAO = new FakePlantmoodHistoriesDAO();
         FakePlantspeciesDAO fakePlantspeciesDAO = new FakePlantspeciesDAO();
         FakePlantspecies fakePlantspecies =
                 new FakePlantspecies(1, "species1", 400, 800);
@@ -82,11 +82,11 @@ class PlantmoodServiceTest {
         FakePlantmoodHistory fakePlantmoodHistory5 =
                 new FakePlantmoodHistory(5, 1500, "#123"
                         , LocalDateTime.now().minusMinutes(11));
-        fakePlantmoodHistoriesDAO2.addHistory(fakePlantmoodHistory1);
-        fakePlantmoodHistoriesDAO2.addHistory(fakePlantmoodHistory2);
-        fakePlantmoodHistoriesDAO2.addHistory(fakePlantmoodHistory3);
-        fakePlantmoodHistoriesDAO2.addHistory(fakePlantmoodHistory4);
-        fakePlantmoodHistoriesDAO2.addHistory(fakePlantmoodHistory5);
+        fakePlantmoodHistoriesDAO.addHistory(fakePlantmoodHistory1);
+        fakePlantmoodHistoriesDAO.addHistory(fakePlantmoodHistory2);
+        fakePlantmoodHistoriesDAO.addHistory(fakePlantmoodHistory3);
+        fakePlantmoodHistoriesDAO.addHistory(fakePlantmoodHistory4);
+        fakePlantmoodHistoriesDAO.addHistory(fakePlantmoodHistory5);
 
         fakePlantspeciesDAO.addPlantspecies(fakePlantspecies);
 
@@ -94,10 +94,10 @@ class PlantmoodServiceTest {
 
 
         //Act
-        System.out.println(fakePlantmoodHistoriesDAO2.getAllFakePlantmoodHistories());
+        System.out.println(fakePlantmoodHistoriesDAO.getAllFakePlantmoodHistories());
         System.out.println(fakePlantspeciesDAO.getAllPlantspecies());
         String actual = plantmoodService.getPlantStatus(
-                fakePlantmoodHistoriesDAO2.getAllFakePlantmoodHistories(),
+                fakePlantmoodHistoriesDAO.getAllFakePlantmoodHistories(),
                 fakePlantspecies,
                 LocalDateTime.now().minusMinutes(11));
 
@@ -109,7 +109,7 @@ class PlantmoodServiceTest {
     void getPlantStatus_WhereWaterLevelIsTooLow() {
         //Arrange
         PlantmoodService plantmoodService = new PlantmoodService();
-        FakePlantmoodHistoriesDAO fakePlantmoodHistoriesDAO3 = new FakePlantmoodHistoriesDAO();
+        FakePlantmoodHistoriesDAO fakePlantmoodHistoriesDAO = new FakePlantmoodHistoriesDAO();
         FakePlantspeciesDAO fakePlantspeciesDAO = new FakePlantspeciesDAO();
         FakePlantspecies fakePlantspecies =
                 new FakePlantspecies(1, "species1", 2000, 4000);
@@ -128,11 +128,11 @@ class PlantmoodServiceTest {
         FakePlantmoodHistory fakePlantmoodHistory5 =
                 new FakePlantmoodHistory(5, 1500, "#123"
                         , LocalDateTime.now().minusMinutes(11));
-        fakePlantmoodHistoriesDAO3.addHistory(fakePlantmoodHistory1);
-        fakePlantmoodHistoriesDAO3.addHistory(fakePlantmoodHistory2);
-        fakePlantmoodHistoriesDAO3.addHistory(fakePlantmoodHistory3);
-        fakePlantmoodHistoriesDAO3.addHistory(fakePlantmoodHistory4);
-        fakePlantmoodHistoriesDAO3.addHistory(fakePlantmoodHistory5);
+        fakePlantmoodHistoriesDAO.addHistory(fakePlantmoodHistory1);
+        fakePlantmoodHistoriesDAO.addHistory(fakePlantmoodHistory2);
+        fakePlantmoodHistoriesDAO.addHistory(fakePlantmoodHistory3);
+        fakePlantmoodHistoriesDAO.addHistory(fakePlantmoodHistory4);
+        fakePlantmoodHistoriesDAO.addHistory(fakePlantmoodHistory5);
 
         fakePlantspeciesDAO.addPlantspecies(fakePlantspecies);
 
@@ -140,10 +140,10 @@ class PlantmoodServiceTest {
 
 
         //Act
-        System.out.println(fakePlantmoodHistoriesDAO3.getAllFakePlantmoodHistories());
+        System.out.println(fakePlantmoodHistoriesDAO.getAllFakePlantmoodHistories());
         System.out.println(fakePlantspeciesDAO.getAllPlantspecies());
         String actual = plantmoodService.getPlantStatus(
-                fakePlantmoodHistoriesDAO3.getAllFakePlantmoodHistories(),
+                fakePlantmoodHistoriesDAO.getAllFakePlantmoodHistories(),
                 fakePlantspecies,
                 LocalDateTime.now().minusMinutes(11));
 
