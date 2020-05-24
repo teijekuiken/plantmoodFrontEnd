@@ -2,6 +2,7 @@ package com.oopa.pm.controllers;
 
 import com.oopa.domain.model.PlantmoodHistory;
 import com.oopa.domain.services.PlantmoodHistoryService;
+import com.oopa.pm.ApplicationConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +14,9 @@ public class PlantmoodHistoryController {
 
     @Autowired
     private PlantmoodHistoryService plantmoodHistoryService;
+
+    @Autowired
+    private ApplicationConfiguration config;
 
     @GetMapping
     public @ResponseBody List<PlantmoodHistory> getAllPlantMoodHistory() {
@@ -30,7 +34,7 @@ public class PlantmoodHistoryController {
     }
 
     @PostMapping
-    public @ResponseBody PlantmoodHistory addPlantmoodHistory(@RequestBody PlantmoodHistory plantmoodHistory) {
+    public @ResponseBody PlantmoodHistory addHistory(@RequestBody PlantmoodHistory plantmoodHistory){
         return plantmoodHistoryService.addHistory(plantmoodHistory);
     }
 }
