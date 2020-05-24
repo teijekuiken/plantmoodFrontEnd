@@ -48,7 +48,7 @@ public class PlantmoodService {
             throw new EntityNotFoundException("Couldn't find " + Plantmood.class.getName() + " with id " + id);
         }
 
-        return this.modelMapper.map(plantmood, Plantmood.class);
+        return this.modelMapper.map(plantmood.get(), Plantmood.class);
     }
 
     public List<Plantmood> getAllPlantmoods() {
@@ -64,7 +64,7 @@ public class PlantmoodService {
         }
 
         plantmoodRepository.deleteById(id);
-        return this.modelMapper.map(plantmood, Plantmood.class);
+        return this.modelMapper.map(plantmood.get(), Plantmood.class);
     }
 
 }

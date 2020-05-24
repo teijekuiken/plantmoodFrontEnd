@@ -33,7 +33,11 @@ public class PlantSpeciesService {
     public PlantSpecies getPlantSpeciesById(Integer id){
         var plantSpecies = plantSpeciesRepository.findById(id);
 
-        return this.modelMapper.map(plantSpecies, PlantSpecies.class);
+        if (plantSpecies.isEmpty()) {
+            throw new EntityNotFoundException("Couldn't find " + PlantSpecies.class.getName() + " with id " + id);
+        }
+
+        return this.modelMapper.map(plantSpecies.get(), PlantSpecies.class);
     }
 
     public PlantSpecies deletePlantSpecies(Integer id){
@@ -43,6 +47,6 @@ public class PlantSpeciesService {
         }
 
         plantSpeciesRepository.deleteById(id);
-        return this.modelMapper.map(plantSpecies, PlantSpecies.class);
+        return this.modelMapper.map(plantSpecies.get(), PlantSpecies.class);
     }
 }

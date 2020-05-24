@@ -39,13 +39,16 @@ public class PlantmoodHistoryService {
 
         plantmoodHistoryRepository.deleteById(id);
 
-        return this.modelMapper.map(plantmoodHistory, PlantmoodHistory.class);
+        return this.modelMapper.map(plantmoodHistory.get(), PlantmoodHistory.class);
     }
 
     public PlantmoodHistory getPlantmoodHistoryById(Integer id) {
         var plantmoodHistory = plantmoodHistoryRepository.findById(id);
+        if (plantmoodHistory.isEmpty()) {
+            throw new EntityNotFoundException("Couldn't find " + PlantmoodHistory.class.getName() + " with id " + id);
+        }
 
-        return this.modelMapper.map(plantmoodHistory, PlantmoodHistory.class);
+        return this.modelMapper.map(plantmoodHistory.get(), PlantmoodHistory.class);
     }
 
     public List<IPlantmoodhistory> getAllHistoryByArduinoSn(String arduinoSn){
