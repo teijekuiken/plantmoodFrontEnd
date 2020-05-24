@@ -64,7 +64,6 @@ public class ApplicationConfiguration {
             }
         };
     }
-
     @Bean
     public MqttPahoClientFactory mqttClientFactory() {
         DefaultMqttPahoClientFactory factory = new DefaultMqttPahoClientFactory();
@@ -80,7 +79,6 @@ public class ApplicationConfiguration {
         MqttPahoMessageHandler messageHandler =
                 new MqttPahoMessageHandler(clientId, mqttClientFactory());
         messageHandler.setAsync(true);
-        messageHandler.setDefaultTopic("Plantmood/Alain/Mood");
         return messageHandler;
     }
 
@@ -92,8 +90,7 @@ public class ApplicationConfiguration {
     @MessagingGateway(defaultRequestChannel = "mqttOutboundChannel")
     public interface MyGateway {
 
-        void sendToMqtt(String data);
+        void sendToMqtt(Message<String> data);
 
     }
-
 }
