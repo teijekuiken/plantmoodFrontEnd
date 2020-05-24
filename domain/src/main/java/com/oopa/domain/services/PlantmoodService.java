@@ -1,5 +1,6 @@
 package com.oopa.domain.services;
 
+import com.oopa.dataAccess.model.FakePlantspecies;
 import com.oopa.dataAccess.repositories.PlantmoodRepository;
 import com.oopa.domain.model.PlantSpecies;
 import com.oopa.domain.model.Plantmood;
@@ -48,7 +49,7 @@ public class PlantmoodService {
 
     }
 
-    public void getPlantStatus(List<IPlantmoodhistory> plantmoodhistories, PlantSpecies plantspecies) {
+    public void getPlantStatus(List<IPlantmoodhistory> plantmoodhistories, FakePlantspecies plantspecies) {
         if (plantmoodhistories.size() > 4 && tenMinutesArePassed(lastTestTime)) {
             double valueOfPlantmoodData = 0;
             double avarageOfPlantmoodData = 0;
