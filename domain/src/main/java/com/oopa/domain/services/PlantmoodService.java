@@ -23,7 +23,6 @@ public class PlantmoodService {
 
     public Plantmood addPlantmood(Plantmood plantmood) {
         var plantmoodEntity = this.modelMapper.map(plantmood, com.oopa.dataAccess.model.Plantmood.class);
-
         return this.modelMapper.map(plantmoodRepository.save(plantmoodEntity), Plantmood.class);
     }
 
@@ -47,7 +46,6 @@ public class PlantmoodService {
         if (plantmood.isEmpty()) {
             throw new EntityNotFoundException("Couldn't find " + Plantmood.class.getName() + " with id " + id);
         }
-
         return this.modelMapper.map(plantmood, Plantmood.class);
     }
 
@@ -62,9 +60,7 @@ public class PlantmoodService {
         if (plantmood.isEmpty()) {
             throw new EntityNotFoundException("Couldn't find " + Plantmood.class.getName() + " with id " + id);
         }
-
         plantmoodRepository.deleteById(id);
         return this.modelMapper.map(plantmood, Plantmood.class);
     }
-
 }
