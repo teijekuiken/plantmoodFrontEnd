@@ -6,7 +6,6 @@ import com.oopa.interfaces.model.IPlantmoodhistory;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,7 +20,6 @@ public class PlantmoodHistoryService {
 
     public PlantmoodHistory addHistory(PlantmoodHistory plantmoodHistory){
         var plantmoodHistoryEntity = this.modelMapper.map(plantmoodHistory, com.oopa.dataAccess.model.PlantmoodHistory.class);
-
         return this.modelMapper.map(plantmoodHistoryRepository.save(plantmoodHistoryEntity), PlantmoodHistory.class);
     }
 
@@ -36,8 +34,7 @@ public class PlantmoodHistoryService {
         if (plantmoodHistory.isEmpty()) {
             throw new EntityNotFoundException("Couldn't find " + PlantmoodHistory.class.getName() + " with id " + id);
         }
-
-        plantmoodHistoryRepository.deleteById(id);
+       plantmoodHistoryRepository.deleteById(id);
 
         return this.modelMapper.map(plantmoodHistory.get(), PlantmoodHistory.class);
     }
@@ -54,5 +51,4 @@ public class PlantmoodHistoryService {
     public List<IPlantmoodhistory> getAllHistoryByArduinoSn(String arduinoSn){
         return plantmoodHistoryRepository.findAllByArduinoSn(arduinoSn);
     }
-
 }

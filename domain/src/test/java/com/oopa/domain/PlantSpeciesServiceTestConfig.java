@@ -1,15 +1,16 @@
 package com.oopa.domain;
 
 import com.oopa.domain.services.PlantSpeciesService;
+import com.oopa.domain.services.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 
 @TestConfiguration
-public class TestConfig {
+public class PlantSpeciesTestConfig {
+
     @Bean
-    public PlantSpeciesService plantSpeciesServiceMock() {
-        return new PlantSpeciesService();
+    public PlantSpeciesService plantSpeciesServiceMock() { return new PlantSpeciesService();
     }
 
     @Bean
@@ -17,3 +18,4 @@ public class TestConfig {
         return new ModelMapper();
     }
 }
+
