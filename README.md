@@ -15,7 +15,7 @@
 4. Run the following command: docker-compose up -d  ***(This step only needs to be done one time, after that the docker container will be running at all times)***
 5. [Install](https://mosquitto.org/download/) Mosquitto if its not already installed
 6. Run mosquitto.exe from the location where you have installed Mosquitto
-7. Change the IP adress in the Mqtt class to the IP adress where your local Mosquitto broker is running
+7. Change the oopa.mqtt.client IP adress in the application.properties file to the IP adress where your local Mosquitto broker is running
 5. You can now run the application in your preffered IDE
 
 #### Access local database
