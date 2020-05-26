@@ -21,7 +21,7 @@ import org.springframework.messaging.MessageHandler;
 import org.springframework.messaging.MessagingException;
 
 @Configuration
-public class MqttOutboundConfiguration {
+public class MqttConfiguration {
 
     @Autowired
     private MqttService mqttService;
