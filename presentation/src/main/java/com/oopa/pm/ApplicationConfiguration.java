@@ -22,41 +22,4 @@ public class ApplicationConfiguration {
     public ModelMapper modelMapper() {
         return new ModelMapper();
     }
-
-    @Autowired
-    private MqttService mqttService;
-
-    @Value("${oopa.mqtt.client}")
-    private String mqttClientServer;
-
-    @Value("${oopa.mqtt.client.id}")
-    private String clientId;
-
-    @Bean
-    public MessageChannel mqttInputChannel() {
-        return new DirectChannel();
-    }
-
-    @Bean
-    public MessageProducer inbound() {
-        MqttPahoMessageDrivenChannelAdapter adapter =
-                new MqttPahoMessageDrivenChannelAdapter(mqttClientServer, clientId,
-                        "Plantmood/AllPlantMoods/Data");
-        adapter.setCompletionTimeout(5000);
-        adapter.setConverter(new DefaultPahoMessageConverter());
-        adapter.setQos(0);
-        adapter.setOutputChannel(mqttInputChannel());
-        return adapter;
-    }
-
-    @Bean
-    @ServiceActivator(inputChannel = "mqttInputChannel")
-    public MessageHandler handler() {
-        return new MessageHandler() {
-            @Override
-            public void handleMessage(Message<?> message) throws MessagingException {
-                mqttService.splitMessage(message);
-            }
-        };
-    }
 }

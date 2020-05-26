@@ -36,7 +36,7 @@ public class PlantmoodService {
 
     public void getPlantStatus(String arduinoSn) {
         List<IPlantmoodhistory> plantmoodhistories = plantmoodHistoryService.getAllHistoryByArduinoSn(arduinoSn);
-        IPlantmood currentPlantmood = plantmoodRepository.findAllByArduinoSn(arduinoSn);
+        IPlantmood currentPlantmood = plantmoodRepository.findByArduinoSn(arduinoSn);
 
         if (plantmoodhistories.size() > 4 ) {
             double valueOfPlantmoodData = 0;
@@ -67,7 +67,6 @@ public class PlantmoodService {
                 mqttService.sendMoodToPlantMood(arduinoSn, mood);
             }
         }
-        logger.info("Not enough time has passed to calculate mood of plant");
     }
 
     public Plantmood getPlantmoodById(Integer id) {

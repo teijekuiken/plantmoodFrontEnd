@@ -1,6 +1,6 @@
 package com.oopa.domain.services;
 
-import com.oopa.domain.MqttOutboundConfiguration;
+import com.oopa.domain.MqttConfiguration;
 import com.oopa.domain.model.PlantmoodHistory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +18,7 @@ public class MqttService {
     private PlantmoodHistoryService plantmoodHistoryService;
 
     @Autowired
-    private MqttOutboundConfiguration config;
+    private MqttConfiguration config;
 
     @Autowired
     private PlantmoodService plantmoodService;
