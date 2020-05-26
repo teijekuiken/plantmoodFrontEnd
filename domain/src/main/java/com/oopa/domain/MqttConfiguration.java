@@ -2,6 +2,8 @@ package com.oopa.domain;
 
 import com.oopa.domain.services.MqttService;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -23,6 +25,8 @@ import org.springframework.messaging.MessagingException;
 @Configuration
 public class MqttConfiguration {
 
+    private static Logger logger = LoggerFactory.getLogger(MqttConfiguration.class);
+
     @Autowired
     private MqttService mqttService;
 
@@ -32,6 +36,10 @@ public class MqttConfiguration {
     @Value("${oopa.mqtt.client.id}")
     private String clientId;
 
+    @Value("${oopa.mqtt.client.topic}")
+    private String subscribedTopic;
+
+    //Inbound configuration
     @Bean
     public MessageChannel mqttInputChannel() {
         return new DirectChannel();
@@ -41,11 +49,13 @@ public class MqttConfiguration {
     public MessageProducer inbound() {
         MqttPahoMessageDrivenChannelAdapter adapter =
                 new MqttPahoMessageDrivenChannelAdapter(mqttClientServer, clientId,
-                        "Plantmood/AllPlantMoods/Data");
+                        subscribedTopic);
         adapter.setCompletionTimeout(5000);
         adapter.setConverter(new DefaultPahoMessageConverter());
         adapter.setQos(0);
         adapter.setOutputChannel(mqttInputChannel());
+        logger.info("Connected to MQTT Broker at {}", mqttClientServer);
+        logger.info("Subscribed to topic {}", subscribedTopic);
         return adapter;
     }
 
@@ -60,6 +70,7 @@ public class MqttConfiguration {
         };
     }
 
+    //Outbound configuration
     @Bean
     public MqttPahoClientFactory mqttClientFactory() {
         DefaultMqttPahoClientFactory factory = new DefaultMqttPahoClientFactory();

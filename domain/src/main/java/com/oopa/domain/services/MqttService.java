@@ -30,15 +30,27 @@ public class MqttService {
         String arduinoSn = splitMessage[1];
         int moistureValue = Integer.parseInt(splitMessage[2]);
 
+        sendAndCheck(arduinoSn,moistureValue);
+    }
+
+    public void sendAndCheck(String arduinoSn, int moistureValue){
         Date date = new Date(System.currentTimeMillis());
         PlantmoodHistory plantmoodHistory = new PlantmoodHistory();
         plantmoodHistory.setArduinoSn(arduinoSn);
         plantmoodHistory.setHealth(moistureValue);
         plantmoodHistory.setCreatedAt(date);
 
+        //Send to History
         plantmoodHistoryService.addHistory(plantmoodHistory);
-        plantmoodService.getPlantStatus(arduinoSn);
         logger.info("Received: ArduinoSn {} with moisturevalue of {}", plantmoodHistory.getArduinoSn(), plantmoodHistory.getHealth());
+
+        //Check status
+        logger.info("Checking status of the plant connected to the Plantmood with arduinoSn {}", arduinoSn);
+        checkPlantStatus(arduinoSn);
+    }
+
+    public void checkPlantStatus(String arduinoSn){
+        plantmoodService.getPlantStatus(arduinoSn);
     }
 
     public void sendMoodToPlantMood(String arduinoSn, String mood){
