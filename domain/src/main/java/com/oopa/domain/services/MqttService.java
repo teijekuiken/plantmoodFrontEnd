@@ -29,7 +29,12 @@ public class MqttService {
         String[] splitMessage = incommingMessage.toString().split("[=,]");
         String arduinoSn = splitMessage[1];
         int moistureValue = Integer.parseInt(splitMessage[2]);
+        messageToHistory(arduinoSn,moistureValue);
 
+        plantmoodService.getPlantStatus(arduinoSn);
+    }
+
+    public void messageToHistory(String arduinoSn, int moistureValue){
         Date date = new Date(System.currentTimeMillis());
         PlantmoodHistory plantmoodHistory = new PlantmoodHistory();
         plantmoodHistory.setArduinoSn(arduinoSn);
@@ -37,7 +42,6 @@ public class MqttService {
         plantmoodHistory.setCreatedAt(date);
 
         plantmoodHistoryService.addHistory(plantmoodHistory);
-        plantmoodService.getPlantStatus(arduinoSn);
         logger.info("Received: ArduinoSn {} with moisturevalue of {}", plantmoodHistory.getArduinoSn(), plantmoodHistory.getHealth());
     }
 

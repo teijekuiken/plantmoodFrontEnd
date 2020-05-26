@@ -27,7 +27,7 @@ public class PlantmoodService {
     private PlantmoodRepository plantmoodRepository;
 
     private String mood;
-    private Logger logger = LoggerFactory.getLogger(PlantmoodService.class);
+    private static Logger logger = LoggerFactory.getLogger(PlantmoodService.class);
 
     public Plantmood addPlantmood(Plantmood plantmood) {
         var plantmoodEntity = this.modelMapper.map(plantmood, com.oopa.dataAccess.model.Plantmood.class);
@@ -67,7 +67,6 @@ public class PlantmoodService {
                 mqttService.sendMoodToPlantMood(arduinoSn, mood);
             }
         }
-        logger.info("Not enough time has passed to calculate mood of plant");
     }
 
     public Plantmood getPlantmoodById(Integer id) {
