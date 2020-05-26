@@ -38,9 +38,17 @@ public class PlantmoodService {
         List<IPlantmoodhistory> plantmoodhistories = plantmoodHistoryService.getAllHistoryByArduinoSn(arduinoSn);
         IPlantmood currentPlantmood = plantmoodRepository.findByArduinoSn(arduinoSn);
 
+        double avarageOfPlantmoodData = calculateAverageHistory(plantmoodhistories);
+
+        decideMood(avarageOfPlantmoodData,currentPlantmood);
+    }
+
+    public double calculateAverageHistory(List<IPlantmoodhistory> plantmoodhistories){
+        double avarage = 0;
+
         if (plantmoodhistories.size() > 4 ) {
             double valueOfPlantmoodData = 0;
-            double avarageOfPlantmoodData;
+
             double multiplier = 1;
             double substractionOfAverage = 0;
 
@@ -53,19 +61,22 @@ public class PlantmoodService {
                 substractionOfAverage += multiplier;
                 multiplier -= 0.2;
             }
-            avarageOfPlantmoodData = valueOfPlantmoodData / substractionOfAverage;
+            avarage = valueOfPlantmoodData / substractionOfAverage;
+        }
+        return avarage;
+    }
 
-            if (avarageOfPlantmoodData < currentPlantmood.getPlantSpecies().getMinHumidity()) {
-                mood = "DRY";
-                mqttService.sendMoodToPlantMood(arduinoSn, mood);
+    public void decideMood(double avarageOfPlantmoodData, IPlantmood currentPlantmood){
+        if (avarageOfPlantmoodData < currentPlantmood.getPlantSpecies().getMinHumidity()) {
+            mood = "DRY";
+            mqttService.sendMoodToPlantMood(currentPlantmood.getArduinoSn(), mood);
 
-            } else if (avarageOfPlantmoodData > currentPlantmood.getPlantSpecies().getMaxHumidity()) {
-                mood = "WET";
-                mqttService.sendMoodToPlantMood(arduinoSn,mood);
-            }else {
-                mood = "ALIVE";
-                mqttService.sendMoodToPlantMood(arduinoSn, mood);
-            }
+        } else if (avarageOfPlantmoodData > currentPlantmood.getPlantSpecies().getMaxHumidity()) {
+            mood = "WET";
+            mqttService.sendMoodToPlantMood(currentPlantmood.getArduinoSn(),mood);
+        }else {
+            mood = "ALIVE";
+            mqttService.sendMoodToPlantMood(currentPlantmood.getArduinoSn(), mood);
         }
     }
 

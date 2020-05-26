@@ -29,20 +29,28 @@ public class MqttService {
         String[] splitMessage = incommingMessage.toString().split("[=,]");
         String arduinoSn = splitMessage[1];
         int moistureValue = Integer.parseInt(splitMessage[2]);
-        messageToHistory(arduinoSn,moistureValue);
 
-        plantmoodService.getPlantStatus(arduinoSn);
+        sendAndCheck(arduinoSn,moistureValue);
     }
 
-    public void messageToHistory(String arduinoSn, int moistureValue){
+    public void sendAndCheck(String arduinoSn, int moistureValue){
         Date date = new Date(System.currentTimeMillis());
         PlantmoodHistory plantmoodHistory = new PlantmoodHistory();
         plantmoodHistory.setArduinoSn(arduinoSn);
         plantmoodHistory.setHealth(moistureValue);
         plantmoodHistory.setCreatedAt(date);
 
+        //Send to History
         plantmoodHistoryService.addHistory(plantmoodHistory);
         logger.info("Received: ArduinoSn {} with moisturevalue of {}", plantmoodHistory.getArduinoSn(), plantmoodHistory.getHealth());
+
+        //Check status
+        logger.info("Checking status of the plant connected to the Plantmood with arduinoSn {}", arduinoSn);
+        checkPlantStatus(arduinoSn);
+    }
+
+    public void checkPlantStatus(String arduinoSn){
+        plantmoodService.getPlantStatus(arduinoSn);
     }
 
     public void sendMoodToPlantMood(String arduinoSn, String mood){
