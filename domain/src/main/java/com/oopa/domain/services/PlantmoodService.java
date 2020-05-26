@@ -1,6 +1,7 @@
 package com.oopa.domain.services;
 
 import com.oopa.dataAccess.repositories.PlantmoodRepository;
+import com.oopa.domain.model.Mood;
 import com.oopa.domain.model.Plantmood;
 import com.oopa.interfaces.model.IPlantmood;
 import com.oopa.interfaces.model.IPlantmoodhistory;
@@ -48,7 +49,6 @@ public class PlantmoodService {
 
         if (plantmoodhistories.size() > 4 ) {
             double valueOfPlantmoodData = 0;
-
             double multiplier = 1;
             double substractionOfAverage = 0;
 
@@ -67,16 +67,15 @@ public class PlantmoodService {
     }
 
     public void decideMood(double avarageOfPlantmoodData, IPlantmood currentPlantmood){
+
         if (avarageOfPlantmoodData < currentPlantmood.getPlantSpecies().getMinHumidity()) {
-            mood = "DRY";
-            mqttService.sendMoodToPlantMood(currentPlantmood.getArduinoSn(), mood);
+            mqttService.sendMoodToPlantMood(currentPlantmood.getArduinoSn(),Mood.DRY.toString());
 
         } else if (avarageOfPlantmoodData > currentPlantmood.getPlantSpecies().getMaxHumidity()) {
-            mood = "WET";
-            mqttService.sendMoodToPlantMood(currentPlantmood.getArduinoSn(),mood);
+            mqttService.sendMoodToPlantMood(currentPlantmood.getArduinoSn(),Mood.WET.toString());
+
         }else {
-            mood = "ALIVE";
-            mqttService.sendMoodToPlantMood(currentPlantmood.getArduinoSn(), mood);
+            mqttService.sendMoodToPlantMood(currentPlantmood.getArduinoSn(),Mood.ALIVE.toString());
         }
     }
 
