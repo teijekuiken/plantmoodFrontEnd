@@ -10,5 +10,5 @@ import java.util.List;
 @Repository
 public interface PlantmoodRepository extends JpaRepository<Plantmood, Integer> {
 
-    IPlantmood findAllByArduinoSn(String arduinoSn);
+    IPlantmood findByArduinoSn(String arduinoSn);
 }
