@@ -22,6 +22,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @Import({TestConfig.class})
 class PlantSpeciesServiceTest {
 
+    private com.oopa.dataAccess.model.PlantSpecies plantSpeciesTest = new com.oopa.dataAccess.model.PlantSpecies();
+
     @BeforeEach
     public void setup() {
         List<com.oopa.dataAccess.model.PlantSpecies> plantSpecies = new ArrayList<>();
@@ -31,6 +33,11 @@ class PlantSpeciesServiceTest {
         tulip.setMaxHumidity(400);
         tulip.setName("Tulip");
 
+        this.plantSpeciesTest.setId(1);
+        this.plantSpeciesTest.setMinHumidity(200);
+        this.plantSpeciesTest.setMaxHumidity(400);
+        this.plantSpeciesTest.setName("Tulip");
+
         plantSpecies.add(this.modelMapper.map(tulip, com.oopa.dataAccess.model.PlantSpecies.class));
 
         Mockito.when(plantSpeciesRepository.findById(tulip.getId())).thenReturn(
@@ -39,6 +46,10 @@ class PlantSpeciesServiceTest {
 
         Mockito.when(plantSpeciesRepository.findAll()).thenReturn(
                 plantSpecies
+        );
+
+        Mockito.when(plantSpeciesRepository.save(this.plantSpeciesTest)).thenReturn(
+                this.plantSpeciesTest
         );
     }
 
@@ -53,6 +64,17 @@ class PlantSpeciesServiceTest {
 
     @Test
     void addPlantSpecies() {
+        // arrange
+        var plantSpeciesTest = new com.oopa.dataAccess.model.PlantSpecies();
+        this.plantSpeciesTest.setId(1);
+        this.plantSpeciesTest.setMinHumidity(200);
+        this.plantSpeciesTest.setMaxHumidity(400);
+        this.plantSpeciesTest.setName("Tulip");
+        // assert
+        var createdPlantSpecies = plantSpeciesRepository.save(this.plantSpeciesTest);
+
+        // arrange
+        assertEquals(this.plantSpeciesTest.getName(), createdPlantSpecies.getName());
     }
 
     @Test
