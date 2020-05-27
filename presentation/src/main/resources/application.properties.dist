@@ -6,6 +6,6 @@ spring.datasource.password=${MYSQL_PASSWORD:plantmood}
 spring.jpa.open-in-view=true
 
 # MQTT
-oopa.mqtt.client=tcp://192.168.2.13
-oopa.mqtt.client.id=Plantmood-CentralSystem
-oopa.mqtt.client.topic=Plantmood/AllPlantMoods/Data
+oopa.mqtt.client=
+oopa.mqtt.client.id=
+oopa.mqtt.client.topic=
