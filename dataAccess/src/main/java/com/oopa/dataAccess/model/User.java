@@ -2,11 +2,9 @@ package com.oopa.dataAccess.model;
 
 import com.oopa.interfaces.model.IUser;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class User implements IUser {
@@ -21,6 +19,9 @@ public class User implements IUser {
     private String email;
 
     private Date createdAt;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Plantmood> plantmoods;
 
     @Override
     public Integer getId() {
@@ -73,5 +74,13 @@ public class User implements IUser {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public List<Plantmood> getPlantmoods() {
+        return plantmoods;
+    }
+
+    public void setPlantmoods(List<Plantmood> plantmoods) {
+        this.plantmoods = plantmoods;
     }
 }

@@ -1,14 +1,24 @@
 package com.oopa.domain.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.oopa.interfaces.model.IPlantmood;
 import com.oopa.interfaces.model.IPlantSpecies;
 import com.oopa.interfaces.model.IUser;
 
 public class Plantmood implements IPlantmood {
     private int id;
+
+    @JsonDeserialize(as = com.oopa.dataAccess.model.User.class)
+    @JsonSerialize(as = com.oopa.dataAccess.model.User.class)
     private IUser user;
+
+    @JsonDeserialize(as = com.oopa.dataAccess.model.PlantSpecies.class)
+    @JsonSerialize(as = com.oopa.dataAccess.model.PlantSpecies.class)
     private IPlantSpecies plantSpecies;
+
     private int health;
+
     private String arduinoSn;
 
     @Override
