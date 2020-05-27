@@ -40,3 +40,8 @@ out/
 .DS_Store
 
 log/
+
+##############################
+## Secret
+##############################
+presentation/src/main/resources/application.properties
