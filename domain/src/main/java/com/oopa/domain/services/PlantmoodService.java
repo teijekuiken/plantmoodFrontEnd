@@ -1,6 +1,7 @@
 package com.oopa.domain.services;
 
 import com.oopa.dataAccess.repositories.PlantmoodRepository;
+import com.oopa.domain.model.Mood;
 import com.oopa.domain.model.Plantmood;
 import com.oopa.interfaces.model.IPlantmood;
 import com.oopa.interfaces.model.IPlantmoodhistory;
@@ -27,7 +28,7 @@ public class PlantmoodService {
     private PlantmoodRepository plantmoodRepository;
 
     private String mood;
-    private Logger logger = LoggerFactory.getLogger(PlantmoodService.class);
+    private static Logger logger = LoggerFactory.getLogger(PlantmoodService.class);
 
     public Plantmood addPlantmood(Plantmood plantmood) {
         var plantmoodEntity = this.modelMapper.map(plantmood, com.oopa.dataAccess.model.Plantmood.class);
@@ -36,11 +37,18 @@ public class PlantmoodService {
 
     public void getPlantStatus(String arduinoSn) {
         List<IPlantmoodhistory> plantmoodhistories = plantmoodHistoryService.getAllHistoryByArduinoSn(arduinoSn);
-        IPlantmood currentPlantmood = plantmoodRepository.findAllByArduinoSn(arduinoSn);
+        IPlantmood currentPlantmood = plantmoodRepository.findByArduinoSn(arduinoSn);
+
+        double avarageOfPlantmoodData = calculateAverageHistory(plantmoodhistories);
+
+        decideMood(avarageOfPlantmoodData,currentPlantmood);
+    }
+
+    public double calculateAverageHistory(List<IPlantmoodhistory> plantmoodhistories){
+        double average = 0;
 
         if (plantmoodhistories.size() > 4 ) {
             double valueOfPlantmoodData = 0;
-            double avarageOfPlantmoodData;
             double multiplier = 1;
             double substractionOfAverage = 0;
 
@@ -53,21 +61,22 @@ public class PlantmoodService {
                 substractionOfAverage += multiplier;
                 multiplier -= 0.2;
             }
-            avarageOfPlantmoodData = valueOfPlantmoodData / substractionOfAverage;
-
-            if (avarageOfPlantmoodData < currentPlantmood.getPlantSpecies().getMinHumidity()) {
-                mood = "DRY";
-                mqttService.sendMoodToPlantMood(arduinoSn, mood);
-
-            } else if (avarageOfPlantmoodData > currentPlantmood.getPlantSpecies().getMaxHumidity()) {
-                mood = "WET";
-                mqttService.sendMoodToPlantMood(arduinoSn,mood);
-            }else {
-                mood = "ALIVE";
-                mqttService.sendMoodToPlantMood(arduinoSn, mood);
-            }
+            average = valueOfPlantmoodData / substractionOfAverage;
         }
-        logger.info("Not enough time has passed to calculate mood of plant");
+        return average;
+    }
+
+    public void decideMood(double avarageOfPlantmoodData, IPlantmood currentPlantmood){
+
+        if (avarageOfPlantmoodData < currentPlantmood.getPlantSpecies().getMinHumidity()) {
+            mqttService.sendMoodToPlantMood(currentPlantmood.getArduinoSn(),Mood.DRY.toString());
+
+        } else if (avarageOfPlantmoodData > currentPlantmood.getPlantSpecies().getMaxHumidity()) {
+            mqttService.sendMoodToPlantMood(currentPlantmood.getArduinoSn(),Mood.WET.toString());
+
+        } else {
+            mqttService.sendMoodToPlantMood(currentPlantmood.getArduinoSn(),Mood.ALIVE.toString());
+        }
     }
 
     public Plantmood getPlantmoodById(Integer id) {
@@ -75,7 +84,7 @@ public class PlantmoodService {
         if (plantmood.isEmpty()) {
             throw new EntityNotFoundException("Couldn't find " + Plantmood.class.getName() + " with id " + id);
         }
-        return this.modelMapper.map(plantmood, Plantmood.class);
+        return this.modelMapper.map(plantmood.get(), Plantmood.class);
     }
 
     public List<Plantmood> getAllPlantmoods() {
