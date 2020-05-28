@@ -2,10 +2,8 @@ package com.oopa.dataAccess.model;
 
 import com.oopa.interfaces.model.IPlantSpecies;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class PlantSpecies implements IPlantSpecies {
@@ -18,6 +16,9 @@ public class PlantSpecies implements IPlantSpecies {
     private int minHumidity;
 
     private int maxHumidity;
+
+    @OneToMany(mappedBy = "plantSpecies", cascade = CascadeType.ALL)
+    private List<Plantmood> plantmoods;
 
     @Override
     public Integer getId() {

@@ -15,8 +15,11 @@
 4. Run the following command: docker-compose up -d  ***(This step only needs to be done one time, after that the docker container will be running at all times)***
 5. [Install](https://mosquitto.org/download/) Mosquitto if its not already installed
 6. Run mosquitto.exe from the location where you have installed Mosquitto
-7. Change the oopa.mqtt.client IP adress in the application.properties file to the IP adress where your local Mosquitto broker is running
-5. You can now run the application in your preffered IDE
+7. Create a new file in presentation/src/main/resources named __application.properties__.
+8. Find the application.properties.dist and copy the content in your application.properties file.
+9. Update the oopa.mqtt.client IP adress in the application.properties file to the IP adress where your local Mosquitto broker is running, 
+update the client id to : __Plantmood-CentralSystem__ and the topic to : __Plantmood/AllPlantMoods/Data__
+10. You can now run the application in your preffered IDE
 
 #### Access local database
 For now the application is connected to a local database. To acces the database go to: [localhost:8081](localhost:8081)     

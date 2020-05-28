@@ -28,8 +28,8 @@ public class PlantmoodController {
         return plantmoodService.getPlantmoodById(id);
     }
 
-    @DeleteMapping
-    public @ResponseBody Plantmood deletePlantMood(Integer id){
+    @DeleteMapping(path = "/{id}")
+    public @ResponseBody Plantmood deletePlantMood(@PathVariable Integer id){
         return plantmoodService.deletePlantmood(id);
     }
 }

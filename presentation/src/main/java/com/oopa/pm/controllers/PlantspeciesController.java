@@ -29,7 +29,7 @@ public class PlantspeciesController {
         return plantspeciesService.getPlantSpeciesById(id);
     }
 
-    @DeleteMapping
+    @DeleteMapping(path = {"id"})
     public @ResponseBody PlantSpecies deletePlantSpecies(@PathVariable Integer id){
         return plantspeciesService.deletePlantSpecies(id);
     }
