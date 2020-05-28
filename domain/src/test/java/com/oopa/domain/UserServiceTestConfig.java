@@ -6,7 +6,7 @@ import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 
 @TestConfiguration
-public class UserTestConfig {
+public class UserServiceTestConfig {
 
     @Bean
     public UserService userServiceMock() {return new UserService(); }
