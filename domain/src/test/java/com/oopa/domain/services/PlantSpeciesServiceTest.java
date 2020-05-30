@@ -1,7 +1,7 @@
 package com.oopa.domain.services;
 
 import com.oopa.dataAccess.repositories.PlantSpeciesRepository;
-import com.oopa.domain.TestConfig;
+import com.oopa.domain.PlantSpeciesServiceTestConfig;
 import com.oopa.domain.model.PlantSpecies;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,14 +26,13 @@ class PlantSpeciesServiceTest {
 
     @BeforeEach
     public void setup() {
-        List<com.oopa.dataAccess.model.PlantSpecies> plantSpecies = new ArrayList<>();
         PlantSpecies tulip = new PlantSpecies();
         tulip.setId(1);
         tulip.setMinHumidity(200);
         tulip.setMaxHumidity(400);
         tulip.setName("Tulip");
 
-        plantSpecies.add(this.modelMapper.map(tulip, com.oopa.dataAccess.model.PlantSpecies.class));
+        this.plantSpecies.add(this.modelMapper.map(tulip, com.oopa.dataAccess.model.PlantSpecies.class));
 
         Mockito.when(plantSpeciesRepository.findById(tulip.getId())).thenReturn(
                 Optional.of(this.modelMapper.map(tulip, com.oopa.dataAccess.model.PlantSpecies.class))
@@ -70,7 +69,7 @@ class PlantSpeciesServiceTest {
 
 
         //Act
-        int expected = plantSpecies.size();
+        int expected = this.plantSpecies.size();
         int actual = plantSpeciesServiceMock.getAllPlantSpecies().size();
 
         //Assert
