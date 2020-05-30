@@ -19,10 +19,10 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest(classes = PlantSpeciesService.class)
-@Import({TestConfig.class})
+@Import({PlantSpeciesServiceTestConfig.class})
 class PlantSpeciesServiceTest {
 
-    private com.oopa.dataAccess.model.PlantSpecies plantSpeciesTest = new com.oopa.dataAccess.model.PlantSpecies();
+    List<com.oopa.dataAccess.model.PlantSpecies> plantSpecies = new ArrayList<>();
 
     @BeforeEach
     public void setup() {
@@ -33,11 +33,6 @@ class PlantSpeciesServiceTest {
         tulip.setMaxHumidity(400);
         tulip.setName("Tulip");
 
-        this.plantSpeciesTest.setId(1);
-        this.plantSpeciesTest.setMinHumidity(200);
-        this.plantSpeciesTest.setMaxHumidity(400);
-        this.plantSpeciesTest.setName("Tulip");
-
         plantSpecies.add(this.modelMapper.map(tulip, com.oopa.dataAccess.model.PlantSpecies.class));
 
         Mockito.when(plantSpeciesRepository.findById(tulip.getId())).thenReturn(
@@ -46,10 +41,6 @@ class PlantSpeciesServiceTest {
 
         Mockito.when(plantSpeciesRepository.findAll()).thenReturn(
                 plantSpecies
-        );
-
-        Mockito.when(plantSpeciesRepository.save(this.plantSpeciesTest)).thenReturn(
-                this.plantSpeciesTest
         );
     }
 
@@ -64,34 +55,47 @@ class PlantSpeciesServiceTest {
 
     @Test
     void addPlantSpecies() {
-        // arrange
-        var plantSpeciesTest = new com.oopa.dataAccess.model.PlantSpecies();
-        this.plantSpeciesTest.setId(1);
-        this.plantSpeciesTest.setMinHumidity(200);
-        this.plantSpeciesTest.setMaxHumidity(400);
-        this.plantSpeciesTest.setName("Tulip");
-        // assert
-        var createdPlantSpecies = plantSpeciesRepository.save(this.plantSpeciesTest);
+        //Arrange
 
-        // arrange
-        assertEquals(this.plantSpeciesTest.getName(), createdPlantSpecies.getName());
+
+        //Act
+
+
+        //Assert
     }
 
     @Test
     void getAllPlantSpecies() {
-        List<PlantSpecies> foundPlantSpecies = plantSpeciesServiceMock.getAllPlantSpecies();
+        //Arrange
 
-        assertEquals("Tulip", foundPlantSpecies.get(0).getName());
+
+        //Act
+        int expected = plantSpecies.size();
+        int actual = plantSpeciesServiceMock.getAllPlantSpecies().size();
+
+        //Assert
+        assertEquals(expected, actual);
+
     }
 
     @Test
     void getPlantSpeciesById() {
-        PlantSpecies foundPlantSpecies = plantSpeciesServiceMock.getPlantSpeciesById(1);
+        //Act
+        String expected = plantSpecies.get(0).getName();
+        String actual = plantSpeciesServiceMock.getPlantSpeciesById(1).getName();
 
-        assertEquals("Tulip", foundPlantSpecies.getName());
+        //Assert
+        assertEquals(expected, actual);
     }
 
     @Test
     void deletePlantSpecies() {
+        //Arrange
+
+
+        //Act
+
+
+        //Assert
     }
 }

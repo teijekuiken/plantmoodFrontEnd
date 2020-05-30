@@ -35,10 +35,6 @@ public class PlantmoodHistory implements IPlantmoodhistory {
         return createdAt;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     @Override
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
