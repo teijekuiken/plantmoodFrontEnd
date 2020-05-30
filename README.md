@@ -21,3 +21,9 @@
 #### Access local database
 For now the application is connected to a local database. To acces the database go to: [localhost:8081](localhost:8081)     
   The database is only accessible after the docker command is executed
+  
+### Local development
+when installing the project for the first time, enter the following command in the root of your project:
+```bash
+make && make git
+```
