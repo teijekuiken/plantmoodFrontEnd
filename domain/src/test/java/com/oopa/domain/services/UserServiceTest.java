@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -57,14 +58,13 @@ class UserServiceTest {
     private ModelMapper modelMapper;
 
     @Test
-    void addUser() {
-        //Arrange
-
-
+    public void CheckUserServiceForExceptionsTest() {
         //Act
-
+        int unknownId = 0;
 
         //Assert
+        assertThrows(EntityNotFoundException.class, () -> {userServiceMock.getUserById(unknownId);
+        });
     }
 
     @Test
@@ -85,16 +85,5 @@ class UserServiceTest {
 
         //Assert
         assertEquals(expected, actual);
-    }
-
-    @Test
-    void deleteUser() {
-        //Arrange
-
-
-        //Act
-
-
-        //Assert
     }
 }

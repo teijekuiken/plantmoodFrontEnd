@@ -48,7 +48,7 @@ public class PlantmoodHistoryService {
         return this.modelMapper.map(plantmoodHistory.get(), PlantmoodHistory.class);
     }
 
-    public List<IPlantmoodhistory> getAllHistoryByArduinoSn(String arduinoSn){
+    public List<IPlantmoodhistory> getAllHistoryByArduinoSn(String arduinoSn) {
         return plantmoodHistoryRepository.findAllByArduinoSn(arduinoSn);
     }
 }

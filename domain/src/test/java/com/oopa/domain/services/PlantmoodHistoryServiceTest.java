@@ -2,13 +2,8 @@ package com.oopa.domain.services;
 
 import com.oopa.dataAccess.model.PlantmoodHistory;
 import com.oopa.dataAccess.repositories.PlantmoodHistoryRepository;
-import com.oopa.dataAccess.repositories.UserRepository;
-import com.oopa.domain.PlantSpeciesServiceTestConfig;
 import com.oopa.domain.PlantmoodHistoryServiceTestConfig;
-import com.oopa.domain.UserServiceTestConfig;
-import com.oopa.domain.services.PlantmoodHistoryService;
-import com.oopa.domain.services.UserService;
-import com.oopa.interfaces.model.IPlantmoodhistory;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -17,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
+
+import javax.persistence.EntityNotFoundException;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -46,10 +43,6 @@ class PlantmoodHistoryServiceTest {
                 Optional.of(this.modelMapper.map(plantmoodHistory, com.oopa.dataAccess.model.PlantmoodHistory.class))
         );
 
-//        Mockito.when(plantmoodHistoryRepository.findAllByArduinoSn(plantmoodHistory.getArduinoSn())).thenReturn(
-//                Optional.of(this.modelMapper.map(List<PlantmoodHistory>, com.oopa.dataAccess.model.PlantmoodHistory.class))
-//        );
-
         Mockito.when(plantmoodHistoryRepository.findAll()).thenReturn(
                 histories
         );
@@ -65,11 +58,17 @@ class PlantmoodHistoryServiceTest {
     private ModelMapper modelMapper;
 
     @Test
-    void addHistory() {
+    public void CheckPlantmoodHistoryServiceForExceptionsTest() {
+        //Act
+        int unknownId = 0;
+
+        //Assert
+        assertThrows(EntityNotFoundException.class, () -> {plantmoodHistoryServiceMock.getPlantmoodHistoryById(unknownId);
+        });
     }
 
     @Test
-    void getAllPlantmoodHistorties() {
+    void getAllPlantmoodHistortiesTest() {
         //Act
         int expected = histories.size();
         int actual = plantmoodHistoryServiceMock.getAllPlantmoodHistorties().size();
@@ -79,33 +78,12 @@ class PlantmoodHistoryServiceTest {
     }
 
     @Test
-    void deletePlantmoodHistory() {
-    }
-
-    @Test
-    void getPlantmoodHistoryById() {
+    void getPlantmoodHistoryByIdTest() {
         //Act
         Integer expected = histories.get(0).getId();
         Integer actual = plantmoodHistoryServiceMock.getPlantmoodHistoryById(1).getId();
 
         //Assert
         assertEquals(expected, actual);
-    }
-
-    @Test
-    void getAllHistoryByArduinoSn() {
-        //Arrange
-//        PlantmoodHistory testmood = histories.stream()
-//                .filter(plantmoodHistory -> "testmood".equals(plantmoodHistory.getArduinoSn()))
-//                .findAny()
-//                .orElse(null);
-//
-//
-//        //Act
-//        int expected = histories.size();
-//        int actual = plantmoodHistoryServiceMock.getAllHistoryByArduinoSn("testmood").size();
-//
-//        //Assert
-//        assertEquals(expected, actual);
     }
 }

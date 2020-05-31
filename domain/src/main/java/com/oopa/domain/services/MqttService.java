@@ -49,7 +49,7 @@ public class MqttService {
         checkPlantStatus(arduinoSn);
     }
 
-    public void checkPlantStatus(String arduinoSn){
+    private void checkPlantStatus(String arduinoSn){
         plantmoodService.getPlantStatus(arduinoSn);
     }
 

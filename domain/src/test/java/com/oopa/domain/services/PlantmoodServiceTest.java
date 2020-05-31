@@ -2,15 +2,13 @@ package com.oopa.domain.services;
 
 import com.oopa.dataAccess.model.PlantSpecies;
 import com.oopa.dataAccess.model.Plantmood;
-import com.oopa.dataAccess.repositories.PlantSpeciesRepository;
 import com.oopa.dataAccess.repositories.PlantmoodHistoryRepository;
 import com.oopa.dataAccess.repositories.PlantmoodRepository;
-import com.oopa.domain.PlantmoodHistoryServiceTestConfig;
 import com.oopa.domain.PlantmoodServiceTestConfig;
 import com.oopa.domain.model.PlantmoodHistory;
 import com.oopa.domain.model.User;
-import com.oopa.interfaces.model.IPlantmood;
 import com.oopa.interfaces.model.IPlantmoodhistory;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -20,19 +18,20 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import javax.persistence.EntityNotFoundException;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.mock;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 
 @SpringBootTest(classes = PlantmoodService.class)
 @Import({PlantmoodServiceTestConfig.class})
 class PlantmoodServiceTest {
 
     List<Plantmood> plantmoods = new ArrayList<>();
+    List<IPlantmoodhistory> plantmoodhistories = new ArrayList<>();
 
     @BeforeEach
     public void setup() {
@@ -55,38 +54,8 @@ class PlantmoodServiceTest {
                 plantmoods
         );
 
-//        Mockito.when(plantmoodRepository.findByArduinoSn())
-    }
-
-    @MockBean
-    private PlantmoodRepository plantmoodRepository;
-
-    @MockBean
-    private PlantmoodHistoryRepository plantmoodHistoryRepository;
-
-//    @Autowired
-//    private MqttService mqttServiceMock;
-
-    @Autowired
-    private PlantmoodService plantmoodServiceMock;
-
-    @Autowired
-    private ModelMapper modelMapper;
-
-    @Test
-    void addPlantmood() {
-    }
-
-    @Test
-    void getPlantStatus() {
-    }
-
-    @Test
-    void calculateAverageHistory() { // DEZE FAALT NOG DOOR GEBREK AAN MULTIPLIER @TODO
-        //Arrange
         Date date = new Date(System.currentTimeMillis());
 
-        List<IPlantmoodhistory> plantmoodhistories = new ArrayList<>();
         PlantmoodHistory plantmoodHistory1 = new PlantmoodHistory();
         plantmoodHistory1.setCreatedAt(date);
         plantmoodHistory1.setHealth(60);
@@ -112,18 +81,58 @@ class PlantmoodServiceTest {
         plantmoodhistories.add(plantmoodHistory3);
         plantmoodhistories.add(plantmoodHistory4);
         plantmoodhistories.add(plantmoodHistory5);
+    }
 
-        double totalHistories = plantmoodhistories.size();
+    @MockBean
+    private PlantmoodRepository plantmoodRepository;
+
+    @MockBean
+    private PlantmoodHistoryRepository plantmoodHistoryRepository;
+
+    @Autowired
+    private PlantmoodService plantmoodServiceMock;
+
+    @Autowired
+    private ModelMapper modelMapper;
+
+    @Test
+    public void CheckPlantmoodServiceForExceptionsTest() {
+        //Act
+        int unknownId = 0;
+
+        //Assert
+        assertThrows(EntityNotFoundException.class, () -> {plantmoodServiceMock.getPlantmoodById(unknownId);
+        });
+    }
+
+    @Test
+    void getSublistOfHistoryTest() {
+        //Act
+        IPlantmoodhistory expected = plantmoodhistories.stream()
+                .sorted(Comparator.comparing(IPlantmoodhistory::getCreatedAt).reversed())
+                .collect(Collectors.toList()).subList(0, 5).get(2);
+        IPlantmoodhistory actual = plantmoodServiceMock.getSublistOfHistory(plantmoodhistories).get(2);
+
+        //Assert
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void calculateAverageHistoryTest() {
+        //Arrange
         double totalHealth = 0;
         double average = 0;
+        double substractionOfAverage = 0;
+        double multiplier = 1;
 
-
-        for (int i = 0; i < plantmoodhistories.size();) {
-            totalHealth += plantmoodhistories.get(i).getHealth();
+        for (int i = 0; i < plantmoodServiceMock.getSublistOfHistory(plantmoodhistories).size();) {
+            totalHealth += (plantmoodhistories.get(i).getHealth() * multiplier);
+            substractionOfAverage += multiplier;
+            multiplier -= 0.2;
             i++;
         }
 
-        average = totalHealth / totalHistories;
+        average = totalHealth / substractionOfAverage;
 
         //Act
         double expected = average;
@@ -134,19 +143,7 @@ class PlantmoodServiceTest {
     }
 
     @Test
-    void decideMood() {
-        //Arrange
-        IPlantmood plantmood = mock(Plantmood.class);
-        double average = 50;
-
-        //Act
-
-
-        //Assert
-    }
-
-    @Test
-    void getPlantmoodById() {
+    void getPlantmoodByIdTest() {
         //Act
         int expected = plantmoods.get(0).getId();
         int actual = plantmoodServiceMock.getPlantmoodById(1).getId();
@@ -156,16 +153,12 @@ class PlantmoodServiceTest {
     }
 
     @Test
-    void getAllPlantmoods() {
+    void getAllPlantmoodsTest() {
         //Act
         int expected = plantmoods.size();
         int actual = plantmoodServiceMock.getAllPlantmoods().size();
 
         //Assert
         assertEquals(expected, actual);
-    }
-
-    @Test
-    void deletePlantmood() {
     }
 }

@@ -11,11 +11,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
+
+import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest(classes = PlantSpeciesService.class)
 @Import({PlantSpeciesServiceTestConfig.class})
@@ -52,14 +55,13 @@ class PlantSpeciesServiceTest {
     private ModelMapper modelMapper;
 
     @Test
-    void addPlantSpecies() {
-        //Arrange
-
-
+    public void CheckPlantSpeciesServiceForExceptionsTest() {
         //Act
-
+        int unknownId = 0;
 
         //Assert
+        assertThrows(EntityNotFoundException.class, () -> {plantSpeciesServiceMock.getPlantSpeciesById(unknownId);
+        });
     }
 
     @Test
@@ -84,16 +86,5 @@ class PlantSpeciesServiceTest {
 
         //Assert
         assertEquals(expected, actual);
-    }
-
-    @Test
-    void deletePlantSpecies() {
-        //Arrange
-
-
-        //Act
-
-
-        //Assert
     }
 }
