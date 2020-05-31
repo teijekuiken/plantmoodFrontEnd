@@ -12,7 +12,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 
+
 import javax.persistence.EntityNotFoundException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -34,7 +36,7 @@ class PlantSpeciesServiceTest {
         tulip.setMaxHumidity(400);
         tulip.setName("Tulip");
 
-        plantSpecies.add(this.modelMapper.map(tulip, com.oopa.dataAccess.model.PlantSpecies.class));
+        this.plantSpecies.add(this.modelMapper.map(tulip, com.oopa.dataAccess.model.PlantSpecies.class));
 
         Mockito.when(plantSpeciesRepository.findById(tulip.getId())).thenReturn(
                 Optional.of(this.modelMapper.map(tulip, com.oopa.dataAccess.model.PlantSpecies.class))
@@ -70,7 +72,7 @@ class PlantSpeciesServiceTest {
 
 
         //Act
-        int expected = plantSpecies.size();
+        int expected = this.plantSpecies.size();
         int actual = plantSpeciesServiceMock.getAllPlantSpecies().size();
 
         //Assert

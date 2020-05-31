@@ -1,0 +1,8 @@
+#!/bin/sh
+#
+# This pre-commit hook will run all tests before committing.
+# This will make sure that the new code didnt break the old code.
+
+echo "running tests"
+# run test
+./mvn test
