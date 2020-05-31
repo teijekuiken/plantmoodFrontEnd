@@ -27,6 +27,7 @@ public class PlantmoodService {
     @Autowired
     private PlantmoodRepository plantmoodRepository;
 
+    private String mood;
     private static Logger logger = LoggerFactory.getLogger(PlantmoodService.class);
 
     public Plantmood addPlantmood(Plantmood plantmood) {
@@ -43,16 +44,16 @@ public class PlantmoodService {
         decideMood(avarageOfPlantmoodData,currentPlantmood);
     }
 
-    private double calculateAverageHistory(List<IPlantmoodhistory> plantmoodhistories){
-        double avarage = 0;
+    public double calculateAverageHistory(List<IPlantmoodhistory> plantmoodhistories){
+        double average = 0;
         if (plantmoodhistories.size() > 4 ) {
             List<IPlantmoodhistory> subListPlantmoodhistories = getSublistOfHistory(plantmoodhistories);
-            avarage = avarageHistory(subListPlantmoodhistories);
+            average = averageHistory(subListPlantmoodhistories);
         }
-        return avarage;
+        return average;
     }
 
-    private double avarageHistory(List<IPlantmoodhistory> subListPlantmoodhistories){
+    public double averageHistory(List<IPlantmoodhistory> subListPlantmoodhistories){
         double valueOfPlantmoodData = 0;
         double multiplier = 1;
         double substractionOfAverage = 0;
@@ -62,24 +63,24 @@ public class PlantmoodService {
             substractionOfAverage += multiplier;
             multiplier -= 0.2;
         }
-        double avarageHistory = valueOfPlantmoodData / substractionOfAverage;
-        return avarageHistory;
+        double averageHistory = valueOfPlantmoodData / substractionOfAverage;
+        return averageHistory;
     }
 
-    private List<IPlantmoodhistory> getSublistOfHistory(List<IPlantmoodhistory> plantmoodhistories){
+    public List<IPlantmoodhistory> getSublistOfHistory(List<IPlantmoodhistory> plantmoodhistories){
         return plantmoodhistories.stream()
                 .sorted(Comparator.comparing(IPlantmoodhistory::getCreatedAt).reversed())
                 .collect(Collectors.toList()).subList(0, 5);
     }
 
-    private void decideMood(double avarageOfPlantmoodData, IPlantmood currentPlantmood){
+    public void decideMood(double avarageOfPlantmoodData, IPlantmood currentPlantmood){
         if (avarageOfPlantmoodData < currentPlantmood.getPlantSpecies().getMinHumidity()) {
             mqttService.sendMoodToPlantMood(currentPlantmood.getArduinoSn(),Mood.DRY.toString());
 
         } else if (avarageOfPlantmoodData > currentPlantmood.getPlantSpecies().getMaxHumidity()) {
             mqttService.sendMoodToPlantMood(currentPlantmood.getArduinoSn(),Mood.WET.toString());
 
-        }else {
+        } else {
             mqttService.sendMoodToPlantMood(currentPlantmood.getArduinoSn(),Mood.ALIVE.toString());
         }
     }
@@ -90,7 +91,7 @@ public class PlantmoodService {
             logger.error("Couldn't find {}, with id {}", Plantmood.class.getName(), id);
             throw new EntityNotFoundException("Couldn't find " + Plantmood.class.getName() + " with id " + id);
         }
-        return this.modelMapper.map(plantmood, Plantmood.class);
+        return this.modelMapper.map(plantmood.get(), Plantmood.class);
     }
 
     public List<Plantmood> getAllPlantmoods() {

@@ -68,10 +68,6 @@ public class User implements IUser {
         return createdAt;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }

@@ -27,7 +27,7 @@ public class UserService {
         if (user.isEmpty()) {
             throw new EntityNotFoundException("Couldn't find " + User.class.getName() + " with id " + id);
         }
-        return this.modelMapper.map(user, User.class);
+        return this.modelMapper.map(user.get(), User.class);
     }
 
     public List<User> getAllUsers(){
@@ -42,6 +42,6 @@ public class UserService {
             throw new EntityNotFoundException("Couldn't find " + User.class.getName() + " with id " + id);
         }
         userRepository.deleteById(id);
-        return this.modelMapper.map(user, User.class);
+        return this.modelMapper.map(user.get(), User.class);
     }
 }

@@ -6,7 +6,9 @@ import com.oopa.interfaces.model.IPlantmoodhistory;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PlantmoodHistoryService {
@@ -21,7 +23,7 @@ public class PlantmoodHistoryService {
         return this.modelMapper.map(plantmoodHistoryRepository.save(plantmoodHistoryEntity), PlantmoodHistory.class);
     }
 
-/*    public List<PlantmoodHistory> getAllPlantmoodHistorties(){
+    public List<PlantmoodHistory> getAllPlantmoodHistorties(){
         return plantmoodHistoryRepository.findAll().stream()
                 .map(plantmoodHistory -> this.modelMapper.map(plantmoodHistory, PlantmoodHistory.class))
                 .collect(Collectors.toList());
@@ -32,16 +34,21 @@ public class PlantmoodHistoryService {
         if (plantmoodHistory.isEmpty()) {
             throw new EntityNotFoundException("Couldn't find " + PlantmoodHistory.class.getName() + " with id " + id);
         }
-        plantmoodHistoryRepository.deleteById(id);
-        return this.modelMapper.map(plantmoodHistory, PlantmoodHistory.class);
+       plantmoodHistoryRepository.deleteById(id);
+
+        return this.modelMapper.map(plantmoodHistory.get(), PlantmoodHistory.class);
     }
 
     public PlantmoodHistory getPlantmoodHistoryById(Integer id) {
         var plantmoodHistory = plantmoodHistoryRepository.findById(id);
-        return this.modelMapper.map(plantmoodHistory, PlantmoodHistory.class);
-    }*/
+        if (plantmoodHistory.isEmpty()) {
+            throw new EntityNotFoundException("Couldn't find " + PlantmoodHistory.class.getName() + " with id " + id);
+        }
 
-    public List<IPlantmoodhistory> getAllHistoryByArduinoSn(String arduinoSn){
+        return this.modelMapper.map(plantmoodHistory.get(), PlantmoodHistory.class);
+    }
+
+    public List<IPlantmoodhistory> getAllHistoryByArduinoSn(String arduinoSn) {
         return plantmoodHistoryRepository.findAllByArduinoSn(arduinoSn);
     }
 }
