@@ -30,17 +30,17 @@ class UserServiceTest {
     @BeforeEach
     public void setup() {
         Date date = new Date(System.currentTimeMillis());
-        User john = new User();
-        john.setId(1);
-        john.setCreatedAt(date);
-        john.setEmail("johndoe@test.com");
-        john.setName("John");
-        john.setPassword("password");
+        User user = new User();
+        user.setId(1);
+        user.setCreatedAt(date);
+        user.setEmail("johndoe@test.com");
+        user.setName("John");
+        user.setPassword("password");
 
-        users.add(this.modelMapper.map(john, com.oopa.dataAccess.model.User.class));
+        users.add(this.modelMapper.map(user, com.oopa.dataAccess.model.User.class));
 
-        Mockito.when(userRepository.findById(john.getId())).thenReturn(
-                Optional.of(this.modelMapper.map(john, com.oopa.dataAccess.model.User.class))
+        Mockito.when(userRepository.findById(user.getId())).thenReturn(
+                Optional.of(this.modelMapper.map(user, com.oopa.dataAccess.model.User.class))
         );
 
         Mockito.when(userRepository.findAll()).thenReturn(
