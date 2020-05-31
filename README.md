@@ -24,3 +24,21 @@ update the client id to : __Plantmood-CentralSystem__ and the topic to : __Plant
 #### Access local database
 For now the application is connected to a local database. To acces the database go to: [localhost:8081](localhost:8081)     
   The database is only accessible after the docker command is executed
+
+#### Plantmood Health Algorithm
+To calculate if your plant needs extra water, is healthy or has too much water, an alogirtm is created to determine the status. 
+In the PlantmoodService the function GetPlantmoodStatus, checks the last 5 results from the Plantmood and checks the database for what kind of plantspecies is linked.
+The algoritm works as follows:
+
+1. All PlantmoodHistories are requested and ordered by date.
+2. A sublist is created with the last 5 measured results for a specific Plantmood SN
+3. All the measurements from the sublist are weighted. The latest measurement is multiplied by 1. Foreach extra measurement the weight is lowered by 0.2.
+4. All weigthed measures are summed and divided by the sum of the weight to get a weighted average.
+5. 
+	- If the weighted average is lower than the minimum humidity of the Plantspecies, the returned mood will be "Plant needs water"
+	- If the weighted average is higher than the maximum humidity of the Plantspecies, the returned mood will be "Plant has too much water"
+	- If the weighted average is between the minimum and maximum humidity of the Plantspecies, the returned mood will be "Water level is good"
+
+This algorithm is chosen, because it is less dependent of outliers when multiple points are being used. 
+We believe that the latest measurement is the most valuable, so that is where the weigthed values come in. 
+The more recent measurements are counted more heavily.
