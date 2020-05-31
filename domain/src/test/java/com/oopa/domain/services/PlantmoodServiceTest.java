@@ -97,7 +97,7 @@ class PlantmoodServiceTest {
 
     @Test
     public void CheckPlantmoodServiceForExceptionsTest() {
-        //Act
+        //Arrange
         int unknownId = 0;
 
         //Assert

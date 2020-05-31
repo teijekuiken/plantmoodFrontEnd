@@ -58,7 +58,7 @@ class PlantSpeciesServiceTest {
 
     @Test
     public void CheckPlantSpeciesServiceForExceptionsTest() {
-        //Act
+        //Arrange
         int unknownId = 0;
 
         //Assert

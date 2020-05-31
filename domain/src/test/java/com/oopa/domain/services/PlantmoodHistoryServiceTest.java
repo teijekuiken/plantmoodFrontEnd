@@ -59,7 +59,7 @@ class PlantmoodHistoryServiceTest {
 
     @Test
     public void CheckPlantmoodHistoryServiceForExceptionsTest() {
-        //Act
+        //Arrange
         int unknownId = 0;
 
         //Assert

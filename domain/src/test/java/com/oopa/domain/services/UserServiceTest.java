@@ -59,7 +59,7 @@ class UserServiceTest {
 
     @Test
     public void CheckUserServiceForExceptionsTest() {
-        //Act
+        //Arrange
         int unknownId = 0;
 
         //Assert
