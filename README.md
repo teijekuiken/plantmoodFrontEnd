@@ -39,7 +39,7 @@ make && make git
 chmod +x .githooks/pre-commit && git config core.hooksPath .githooks
 ```
 
-#### Plantmood Health Algorithm
+### Plantmood Health Algorithm
 To calculate if your plant needs extra water, is healthy or has too much water, an algorithm is created to determine the status. 
 In the PlantmoodService the function GetPlantmoodStatus, checks the last 5 results from the Plantmood and checks the database for what kind of plantspecies is linked.
 The algorithm works as follows:
