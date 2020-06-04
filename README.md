@@ -34,6 +34,11 @@ When installing the project for the first time, enter the following command in t
 make && make git
 ```
 
+##### if you dont have make support, use the following command:
+```bash
+chmod +x .githooks/pre-commit && git config core.hooksPath .githooks
+```
+
 #### Plantmood Health Algorithm
 To calculate if your plant needs extra water, is healthy or has too much water, an algorithm is created to determine the status. 
 In the PlantmoodService the function GetPlantmoodStatus, checks the last 5 results from the Plantmood and checks the database for what kind of plantspecies is linked.
