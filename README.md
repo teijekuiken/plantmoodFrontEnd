@@ -11,8 +11,9 @@
   - Right click on the name and click stop.
 - ##### *For Mac*
   - Go to the terminal and give the following command: lsof -nP +c 15 | grep LISTEN
-  - Look for port 3306 to see which program is using the port
+  - Look for port 3306 to see which program is using the port.
   - Open a new terminal window and give the following command to close the program using port 3306: sudo killall ***name of the program using the port***
+  - Enter the password from your computer.
 3. Open a new terminal in the folder where the project is located.
 4. Run the following command: docker-compose up -d  ***(This step only needs to be done one time, after that the docker container will be running at all times)***
 5. [Install](https://mosquitto.org/download/) Mosquitto if its not already installed.
