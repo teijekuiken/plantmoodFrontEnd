@@ -23,7 +23,7 @@ public class PlantmoodController {
         return plantmoodService.getAllPlantmoods();
     }
 
-    @GetMapping(path = {"id"})
+    @GetMapping(path = "/{id}")
     public @ResponseBody Plantmood getPlantMoodById(@PathVariable("id") Integer id){
         return plantmoodService.getPlantmoodById(id);
     }

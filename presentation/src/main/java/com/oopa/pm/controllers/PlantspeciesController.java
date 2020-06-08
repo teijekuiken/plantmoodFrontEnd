@@ -24,12 +24,12 @@ public class PlantspeciesController {
         return plantspeciesService.getAllPlantSpecies();
     }
 
-    @GetMapping(path = {"id"})
+    @GetMapping(path = "/{id}")
     public @ResponseBody PlantSpecies getPlantSpeciesById(@PathVariable("id") int id){
         return plantspeciesService.getPlantSpeciesById(id);
     }
 
-    @DeleteMapping(path = {"id"})
+    @DeleteMapping(path = "/{id}")
     public @ResponseBody PlantSpecies deletePlantSpecies(@PathVariable Integer id){
         return plantspeciesService.deletePlantSpecies(id);
     }
