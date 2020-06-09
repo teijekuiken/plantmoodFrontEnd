@@ -11,7 +11,7 @@ import java.util.Date;
 @Entity
 public class PlantmoodHistory implements IPlantmoodhistory {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private int health;
     private String arduinoSn;
