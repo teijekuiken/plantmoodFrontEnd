@@ -4,13 +4,19 @@ import com.oopa.dataAccess.repositories.UserRepository;
 import com.oopa.domain.model.User;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
     @Autowired
     private ModelMapper modelMapper;
 
@@ -43,5 +49,19 @@ public class UserService {
         }
         userRepository.deleteById(id);
         return this.modelMapper.map(user.get(), User.class);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+        var optionalUser = userRepository.findByEmail(s);
+        if (optionalUser.isEmpty()) {
+            throw new EntityNotFoundException("Couldn't find " + User.class.getName() + " with email " + s);
+        }
+        var user = optionalUser.get();
+        return new org.springframework.security.core.userdetails.User(
+                user.getEmail(),
+                user.getPassword(),
+                Collections.emptyList()
+        );
     }
 }
