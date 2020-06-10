@@ -9,3 +9,6 @@ spring.jpa.open-in-view=true
 oopa.mqtt.client=
 oopa.mqtt.client.id=
 oopa.mqtt.client.topic=
+
+#JWT
+oop.jwt.secret=SecretKeyToGenJWTs

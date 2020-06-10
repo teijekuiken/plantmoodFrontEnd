@@ -56,3 +56,12 @@ The algorithm works as follows:
 This algorithm is chosen, because it is less dependent of outliers when multiple points are being used. 
 We believe that the latest measurement is the most valuable, so that is where the weigthed values come in. 
 The more recent measurements are counted more heavily.
+
+### JWT
+For securing the server, we make use of jwt. You can only use the api calls when you are signed in.
+To get a jwt token, use the following steps:
+1. Make sure you have te variable __oop.jwt.secret__ in your application.properties (copy the application.properties.dist).
+2. Create a user. Use the following endpoint: __api/v1/user/create__
+3. Login with your email and password. Use the following endpoint: __api/v1/login__
+4. In the response, you get a token. Copy this token and save it as an authorized header with __Bearer__ before the token (example: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0MSIsImV4cCI6MTU5MTgwNDg1MywiaWF0IjoxNTkxNzk0MDUzfQ.v0KNp5SAKvCkfkmYMhq42ahsW2cZ5t7cnDkLqfDFWKU).
+5. You are now able to get the data from other endpoints
