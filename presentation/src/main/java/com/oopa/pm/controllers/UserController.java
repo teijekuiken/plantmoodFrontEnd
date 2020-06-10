@@ -19,7 +19,7 @@ public class UserController {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @PostMapping
+    @PostMapping(value = "/create")
     public @ResponseBody User addUser(@RequestBody User user){
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         return userService.addUser(user);
@@ -39,11 +39,4 @@ public class UserController {
     public @ResponseBody User deleteUser(@PathVariable Integer id){
         return userService.deleteUser(id);
     }
-
-    @PostMapping("/login")
-    public User signUp(@RequestBody User user) {
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        return user;
-    }
-
 }
