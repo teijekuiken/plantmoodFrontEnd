@@ -1,6 +1,7 @@
 package com.oopa.dataAccess.model;
 
 import com.oopa.interfaces.model.IUser;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -18,6 +19,8 @@ public class User implements IUser {
 
     private String email;
 
+    @Column(updatable = false)
+    @CreationTimestamp
     private Date createdAt;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
