@@ -53,15 +53,20 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        var optionalUser = userRepository.findByEmail(email);
-        if (optionalUser.isEmpty()) {
-            throw new EntityNotFoundException("Couldn't find " + User.class.getName() + " with email " + email);
-        }
-        var user = optionalUser.get();
+        var user = getUserByEmail(email);
         return new org.springframework.security.core.userdetails.User(
                 user.getEmail(),
                 user.getPassword(),
                 Collections.emptyList()
         );
+    }
+
+    public User getUserByEmail(String email) {
+        var optionalUser = userRepository.findByEmail(email);
+        if (optionalUser.isEmpty()) {
+            throw new EntityNotFoundException("Couldn't find " + User.class.getName() + " with email " + email);
+        }
+        var user = optionalUser.get();
+        return this.modelMapper.map(user, User.class);
     }
 }
