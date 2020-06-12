@@ -17,6 +17,7 @@ public class User implements IUser {
 
     private String name;
 
+    @Column(unique = true)
     private String email;
 
     @Column(updatable = false)
