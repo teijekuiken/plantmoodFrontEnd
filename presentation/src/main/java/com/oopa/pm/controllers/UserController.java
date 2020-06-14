@@ -1,5 +1,6 @@
 package com.oopa.pm.controllers;
 
+import com.oopa.domain.dto.user.UserOutputDTO;
 import com.oopa.domain.model.User;
 import com.oopa.domain.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,12 +27,12 @@ public class UserController {
     }
 
     @GetMapping
-    public @ResponseBody List<User> getAllUsers(){
+    public @ResponseBody List<UserOutputDTO> getAllUsers(){
         return userService.getAllUsers();
     }
 
     @GetMapping(path = "/{id}")
-    public @ResponseBody User getPersonById(@PathVariable("id") Integer id){
+    public @ResponseBody UserOutputDTO getPersonById(@PathVariable("id") Integer id){
         return userService.getUserById(id);
     }
 

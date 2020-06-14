@@ -1,4 +1,4 @@
-package com.oopa.domain.dto;
+package com.oopa.domain.dto.user;
 
 public class UserLoginOutputDTO {
     private final String jwt;

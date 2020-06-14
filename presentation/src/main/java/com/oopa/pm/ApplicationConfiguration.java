@@ -54,7 +54,9 @@ public class ApplicationConfiguration extends WebSecurityConfigurerAdapter {
         return new WebMvcConfigurerAdapter() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**").allowedOrigins("http://localhost:3000");
+                registry.addMapping("/**")
+                        .allowedOrigins("http://localhost:3000")
+                        .allowedMethods("POST", "GET", "DELETE", "PUT", "PATCH");
             }
         };
     }

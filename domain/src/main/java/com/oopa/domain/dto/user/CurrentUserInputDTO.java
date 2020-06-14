@@ -1,4 +1,4 @@
-package com.oopa.domain.dto;
+package com.oopa.domain.dto.user;
 
 import lombok.Data;
 

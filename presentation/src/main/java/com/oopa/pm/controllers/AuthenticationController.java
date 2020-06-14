@@ -1,8 +1,9 @@
 package com.oopa.pm.controllers;
 
-import com.oopa.domain.dto.CurrentUserInputDTO;
-import com.oopa.domain.dto.UserLoginInputDTO;
-import com.oopa.domain.dto.UserLoginOutputDTO;
+import com.oopa.domain.dto.user.CurrentUserInputDTO;
+import com.oopa.domain.dto.user.UserLoginInputDTO;
+import com.oopa.domain.dto.user.UserLoginOutputDTO;
+import com.oopa.domain.dto.user.UserOutputDTO;
 import com.oopa.domain.model.User;
 import com.oopa.domain.services.UserService;
 import com.oopa.domain.util.JwtUtil;
@@ -46,7 +47,7 @@ public class AuthenticationController {
     }
 
     @PostMapping(value = "/api/v1/currentUser")
-    public User getCurrentUserByToken(@RequestBody CurrentUserInputDTO currentUserInputDTO) {
+    public UserOutputDTO getCurrentUserByToken(@RequestBody CurrentUserInputDTO currentUserInputDTO) {
         var email = jwtUtil.extractUsername(currentUserInputDTO.getJwt());
 
         return userService.getUserByEmail(email);

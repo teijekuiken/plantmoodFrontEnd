@@ -2,6 +2,7 @@ package com.oopa.domain.services;
 
 import com.oopa.dataAccess.repositories.PlantmoodHistoryRepository;
 import com.oopa.dataAccess.repositories.PlantmoodRepository;
+import com.oopa.domain.dto.plantmood.PlantmoodOutputDTO;
 import com.oopa.domain.model.Mood;
 import com.oopa.domain.model.Plantmood;
 import com.oopa.domain.model.PlantmoodHistory;
@@ -11,8 +12,10 @@ import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
+import org.hibernate.exception.ConstraintViolationException;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -34,9 +37,17 @@ public class PlantmoodService {
     private String mood;
     private static Logger logger = LoggerFactory.getLogger(PlantmoodService.class);
 
-    public Plantmood addPlantmood(Plantmood plantmood) {
+    public Plantmood addPlantmood(Plantmood plantmood) throws Exception {
         var plantmoodEntity = this.modelMapper.map(plantmood, com.oopa.dataAccess.model.Plantmood.class);
-        return this.modelMapper.map(plantmoodRepository.save(plantmoodEntity), Plantmood.class);
+        try {
+            return this.modelMapper.map(plantmoodRepository.save(plantmoodEntity), Plantmood.class);
+        } catch (DataIntegrityViolationException e) {
+            if (e.getCause().getClass() == ConstraintViolationException.class) {
+                throw new Exception("Plantmood with arduinoSn " + plantmood.getArduinoSn() + " already exist");
+            }
+
+            throw new Exception("Database error with message " + e.getMessage());
+        }
     }
 
     public void getPlantStatus(String arduinoSn) {
@@ -88,7 +99,7 @@ public class PlantmoodService {
         }
     }
 
-    public Plantmood getPlantmoodById(Integer id) {
+    public PlantmoodOutputDTO getPlantmoodById(Integer id) {
         var optionalPlantmood = plantmoodRepository.findById(id);
         if (optionalPlantmood.isEmpty()) {
             logger.error("Couldn't find {}, with id {}", Plantmood.class.getName(), id);
@@ -98,13 +109,13 @@ public class PlantmoodService {
         var optionalPlantmoodhistory = plantmoodHistoryRepository.findLatestPlantmoodHistoryByArduinoSn(plantmood.getArduinoSn());
         if (optionalPlantmoodhistory.isEmpty()) {
             logger.error("Couldn't find {}, with id {}", PlantmoodHistory.class.getName(), id);
-            return this.modelMapper.map(plantmood, Plantmood.class);
+            return this.modelMapper.map(plantmood, PlantmoodOutputDTO.class);
         }
         plantmood.setHealth(optionalPlantmoodhistory.get().getHealth());
-        return this.modelMapper.map(plantmood, Plantmood.class);
+        return this.modelMapper.map(plantmood, PlantmoodOutputDTO.class);
     }
 
-    public List<Plantmood> getAllPlantmoods() {
+    public List<PlantmoodOutputDTO> getAllPlantmoods() {
         var plantmoods = plantmoodRepository.findAll();
         for (var plantmood: plantmoods) {
             var optionalPlantmoodhistory = plantmoodHistoryRepository.findLatestPlantmoodHistoryByArduinoSn(plantmood.getArduinoSn());
@@ -115,7 +126,7 @@ public class PlantmoodService {
             plantmood.setHealth(optionalPlantmoodhistory.get().getHealth());
         }
         return plantmoods.stream()
-                .map(plantmood -> this.modelMapper.map(plantmood, Plantmood.class))
+                .map(plantmood -> this.modelMapper.map(plantmood, PlantmoodOutputDTO.class))
                 .collect(Collectors.toList());
     }
 

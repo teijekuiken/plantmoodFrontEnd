@@ -1,6 +1,7 @@
 package com.oopa.domain.services;
 
 import com.oopa.dataAccess.repositories.UserRepository;
+import com.oopa.domain.dto.user.UserOutputDTO;
 import com.oopa.domain.model.User;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,17 +29,17 @@ public class UserService implements UserDetailsService {
         return this.modelMapper.map(userRepository.save(userEntity), User.class);
     }
     
-    public User getUserById(Integer id){
+    public UserOutputDTO getUserById(Integer id){
         var user = userRepository.findById(id);
         if (user.isEmpty()) {
             throw new EntityNotFoundException("Couldn't find " + User.class.getName() + " with id " + id);
         }
-        return this.modelMapper.map(user.get(), User.class);
+        return this.modelMapper.map(user.get(), UserOutputDTO.class);
     }
 
-    public List<User> getAllUsers(){
+    public List<UserOutputDTO> getAllUsers(){
         return userRepository.findAll().stream()
-                .map(user -> this.modelMapper.map(user, User.class))
+                .map(user -> this.modelMapper.map(user, UserOutputDTO.class))
                 .collect(Collectors.toList());
     }
 
@@ -53,7 +54,12 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        var user = getUserByEmail(email);
+        var optionalUser = userRepository.findByEmail(email);
+        if (optionalUser.isEmpty()) {
+            throw new EntityNotFoundException("Couldn't find " + User.class.getName() + " with email " + email);
+        }
+
+        var user = optionalUser.get();
         return new org.springframework.security.core.userdetails.User(
                 user.getEmail(),
                 user.getPassword(),
@@ -61,12 +67,12 @@ public class UserService implements UserDetailsService {
         );
     }
 
-    public User getUserByEmail(String email) {
+    public UserOutputDTO getUserByEmail(String email) {
         var optionalUser = userRepository.findByEmail(email);
         if (optionalUser.isEmpty()) {
             throw new EntityNotFoundException("Couldn't find " + User.class.getName() + " with email " + email);
         }
         var user = optionalUser.get();
-        return this.modelMapper.map(user, User.class);
+        return this.modelMapper.map(user, UserOutputDTO.class);
     }
 }

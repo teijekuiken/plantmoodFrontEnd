@@ -24,8 +24,8 @@ public class User implements IUser {
     @CreationTimestamp
     private Date createdAt;
 
-//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-//    private List<Plantmood> plantmoods;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Plantmood> plantmoods;
 
     @Override
     public Integer getId() {
@@ -76,11 +76,11 @@ public class User implements IUser {
         this.createdAt = createdAt;
     }
 
-//    public List<Plantmood> getPlantmoods() {
-//        return plantmoods;
-//    }
-//
-//    public void setPlantmoods(List<Plantmood> plantmoods) {
-//        this.plantmoods = plantmoods;
-//    }
+    public List<Plantmood> getPlantmoods() {
+        return plantmoods;
+    }
+
+    public void setPlantmoods(List<Plantmood> plantmoods) {
+        this.plantmoods = plantmoods;
+    }
 }
