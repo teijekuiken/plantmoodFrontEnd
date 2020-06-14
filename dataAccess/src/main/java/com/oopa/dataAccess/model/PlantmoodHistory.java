@@ -1,11 +1,10 @@
 package com.oopa.dataAccess.model;
 
 import com.oopa.interfaces.model.IPlantmoodhistory;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -15,6 +14,9 @@ public class PlantmoodHistory implements IPlantmoodhistory {
     private Integer id;
     private int health;
     private String arduinoSn;
+
+    @Column(updatable = false)
+    @CreationTimestamp
     private Date date;
 
     @Override

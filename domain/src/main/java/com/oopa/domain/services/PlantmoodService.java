@@ -1,8 +1,10 @@
 package com.oopa.domain.services;
 
+import com.oopa.dataAccess.repositories.PlantmoodHistoryRepository;
 import com.oopa.dataAccess.repositories.PlantmoodRepository;
 import com.oopa.domain.model.Mood;
 import com.oopa.domain.model.Plantmood;
+import com.oopa.domain.model.PlantmoodHistory;
 import com.oopa.interfaces.model.IPlantmood;
 import com.oopa.interfaces.model.IPlantmoodhistory;
 import org.modelmapper.ModelMapper;
@@ -26,6 +28,8 @@ public class PlantmoodService {
     private ModelMapper modelMapper;
     @Autowired
     private PlantmoodRepository plantmoodRepository;
+    @Autowired
+    private PlantmoodHistoryRepository plantmoodHistoryRepository;
 
     private String mood;
     private static Logger logger = LoggerFactory.getLogger(PlantmoodService.class);
@@ -63,8 +67,7 @@ public class PlantmoodService {
             substractionOfAverage += multiplier;
             multiplier -= 0.2;
         }
-        double averageHistory = valueOfPlantmoodData / substractionOfAverage;
-        return averageHistory;
+        return valueOfPlantmoodData / substractionOfAverage;
     }
 
     public List<IPlantmoodhistory> getSublistOfHistory(List<IPlantmoodhistory> plantmoodhistories){
@@ -86,16 +89,32 @@ public class PlantmoodService {
     }
 
     public Plantmood getPlantmoodById(Integer id) {
-        var plantmood = plantmoodRepository.findById(id);
-        if (plantmood.isEmpty()) {
+        var optionalPlantmood = plantmoodRepository.findById(id);
+        if (optionalPlantmood.isEmpty()) {
             logger.error("Couldn't find {}, with id {}", Plantmood.class.getName(), id);
             throw new EntityNotFoundException("Couldn't find " + Plantmood.class.getName() + " with id " + id);
         }
-        return this.modelMapper.map(plantmood.get(), Plantmood.class);
+        var plantmood = optionalPlantmood.get();
+        var optionalPlantmoodhistory = plantmoodHistoryRepository.findLatestPlantmoodHistoryByArduinoSn(plantmood.getArduinoSn());
+        if (optionalPlantmoodhistory.isEmpty()) {
+            logger.error("Couldn't find {}, with id {}", PlantmoodHistory.class.getName(), id);
+            return this.modelMapper.map(plantmood, Plantmood.class);
+        }
+        plantmood.setHealth(optionalPlantmoodhistory.get().getHealth());
+        return this.modelMapper.map(plantmood, Plantmood.class);
     }
 
     public List<Plantmood> getAllPlantmoods() {
-        return plantmoodRepository.findAll().stream()
+        var plantmoods = plantmoodRepository.findAll();
+        for (var plantmood: plantmoods) {
+            var optionalPlantmoodhistory = plantmoodHistoryRepository.findLatestPlantmoodHistoryByArduinoSn(plantmood.getArduinoSn());
+            if (optionalPlantmoodhistory.isEmpty()) {
+                logger.error("Couldn't find instance of {}", PlantmoodHistory.class.getName());
+                continue;
+            }
+            plantmood.setHealth(optionalPlantmoodhistory.get().getHealth());
+        }
+        return plantmoods.stream()
                 .map(plantmood -> this.modelMapper.map(plantmood, Plantmood.class))
                 .collect(Collectors.toList());
     }

@@ -18,8 +18,10 @@ public class Plantmood implements IPlantmood {
     @ManyToOne(targetEntity = PlantSpecies.class)
     private IPlantSpecies plantSpecies;
 
+    @Transient
     private int health;
 
+    @Column(unique = true)
     private String arduinoSn;
 
     @Override
