@@ -36,7 +36,8 @@ public class UserController {
     }
 
     @DeleteMapping(path = "/{id}")
-    public @ResponseBody User deleteUser(@PathVariable Integer id){
-        return userService.deleteUser(id);
+    public @ResponseBody String deleteUser(@PathVariable Integer id){
+        userService.deleteUser(id);
+        return "User is deleted";
     }
 }
