@@ -84,7 +84,7 @@ public class MqttConfiguration {
     @ServiceActivator(inputChannel = "mqttOutboundChannel")
     public MessageHandler mqttOutbound() {
         MqttPahoMessageHandler messageHandler =
-                new MqttPahoMessageHandler(clientId, mqttClientFactory());
+                new MqttPahoMessageHandler("Java-Client", mqttClientFactory());
         messageHandler.setAsync(true);
         return messageHandler;
     }

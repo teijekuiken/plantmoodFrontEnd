@@ -4,7 +4,6 @@ import com.oopa.domain.dto.user.CurrentUserInputDTO;
 import com.oopa.domain.dto.user.UserLoginInputDTO;
 import com.oopa.domain.dto.user.UserLoginOutputDTO;
 import com.oopa.domain.dto.user.UserOutputDTO;
-import com.oopa.domain.model.User;
 import com.oopa.domain.services.UserService;
 import com.oopa.domain.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
