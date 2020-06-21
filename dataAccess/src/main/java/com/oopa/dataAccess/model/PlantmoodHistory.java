@@ -3,6 +3,7 @@ package com.oopa.dataAccess.model;
 import com.oopa.interfaces.model.IPlantmoodhistory;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -16,7 +17,7 @@ public class PlantmoodHistory implements IPlantmoodhistory {
     private String arduinoSn;
 
     @Column(updatable = false)
-    @CreationTimestamp
+    @CreatedDate
     private Date date;
 
     @Override

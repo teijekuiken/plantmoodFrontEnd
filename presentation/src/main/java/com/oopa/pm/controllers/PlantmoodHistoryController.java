@@ -1,5 +1,6 @@
 package com.oopa.pm.controllers;
 
+import com.oopa.domain.dto.plantmood.PlantmoodOutputDTO;
 import com.oopa.domain.model.PlantmoodHistory;
 import com.oopa.domain.services.PlantmoodHistoryService;
 import com.oopa.interfaces.model.IPlantmoodhistory;
@@ -24,5 +25,10 @@ public class PlantmoodHistoryController {
     @GetMapping(path = "/{arduinoSn}")
     public @ResponseBody List<IPlantmoodhistory> getSpecificHistory(@PathVariable("arduinoSn") String arduinoSn ){
         return plantmoodHistoryService.getAllHistoryByArduinoSn(arduinoSn);
+    }
+
+    @GetMapping(path = "/list/{arduinoSn}")
+    public @ResponseBody List<PlantmoodHistory> getLastHistories(@PathVariable("arduinoSn") String arduinoSn){
+        return plantmoodHistoryService.getLastTenPlantmoodHistories(arduinoSn);
     }
 }

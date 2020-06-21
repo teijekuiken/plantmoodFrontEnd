@@ -18,4 +18,8 @@ public interface PlantmoodHistoryRepository extends JpaRepository<PlantmoodHisto
     @Query(value = "SELECT * FROM plantmood_history WHERE arduino_sn = ?1 ORDER BY date DESC LIMIT 1",
             nativeQuery = true)
     Optional<PlantmoodHistory> findLatestPlantmoodHistoryByArduinoSn(String arduinoSn);
+
+    @Query(value = "SELECT * FROM plantmood_history WHERE arduino_sn = ?1 ORDER BY date DESC LIMIT 10",
+            nativeQuery = true)
+    List<PlantmoodHistory> findLastTenPlantmoodHistoriesByArduinoSn(String arduinoSn);
 }

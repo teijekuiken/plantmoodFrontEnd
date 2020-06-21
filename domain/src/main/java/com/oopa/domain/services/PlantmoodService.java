@@ -5,7 +5,6 @@ import com.oopa.dataAccess.repositories.PlantmoodRepository;
 import com.oopa.domain.dto.plantmood.PlantmoodOutputDTO;
 import com.oopa.domain.model.Mood;
 import com.oopa.domain.model.Plantmood;
-import com.oopa.domain.model.PlantmoodHistory;
 import com.oopa.interfaces.model.IPlantmood;
 import com.oopa.interfaces.model.IPlantmoodhistory;
 import org.modelmapper.ModelMapper;
@@ -43,10 +42,10 @@ public class PlantmoodService {
             return this.modelMapper.map(plantmoodRepository.save(plantmoodEntity), Plantmood.class);
         } catch (DataIntegrityViolationException e) {
             if (e.getCause().getClass() == ConstraintViolationException.class) {
-                throw new Exception("Plantmood with arduinoSn " + plantmood.getArduinoSn() + " already exist");
+                throw new Exception("Plantmood met arduinoSn " + plantmood.getArduinoSn() + " bestaat al");
             }
 
-            throw new Exception("Database error with message " + e.getMessage());
+            throw new Exception("De data is niet juist: " + e.getMessage());
         }
     }
 
@@ -106,24 +105,14 @@ public class PlantmoodService {
             throw new EntityNotFoundException("Couldn't find " + Plantmood.class.getName() + " with id " + id);
         }
         var plantmood = optionalPlantmood.get();
-        var optionalPlantmoodhistory = plantmoodHistoryRepository.findLatestPlantmoodHistoryByArduinoSn(plantmood.getArduinoSn());
-        if (optionalPlantmoodhistory.isEmpty()) {
-            logger.error("Couldn't find {}, with id {}", PlantmoodHistory.class.getName(), id);
-            return this.modelMapper.map(plantmood, PlantmoodOutputDTO.class);
-        }
-        plantmood.setHealth(optionalPlantmoodhistory.get().getHealth());
+        updateHealthFromHistory(plantmood);
         return this.modelMapper.map(plantmood, PlantmoodOutputDTO.class);
     }
 
     public List<PlantmoodOutputDTO> getAllPlantmoods() {
         var plantmoods = plantmoodRepository.findAll();
         for (var plantmood: plantmoods) {
-            var optionalPlantmoodhistory = plantmoodHistoryRepository.findLatestPlantmoodHistoryByArduinoSn(plantmood.getArduinoSn());
-            if (optionalPlantmoodhistory.isEmpty()) {
-                logger.error("Couldn't find instance of {}", PlantmoodHistory.class.getName());
-                continue;
-            }
-            plantmood.setHealth(optionalPlantmoodhistory.get().getHealth());
+            updateHealthFromHistory(plantmood);
         }
         return plantmoods.stream()
                 .map(plantmood -> this.modelMapper.map(plantmood, PlantmoodOutputDTO.class))
@@ -138,5 +127,10 @@ public class PlantmoodService {
         }
         plantmoodRepository.deleteById(id);
         return this.modelMapper.map(plantmood, Plantmood.class);
+    }
+
+    public void updateHealthFromHistory(com.oopa.dataAccess.model.Plantmood plantmood) {
+        var optionalPlantmoodhistory = plantmoodHistoryRepository.findLatestPlantmoodHistoryByArduinoSn(plantmood.getArduinoSn());
+        optionalPlantmoodhistory.ifPresent(plantmoodHistory -> plantmood.setHealth(plantmoodHistory.getHealth()));
     }
 }

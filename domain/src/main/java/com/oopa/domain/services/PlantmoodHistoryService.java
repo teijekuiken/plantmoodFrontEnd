@@ -51,4 +51,10 @@ public class PlantmoodHistoryService {
     public List<IPlantmoodhistory> getAllHistoryByArduinoSn(String arduinoSn) {
         return plantmoodHistoryRepository.findAllByArduinoSn(arduinoSn);
     }
+
+    public List<PlantmoodHistory> getLastTenPlantmoodHistories(String arduinoSn) {
+        return plantmoodHistoryRepository.findLastTenPlantmoodHistoriesByArduinoSn(arduinoSn).stream()
+                .map(plantmoodHistory -> this.modelMapper.map(plantmoodHistory, PlantmoodHistory.class))
+                .collect(Collectors.toList());
+    }
 }

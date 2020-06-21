@@ -21,7 +21,7 @@ public class UserController {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @PostMapping(value = "/create")
-    public @ResponseBody User addUser(@RequestBody User user){
+    public @ResponseBody User addUser(@RequestBody User user) throws Exception {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         return userService.addUser(user);
     }

@@ -1,8 +1,10 @@
 package com.oopa.domain.dto.user;
 
+import com.oopa.domain.dto.plantmood.PlantmoodOutputDTO;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 public class UserOutputDTO {
@@ -13,4 +15,6 @@ public class UserOutputDTO {
     private String email;
 
     private Date createdAt;
+
+    private List<PlantmoodOutputDTO> plantmoods;
 }
